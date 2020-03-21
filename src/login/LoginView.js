@@ -10,7 +10,7 @@ export default class LoginView extends Component {
         }
     }
 
-    handleRegisterSwitch() {
+    onLoginButtonClick() {
         this.setState({
             isRegister: !this.state.isRegister,
         });
@@ -20,10 +20,12 @@ export default class LoginView extends Component {
         return (
             <div className="viewContainer">
                 <div className="headerImage"/>
-                <div>
-                    
+                <div className="loginButtonContainer">
+                    <div className={"flipCardContainer" + (this.state.isRegister ? " isFlipped" : "")} onClick={() => this.onLoginButtonClick()}>
+                        <div className="loginButton">Register</div>
+                        <div className="loginButton loginButtonBack">Login</div>
+                    </div>
                 </div>
-                <button className="loginButton" onClick={() => this.handleRegisterSwitch()}>{this.state.isRegister ? "Login" : "Register"}</button>
             </div>
         );
     }
