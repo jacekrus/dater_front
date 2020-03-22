@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './LoginViewStyles.css';
+import './LoginRegisterPanel';
+import LoginRegisterPanel from './LoginRegisterPanel';
 
 export default class LoginView extends Component {
 
@@ -26,6 +28,7 @@ export default class LoginView extends Component {
                         <div className="loginButton loginButtonBack">Login</div>
                     </div>
                 </div>
+                <LoginRegisterPanel isRegister={this.state.isRegister} />
             </div>
         );
     }

@@ -1,0 +1,89 @@
+/*Whole panel styles*/
+.userPanelContainer {
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    height: 770px;
+    width: 900px;
+    transform: translate(-50%);
+}
+
+.flipCardContainer {
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: initial;
+    position: relative;
+}
+
+.flipCardContainer.isFlipped {
+    transform: rotateY(-180deg);
+}
+
+.userPanel {
+    position: absolute;
+    box-shadow: 0px 0px 30px -2px rgba(0, 0, 0, 0.5);
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-color: rgb(255, 255, 255);
+}
+
+.back {
+    transform: rotateY(-180deg);
+}
+
+/*Slide show container styles*/
+.slideShowContainer {
+    width: 100%;
+    height: 60%;
+}
+
+.loginSlide {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    opacity: 1;
+    transition: opacity 1.2s ease-in-out;
+    user-select: none;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+}
+
+.slideContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.sildeDotContainer {
+    position: absolute;
+    top: 80%;
+    left: 40%;
+}
+
+.slideDot {
+    width: 14px;
+    height: 14px;
+    border: 3px solid #d5d5d5;
+    display: inline-block;
+    border-radius: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.slideDotActive, .slideDot:hover {
+    background-color: green;
+    border-color: green;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
