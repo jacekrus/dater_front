@@ -108,22 +108,20 @@
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
-    border-radius: 15px;
-}
-
-.form.error input  {
-    border: .5px solid red;
+    border: .5px solid white;
     border-radius: 15px;
 }
 
 .form input:focus {
-    border: .5px solid #00a116;
-    border-radius: 15px;
+    border-color: #00a116;
+}
+
+.form input.error {
+    border-color: red;
 }
 
 .form button {
     font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
     outline: 0;
     background: #008000;
     transition: background-color .6s ease;
@@ -141,6 +139,19 @@
 
 .form button:hover {
     background: #00a116;
+}
+
+.errorMessage {
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 0;
+    color: red;
+    cursor: default;
+    margin: 0px;
+}
+
+.errorMessage.hidden {
+    visibility: hidden;
 }
 
 .form .message {

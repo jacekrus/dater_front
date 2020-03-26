@@ -21,9 +21,10 @@ export default class LoginForm extends Component {
             <div className="loginPanel">
                 <div className="form">
                     <form className="register-form">
-                        <input className={"" + (this.state.isError ? " error" : "")} type="text" placeholder="email" />
-                        <input className={"" + (this.state.isError ? " error" : "")} type="password" placeholder="password" />
-                        <button onClick={() => this.changeError()}>Login</button>
+                        <input className={this.state.isError ? "error" : ""} type="text" placeholder="email" />
+                        <input className={this.state.isError ? "error" : ""} type="password" placeholder="password" />
+                        <span className="errorMessage"><i className="fa fa-user-plus"></i>Error</span>
+                        <button type="button" onClick={() => this.changeError()}>Login</button>
                         <div className="message">Don't have an account? <div>Sign In</div></div>
                         <div className="message">Forgot password? <div>Send reminder</div></div>
                     </form>

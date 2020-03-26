@@ -6,10 +6,6 @@ import LoginView from "./login/LoginView";
 
 class App extends Component {
 
-  showInfo() {
-    console.log("Hello");
-  }
-
   render() {
     return (
       <div>
