@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import UsersGrid from "./UsersGrid";
-import LoginPanel from "./LoginPanel";
-import LoginView from "./login/LoginView";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LoginView from './login/LoginView';
 
 class App extends Component {
 

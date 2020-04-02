@@ -11,9 +11,9 @@ export default class LoginForm extends Component {
     }
 
     changeError() {
-        this.setState({
-            isError: !this.state.isError,
-        });
+        this.setState((state) => (
+            {isError: !state.isError}
+        ))
     }
 
     render() {
