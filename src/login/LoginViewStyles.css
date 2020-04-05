@@ -1,5 +1,6 @@
 body {
     margin: 0px;
+    overflow-x: hidden;
 }
 
 .viewContainer {
@@ -50,16 +51,15 @@ body {
     font-weight: bold;
     font-size: 18px;
     font-family: Sans-Serif;
-    user-select: none;
+    cursor: pointer;
 }
 
 .loginButtonBack {
     transform: rotateY(-180deg);
 }
 
-.loginButton:hover {
+.loginButton:hover, .loginButton:focus {
     background: #00a116;
-    cursor: pointer;
 }
 
 .headerImage {

@@ -13,9 +13,9 @@ export default class LoginView extends Component {
     }
 
     onLoginButtonClick() {
-        this.setState({
-            isRegister: !this.state.isRegister,
-        });
+        this.setState((state) => (
+            { isRegister: !state.isRegister }
+        ))
     }
 
     render() {

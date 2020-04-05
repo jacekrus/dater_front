@@ -91,78 +91,140 @@
 }
 
 /*Login form styles*/
+
 .loginPanel {
     position: absolute;
     top: 65%;
     left: 50%;
     transform: translate(-50%);
+    width: 350px;
 }
 
-.form input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
+.userInputBox {
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px 1.5px rgba(179, 179, 179, 0.404);
+    margin: 0 0 20px;
+    width: 350px;
+}
+
+.iconContainer {
+    float: left;
+    border-radius: 10px 0 0 10px;
+    width: 50px;
+    box-shadow: 0px 0px 0px 1.5px rgba(179, 179, 179, 0.404);
+}
+
+.loginIcon {
+    color: rgb(185, 183, 183);
+    font-size: 24px;
+    margin: 0 5px 0;
+    padding: 10px;
+}
+
+.inputContainer {
+    margin: 0 5px 0;
+    padding: 10px;
+    float: left;
     width: 100%;
+}
+
+.inputContainer input {
     border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-    border: .5px solid white;
-    border-radius: 15px;
-}
-
-.form input:focus {
-    border-color: #00a116;
-}
-
-.form input.error {
-    border-color: red;
-}
-
-.form button {
-    font-family: "Roboto", sans-serif;
     outline: 0;
-    background: #008000;
-    transition: background-color .6s ease;
-    border-radius: 15px;
+    font-size: 16px;
+    color: black;
+    margin-left: 10px;
+    height: 100%;
     width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-weight: bold;
-    font-size: 18px;
-    font-family: Sans-Serif;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+::placeholder {
+    font-size: 16px;
+    font-style: italic;
+    color: rgb(170, 170, 170);
+}
+
+.additionalButtonsConatiner {
+    width: 350px;
+}
+
+.formLoginButton {
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    background-color: rgb(0, 146, 0);
+    color: rgb(255, 255, 255);
     letter-spacing: .08em;
+    transition: background-color .6s ease;
+    -webkit-transition: background-color .6s ease;
+    padding: 5px;
+    text-align: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Sans-Serif;
+    user-select: none;
+    float: right;
+}
+
+.formLoginButton:hover, .formLoginButton:focus {
+    background: #00b418;
     cursor: pointer;
+    outline: 0;
 }
 
-.form button:hover {
-    background: #00a116;
-}
-
-.errorMessage {
-    box-sizing: border-box;
-    font-size: 14px;
-    border: 0;
-    color: red;
-    cursor: default;
-    margin: 0px;
-}
-
-.errorMessage.hidden {
-    visibility: hidden;
-}
-
-.form .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 14px;
-}
-
-.form .message div {
-    display: inline-block;
+.checkboxContainer {
+    display: flex;
+    float: left;
+    margin-bottom: 12px;
     cursor: pointer;
-    color: #008000;
-    text-decoration: underline;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkmark {
+    margin-top: 8px;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.checkboxContainer:hover .checkmark {
+    background-color: #ccc;
+}
+
+.checked {
+    background-color: rgb(0, 146, 0) !important;
+}
+
+.checkboxLabel {
+    float: left;
+    font-size: 17px;
+    color: rgb(126, 126, 126);
+    margin-left: 8px;
+    margin-top: 10px;
+}
+
+.check {
+    position: absolute;
+    top: 142px;
+    left: 9px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

@@ -12,9 +12,11 @@ export default class LoginRegisterPanel extends Component {
                 <div className={"flipCardContainer" + (this.props.isRegister ? " isFlipped" : "")}>
                     <div className="userPanel">
                         <SlideShow />
+                        <LoginForm />
                     </div>
-                    <div className="userPanel back"></div>
-                    <LoginForm />
+                    <div className="userPanel back">
+                        
+                    </div>
                 </div>
             </div>
         );
