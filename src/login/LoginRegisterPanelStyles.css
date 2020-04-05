@@ -143,6 +143,10 @@
     cursor: pointer;
 }
 
+.cursorPointer:hover {
+    color: rgb(143, 143, 143);
+}
+
 ::placeholder {
     font-size: 16px;
     font-style: italic;
@@ -182,6 +186,7 @@
 }
 
 .checkboxContainer {
+    position: relative;
     display: flex;
     float: left;
     margin-bottom: 12px;
@@ -218,7 +223,7 @@
 
 .check {
     position: absolute;
-    top: 142px;
+    top: 12px;
     left: 9px;
     width: 5px;
     height: 10px;
