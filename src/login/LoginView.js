@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './LoginViewStyles.css';
-import './LoginRegisterPanel';
 import LoginRegisterPanel from './LoginRegisterPanel';
+import Footer from './Footer';
 
 export default class LoginView extends Component {
 
@@ -12,7 +12,7 @@ export default class LoginView extends Component {
         }
     }
 
-    onLoginButtonClick() {
+    onRegisterChange = () => {
         this.setState((state) => (
             { isRegister: !state.isRegister }
         ))
@@ -23,12 +23,13 @@ export default class LoginView extends Component {
             <div className="viewContainer">
                 <div className="headerImage"/>
                 <div className="loginButtonContainer">
-                    <div className={"flipCardContainer" + (this.state.isRegister ? " isFlipped" : "")} onClick={() => this.onLoginButtonClick()}>
+                    <div className={"flipCardContainer" + (this.state.isRegister ? " isFlipped" : "")} onClick={this.onRegisterChange}>
                         <div className="loginButton">Register</div>
                         <div className="loginButton loginButtonBack">Login</div>
                     </div>
                 </div>
-                <LoginRegisterPanel isRegister={this.state.isRegister} />
+                <LoginRegisterPanel isRegister={this.state.isRegister} registerClickHandler={this.onRegisterChange}/>
+                <Footer />
             </div>
         );
     }

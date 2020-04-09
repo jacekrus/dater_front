@@ -1,5 +1,4 @@
 /*Whole panel styles*/
-
 .userPanelContainer {
     position: absolute;
     top: 57%;
@@ -150,11 +149,9 @@
 ::placeholder {
     font-size: 16px;
     font-style: italic;
+    -moz-user-select: none;
+    -webkit-user-select: none;
     color: rgb(170, 170, 170);
-}
-
-.additionalButtonsConatiner {
-    width: 350px;
 }
 
 .formLoginButton {
@@ -189,7 +186,6 @@
     position: relative;
     display: flex;
     float: left;
-    margin-bottom: 12px;
     cursor: pointer;
     font-size: 16px;
     -webkit-user-select: none;
@@ -214,7 +210,6 @@
 }
 
 .checkboxLabel {
-    float: left;
     font-size: 17px;
     color: rgb(126, 126, 126);
     margin-left: 8px;
@@ -232,4 +227,38 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.helpfulLinksContainer {
+    position: absolute;
+    top: 190px;
+    width: 350px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+}
+
+.greenHelpfulLink {
+    color: green;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    float: left;
+}
+
+.greenHelpfulLink:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: green;
+}
+
+.greyHelpfulLink {
+    color: rgb(126, 126, 126);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    float: right;
+}
+
+.greyHelpfulLink:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgb(126, 126, 126);
 }

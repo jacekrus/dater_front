@@ -22,19 +22,7 @@ export default class LoginForm extends Component {
             { isError: !state.isError }
         ))
     }
-
-    changeShow() {
-        this.setState((state) => (
-            { isShow: !state.isShow }
-        ))
-    }
-
-    changeChecked() {
-        this.setState((state) => (
-            { isChecked: !state.isChecked }
-        ))
-    }
-
+    
     render() {
         return (
             <div className="loginPanel">
@@ -56,16 +44,21 @@ export default class LoginForm extends Component {
                         <input type={this.state.isShow ? "text" : "password"} placeholder="password" maxLength="24" />
                     </div>
                     <FontAwesomeIcon icon={this.state.isShow ? faEye : faEyeSlash} className="loginIcon cursorPointer"
-                        title={this.state.isShow ? "Hide password" : "Show password"} onClick={() => this.changeShow()} />
+                        title={this.state.isShow ? "Hide password" : "Show password"} onClick={() => this.setState((state) => ({ isShow: !state.isShow }))} />
                 </div>
 
-                <div className="additionalButtonsConatiner">
-                    <div className="checkboxContainer" onClick={() => this.changeChecked()}>
+                <div>
+                    <div className="checkboxContainer" onClick={() => this.setState((state) => ({ isChecked: !state.isChecked }))}>
                         <div className={"checkmark" + (this.state.isChecked ? " checked" : "")}></div>
                         <div className={this.state.isChecked ? "check" : ""}/>
                         <div className="checkboxLabel">Remember me</div>
                     </div>
                     <button className="formLoginButton">Login</button>
+                </div>
+
+                <div className="helpfulLinksContainer">
+                    <div className="greenHelpfulLink" onClick = {() => this.props.registerClickHandler()}>Register now</div>
+                    <div className="greyHelpfulLink">Forgot password?</div>
                 </div>
             </div>
         );
