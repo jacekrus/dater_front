@@ -15,7 +15,15 @@ export default class LoginRegisterPanel extends Component {
                         <LoginForm registerClickHandler={this.props.registerClickHandler}/>
                     </div>
                     <div className="userPanel back">
-                        
+                        <div className="registerPanelContainer">
+                            Register
+                        </div>
+                        <div className="splitter">
+                            Split
+                        </div>
+                        <div className="imageUploadContainer">
+                            Image upload
+                        </div>
                     </div>
                 </div>
             </div>
