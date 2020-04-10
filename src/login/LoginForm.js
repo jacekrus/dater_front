@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './LoginRegisterPanelStyles.css';
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PasswordInputBox from './PasswordInputBox';
+import StandardInputBox from './StandardInputBox';
 
 export default class LoginForm extends Component {
 
@@ -27,25 +25,9 @@ export default class LoginForm extends Component {
         return (
             <div className="loginPanel">
 
-                <div className="userInputBox">
-                    <div className="iconContainer">
-                        <FontAwesomeIcon icon={faUser} className="loginIcon" />
-                    </div>
-                    <div className="inputContainer">
-                        <input type="text" placeholder="username" maxLength="24" />
-                    </div>
-                </div>
+                <StandardInputBox icon={faUser} placeholder="username"/>
 
-                <div className="userInputBox">
-                    <div className="iconContainer">
-                        <FontAwesomeIcon icon={faKey} className="loginIcon" />
-                    </div>
-                    <div className="inputContainer">
-                        <input type={this.state.isShow ? "text" : "password"} placeholder="password" maxLength="24" />
-                    </div>
-                    <FontAwesomeIcon icon={this.state.isShow ? faEye : faEyeSlash} className="loginIcon cursorPointer"
-                        title={this.state.isShow ? "Hide password" : "Show password"} onClick={() => this.setState((state) => ({ isShow: !state.isShow }))} />
-                </div>
+                <PasswordInputBox placeholder="password"/>
 
                 <div>
                     <div className="checkboxContainer" onClick={() => this.setState((state) => ({ isChecked: !state.isChecked }))}>
