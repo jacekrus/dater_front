@@ -21,7 +21,7 @@ export default class PasswordInputBox extends Component {
                     <FontAwesomeIcon icon={faKey} className="loginIcon" />
                 </div>
                 <div className="inputContainer">
-                    <input type={this.state.isShow ? "text" : "password"} placeholder={this.props.placeholder} maxLength="24" />
+                    <input type={this.state.isShow ? "text" : "password"} placeholder={this.props.placeholder} maxLength="24" onChange={evt => this.props.onInputChange(evt.target.value)} />
                 </div>
                 <FontAwesomeIcon icon={this.state.isShow ? faEye : faEyeSlash} className="loginIcon cursorPointer"
                     title={this.state.isShow ? "Hide password" : "Show password"} onClick={() => this.setState((state) => ({ isShow: !state.isShow }))} />

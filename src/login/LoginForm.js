@@ -9,26 +9,19 @@ export default class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isError: false,
             isShow: false,
             isChecked: false,
+            username: '',
+            password: '',
         }
-    }
-
-    changeError() {
-        this.setState((state) => (
-            { isError: !state.isError }
-        ))
     }
     
     render() {
         return (
             <div className="loginPanel">
-
-                <StandardInputBox icon={faUser} placeholder="username"/>
-
-                <PasswordInputBox placeholder="password"/>
-
+                <StandardInputBox icon={faUser} placeholder="username" onInputChange={val => this.setState({username: val})}/>
+                <PasswordInputBox placeholder="password" onInputChange={val => this.setState({password: val})}/>
+                
                 <div>
                     <div className="checkboxContainer" onClick={() => this.setState((state) => ({ isChecked: !state.isChecked }))}>
                         <div className={"checkmark" + (this.state.isChecked ? " checked" : "")}></div>
