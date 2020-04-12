@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import './LoginRegisterPanelStyles.css';
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default class StandardInputBox extends Component {
+export default class DatePickerBox extends Component {
 
     render() {
         return (
             <div className="userInputBox">
                 <div className="iconContainer">
-                    <FontAwesomeIcon icon={this.props.icon} className="loginIcon" />
+                    <FontAwesomeIcon icon={faCalendarAlt} className="loginIcon" />
                 </div>
                 <div className="inputContainer">
-                    <input type="text" placeholder={this.props.placeholder} maxLength="24" onChange={evt => this.props.onInputChange(evt.target.value)} title={this.props.title}/>
+                    <input className={this.props.style} type="date" title="Enter your birth date" onChange={evt => this.props.onInputChange(evt.target.value)} />
                 </div>
             </div>
         );

@@ -19,9 +19,9 @@ export default class LoginForm extends Component {
     render() {
         return (
             <div className="loginPanel">
-                <StandardInputBox icon={faUser} placeholder="username" onInputChange={val => this.setState({username: val})}/>
+                <StandardInputBox icon={faUser} title="Enter your username" placeholder="username" onInputChange={val => this.setState({username: val})}/>
                 <PasswordInputBox placeholder="password" onInputChange={val => this.setState({password: val})}/>
-                
+
                 <div>
                     <div className="checkboxContainer" onClick={() => this.setState((state) => ({ isChecked: !state.isChecked }))}>
                         <div className={"checkmark" + (this.state.isChecked ? " checked" : "")}></div>
