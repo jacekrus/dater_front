@@ -11,7 +11,7 @@ export default class StandardInputBox extends Component {
                     <FontAwesomeIcon icon={this.props.icon} className="loginIcon" />
                 </div>
                 <div className="inputContainer">
-                    <input type="text" placeholder={this.props.placeholder} maxLength="24" onChange={evt => this.props.onInputChange(evt.target.value)} title={this.props.title}/>
+                    <input type="text" placeholder={this.props.placeholder} maxLength="18" onChange={evt => this.props.onInputChange(evt.target.value)} title={this.props.title}/>
                 </div>
             </div>
         );

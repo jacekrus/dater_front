@@ -125,7 +125,7 @@ body {
     src: local('HeaderFont'), url(../fonts/Parisienne.woff) format('woff');   
 }
 
-.test {
+.mainFont {
     position: absolute;
     color: white;
     font-size: 65px;

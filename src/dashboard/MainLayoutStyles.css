@@ -1,4 +1,106 @@
 .mainLayout {
+    display: flex;
+    height: 100%;
     font-size: 60px;
     color: green;
+    background-color: rgba(224, 224, 224, 0.096);
+    justify-content: center;
+}
+
+/* View container styles */
+.mainViewContainer {
+    padding: 25px;
+    border: solid green 2px;
+}
+
+/* Side menu styles */
+.menu {
+    border: solid red 2px;
+    width: 350px;
+    height: 100%;
+    padding: 15px;
+    font-family: sans-serif;
+}
+
+.menuTitle {
+    font-family: 'HeaderFont';
+    font-size: 64px;
+    color: green;
+    padding-left: 25%;
+    cursor: default;
+}
+
+.splitterHorizontal {
+    width: 330px;
+    border-bottom: solid 1px rgba(156, 156, 156, 0.3);
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.userMiniatureImg {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    position: relative;
+    z-index: -1;
+}
+
+.editAccountPanel {
+    padding-left: 25px;
+    display: flex;
+    width: 300px;
+    justify-content: flex-start;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.editAccountPanel:hover {
+    cursor: pointer;
+}
+
+.greetingText {
+   margin-left: 15px;
+   
+   margin-top: 15px;
+   max-width: 250px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
+}
+
+.editProfileText {
+    color:  rgba(0,128,0);
+    margin-top: 5px;
+    margin-left: 15px;
+    font-size: 12px;
+}
+
+.editProfileText:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #00b418;
+}
+
+.menuItem {
+   display: flex;
+   margin-left: 15px;
+   cursor: pointer;
+   color: #767676;
+}
+
+.menuItemActive, .menuItem:hover {
+    color: #00b418;
+}
+
+.menuItemIcon {
+    color: rgb(185, 183, 183);
+    font-size: 20px;
+    padding: 10px;
+}
+
+.menuItemDescription {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 10px;
 }
