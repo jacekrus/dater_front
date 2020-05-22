@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default class MenuItem extends Component {
-
-    render() {
-        return (
-            <div className={"menuItem" + (this.props.isActive ? " menuItemActive" : "" )} onClick={this.props.onClick}>
-                <FontAwesomeIcon icon={this.props.icon} className="menuItemIcon" />
-                <div className="menuItemDescription">{this.props.description}</div>
-            </div>
-        );
-    }
-
+const MenuItem = (props) => {
+    return (
+        <div className={"menuItem" + (props.isActive ? " menuItemActive" : "" )} onClick={props.onClick}>
+            <FontAwesomeIcon icon={props.icon} className="menuItemIcon" />
+            <div className="menuItemDescription">{props.description}</div>
+        </div>
+    );
 }
+export default MenuItem;
