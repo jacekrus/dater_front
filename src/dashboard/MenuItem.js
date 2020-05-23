@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const MenuItem = (props) => {
+const MenuItem = ({icon, description, isActive, onClick}) => {
     return (
-        <div className={"menuItem" + (props.isActive ? " menuItemActive" : "" )} onClick={props.onClick}>
-            <FontAwesomeIcon icon={props.icon} className="menuItemIcon" />
-            <div className="menuItemDescription">{props.description}</div>
+        <div className={"menuItem" + (isActive ? " menuItemActive" : "" )} onClick={onClick}>
+            <FontAwesomeIcon icon={icon} className="menuItemIcon" />
+            <div className="menuItemDescription">{description}</div>
         </div>
     );
 }
