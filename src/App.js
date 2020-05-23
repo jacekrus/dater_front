@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
 import LoginView from './login/LoginView';
 import MainLayout from './dashboard/MainLayout';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import AppContext from './AppContext';
-import AppContextProvider from './AppContextProvider';
-
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-       user: 'Kaziu',
-    }
-  }
-  
   render() {
-    let ctx = this.context;
     return (
-      <AppContextProvider>
-        <div>
-          <MainLayout />
-        </div>
-      </AppContextProvider>
+      <AppContext.Consumer>
+        {(context) => (
+          <Router>
+            {context.state.loggedIn ?  <Redirect to='/dashboard' /> : <Redirect to='/' />}
+            <Route exact path="/" component={LoginView} />
+            <Route exact path="/dashboard" component={MainLayout} />
+          </Router>
+        )}
+      </AppContext.Consumer>
     );
   }
 }

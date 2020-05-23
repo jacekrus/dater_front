@@ -24,7 +24,7 @@ export default class LoginView extends Component {
                 <div className="headerImage"/>
                 <div className="mainFont">Dater</div>
                 <div className="loginButtonContainer">
-                    <div className={"flipCardContainer" + (this.state.isRegister ? "" : " isFlipped")} onClick={this.onRegisterChange}>
+                    <div className={"flipCardContainer" + (this.state.isRegister ? " isFlipped" : "")} onClick={this.onRegisterChange}>
                         <div className="loginButton">Register</div>
                         <div className="loginButton loginButtonBack">Login</div>
                     </div>

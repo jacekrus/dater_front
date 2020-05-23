@@ -2,29 +2,26 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import FindDateView from './FindDateView';
 import Views from './Views';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import EditProfileView from './EditProfileView';
+import AppContext from '../AppContext';
 
 export default class ViewContainer extends Component {
 
-    resolveView = () => {
-        switch (this.props.activeView) {
-            case Views.EDIT_PROFILE:
-                return <div>Edit profile</div>
-            case Views.FIND_A_DATE:
-                return <FindDateView />;
-            default:
-
-                break;
-        }
-    }
-
     render() {
         return (
-            <div className="mainViewContainer">
-                <Route exact path="/find" component={FindDateView}></Route>
-                <Route exact path="/edit" component={EditProfileView}></Route>
-            </div>
+            <AppContext.Consumer>
+                {(context) => (
+                    <div className="mainViewContainer">
+                        <Route exact path="/find" render={() => (
+                             context.state.loggedIn ? <FindDateView /> : <Redirect to = "/"/>      
+                        )} />
+                        <Route exact path="/edit" render={() => (
+                             context.state.loggedIn ? <EditProfileView /> : <Redirect to = "/"/>      
+                        )} />
+                    </div>
+                )}
+            </AppContext.Consumer>
         );
     }
 
