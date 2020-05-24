@@ -10,11 +10,7 @@ class App extends Component {
     return (
       <AppContext.Consumer>
         {(context) => (
-          <Router>
-            {context.state.loggedIn ?  <Redirect to='/dashboard' /> : <Redirect to='/' />}
-            <Route exact path="/" component={LoginView} />
-            <Route exact path="/dashboard" component={MainLayout} />
-          </Router>
+            context.state.loggedIn ?  <MainLayout /> : <LoginView />
         )}
       </AppContext.Consumer>
     );

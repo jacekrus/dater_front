@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import FindDateView from './FindDateView';
 import Views from './Views';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import EditProfileView from './EditProfileView';
 import AppContext from '../AppContext';
 
@@ -13,11 +13,9 @@ export default class ViewContainer extends Component {
             <AppContext.Consumer>
                 {(context) => (
                     <div className="mainViewContainer">
-                        <Route exact path="/find" render={() => (
-                             context.state.loggedIn ? <FindDateView /> : <Redirect to = "/"/>      
-                        )} />
+                        <Route exact path="/find" component={FindDateView} />
                         <Route exact path="/edit" render={() => (
-                             context.state.loggedIn ? <EditProfileView /> : <Redirect to = "/"/>      
+                            context.state.loggedIn ? <EditProfileView /> : <Redirect to="/" />
                         )} />
                     </div>
                 )}
