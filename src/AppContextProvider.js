@@ -4,7 +4,7 @@ import AppContext from './AppContext';
 class AppContextProvider extends Component {
 
     state = {
-        loggedIn: true,
+        loggedIn: false,
         user: 'Kazik',
     }
 

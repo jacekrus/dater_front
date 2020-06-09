@@ -4,6 +4,9 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import PasswordInputBox from './PasswordInputBox';
 import StandardInputBox from './StandardInputBox';
 import AppContext from '../AppContext';
+import qs from 'qs';
+import axios from 'axios';
+import axiosRequest from '../AxiosRequest';
 
 export default class LoginForm extends Component {
 
@@ -17,7 +20,26 @@ export default class LoginForm extends Component {
     }
 
     onLoginClicked = (context) => {
-        context.setLoggedIn(true)
+        axiosRequest.post('/datrLogin',
+            qs.stringify({
+                username: this.state.username,
+                password: this.state.password
+            }),
+            {
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            }
+        )
+        .then((resp) => {
+            console.log("*****RESPONSE*****")
+            console.log(resp);
+            console.log("******************")
+            console.log("COOKIE")
+            console.log(resp.headers)
+            context.setLoggedIn(true);
+        })
+        .catch((err) => console.log('something went wrong '))
     }
 
     render() {
