@@ -37,6 +37,7 @@ export default class LoginForm extends Component {
             console.log("******************")
             console.log("COOKIE")
             console.log(resp.headers)
+            localStorage.setItem('sessionAlive', 'true');
             context.setLoggedIn(true);
         })
         .catch((err) => console.log('something went wrong '))

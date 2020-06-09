@@ -4,7 +4,7 @@ import AppContext from './AppContext';
 class AppContextProvider extends Component {
 
     state = {
-        loggedIn: false,
+        loggedIn: localStorage.getItem('sessionAlive') === 'true',
         user: 'Kazik',
     }
 
