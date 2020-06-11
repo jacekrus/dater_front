@@ -17,10 +17,12 @@ export default class Menu extends Component {
 
     handleLogout = (context) => {
         axiosRequest.post('/datrLogout')
-                    .then(() => {
-                        context.setLoggedIn(false);
-                        localStorage.removeItem('sessionAlive');
-                    })
+            .then(() => {
+                context.setLoggedIn(false);
+            })
+            .catch(() => {
+                //do nothing
+            });
     }
 
     render() {
@@ -40,7 +42,7 @@ export default class Menu extends Component {
                         <MenuItem icon={faKissWinkHeart} description="Favorites" isActive={this.props.activeView === Views.FAVORITES} onClick={() => this.props.onMenuItemClicked(Views.FAVORITES)} />
                         <MenuItem icon={faComments} description="Chat" isActive={this.props.activeView === Views.CHAT} onClick={() => this.props.onMenuItemClicked(Views.CHAT)} />
                         <MenuItem icon={faGrinHearts} description="They like you" isActive={this.props.activeView === Views.LIKEYOU} onClick={() => this.props.onMenuItemClicked(Views.LIKEYOU)} />
-                        <MenuItem icon={faSignOutAlt} description="Sign out" onClick={() => this.handleLogout(context)}/>
+                        <MenuItem icon={faSignOutAlt} description="Sign out" onClick={() => this.handleLogout(context)} />
                         <div className="splitterHorizontal"></div>
                     </div>
                 )}

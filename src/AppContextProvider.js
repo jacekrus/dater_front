@@ -4,15 +4,16 @@ import AppContext from './AppContext';
 class AppContextProvider extends Component {
 
     state = {
-        loggedIn: localStorage.getItem('sessionAlive') === 'true',
-        user: 'Kazik',
+        loggedIn: false,
+        user: {},
     }
 
     render() {
         return (
             <AppContext.Provider value={{
                 state: this.state,
-                setLoggedIn: (value) => this.setState({loggedIn: value})
+                setLoggedIn: (value) => this.setState({loggedIn: value}),
+                setUser: (userData) => this.setState({user: userData})
             }}>
                 {this.props.children}
             </AppContext.Provider>

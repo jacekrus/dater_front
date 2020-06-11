@@ -17,7 +17,7 @@ export default class UserPanel extends Component {
                     <div className="editAccountPanel" onClick={this.props.onClick}>
                         <img alt="User" src="/images/miniature.jpg" className="userMiniatureImg"></img>
                         <div>
-                            <div className="greetingText" title={context.state.user}>{context.state.user}</div>
+                            <div className="greetingText" title={context.state.user.username}>{context.state.user.username}</div>
                             <div className="editProfileText" onClick={this.handleEditClick}>Edit your profile</div>
                         </div>
                     </div>
