@@ -32,12 +32,7 @@ export default class LoginForm extends Component {
             }
         )
         .then((resp) => {
-            console.log("*****RESPONSE*****")
-            console.log(resp);
-            console.log("******************")
-            console.log("COOKIE")
-            console.log(resp.headers)
-            localStorage.setItem('sessionAlive', 'true');
+            context.setMessage('Login successful');
             context.setLoggedIn(true);
         })
         .catch((err) => console.log('something went wrong '))

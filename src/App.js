@@ -4,6 +4,7 @@ import MainLayout from './dashboard/MainLayout';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import AppContext from './AppContext';
 import axiosRequest from './AxiosRequest';
+import Alert from './Alert';
 
 class App extends Component {
 
@@ -13,7 +14,7 @@ class App extends Component {
       return response;
     }, (error) => {
       if (error && error.response.status === 401) {
-        if(appContext.state.loggedIn === true) {
+        if (appContext.state.loggedIn === true) {
           appContext.setLoggedIn(false);
           appContext.setUser({});
         }
@@ -32,11 +33,11 @@ class App extends Component {
 
   render() {
     return (
-      <AppContext.Consumer>
-        {(context) => (
-          context.state.loggedIn ? <MainLayout /> : <LoginView />
-        )}
-      </AppContext.Consumer>
+        <AppContext.Consumer>
+          {(context) => (
+              context.state.loggedIn ? <div><MainLayout /><Alert /></div> : <div><LoginView /><Alert /></div>
+          )}
+        </AppContext.Consumer>
     );
   }
 
