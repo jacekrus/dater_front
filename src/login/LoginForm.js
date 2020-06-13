@@ -5,7 +5,6 @@ import PasswordInputBox from './PasswordInputBox';
 import StandardInputBox from './StandardInputBox';
 import AppContext from '../AppContext';
 import qs from 'qs';
-import axios from 'axios';
 import axiosRequest from '../AxiosRequest';
 
 export default class LoginForm extends Component {
@@ -52,7 +51,7 @@ export default class LoginForm extends Component {
                                 <div className={this.state.isChecked ? "check" : ""} />
                                 <div className="checkboxLabel">Remember me</div>
                             </div>
-                            <button className="formLoginButton" onClick={() => this.onLoginClicked(context)}>Login</button>
+                            <button className="formLoginButton" onClick={() => this.onLoginClicked(context)} >Login</button>
                         </div>
 
                         <div className="helpfulLinksContainer">

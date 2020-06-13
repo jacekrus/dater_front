@@ -21,12 +21,10 @@ export default class MainLayout extends Component {
 
     render() {
         return (
-            <Router>
-                <div className="mainLayout">
-                    <Menu activeView={this.state.activeView} onMenuItemClicked={(view) => this.onMenuItemClicked(view)} />
-                    <ViewContainer activeView={this.state.activeView} />
-                </div>
-            </Router>
+            <div className="mainLayout">
+                <Menu activeView={this.state.activeView} onMenuItemClicked={(view) => this.onMenuItemClicked(view)} />
+                <ViewContainer activeView={this.state.activeView} />
+            </div>
         );
     }
 

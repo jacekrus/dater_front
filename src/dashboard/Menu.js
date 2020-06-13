@@ -19,6 +19,7 @@ export default class Menu extends Component {
         axiosRequest.post('/datrLogout')
             .then(() => {
                 context.setLoggedIn(false);
+                context.setUser({});
             })
             .catch(() => {
                 //do nothing
@@ -32,10 +33,10 @@ export default class Menu extends Component {
                     <div className="menu">
                         <div className="menuTitle">Dater</div>
                         <div className="splitterHorizontal"></div>
-                        <NavLink to="/edit" style={{ textDecoration: 'none' }}>
+                        <NavLink to={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} style={{ textDecoration: 'none' }}>
                             <UserPanel onClick={() => this.props.onMenuItemClicked(Views.EDIT_PROFILE)} />
                         </NavLink>
-                        <NavLink to="/find" style={{ textDecoration: 'none' }}>
+                        <NavLink to={Views.DASHBOARD.path + Views.FIND_A_DATE.path} style={{ textDecoration: 'none' }}>
                             <MenuItem icon={faBinoculars} description="Find a date" isActive={this.props.activeView === Views.FIND_A_DATE} onClick={() => this.props.onMenuItemClicked(Views.FIND_A_DATE)} />
                         </NavLink>
                         <MenuItem icon={faHeart} description="Dates" isActive={this.props.activeView === Views.DATES} onClick={() => this.props.onMenuItemClicked(Views.DATES)} />

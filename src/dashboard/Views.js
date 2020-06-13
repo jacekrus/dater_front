@@ -1,9 +1,11 @@
 const Views = Object.freeze({
-    EDIT_PROFILE:  Symbol("editProfile"),
-    FIND_A_DATE:   Symbol("findADate"),
-    DATES:  Symbol("dates"),
-    FAVORITES: Symbol("favorites"),
-    CHAT: Symbol("chat"),
-    LIKEYOU: Symbol("likeyou"),
+    LOGIN: {path: "/login"},
+    DASHBOARD: {path: "/dashboard"},
+    EDIT_PROFILE: {path: "/editProfile"},
+    FIND_A_DATE: {path: "/find"}, 
+    DATES: {path: "/dates"}, 
+    FAVORITES: {path: "/favorites"},
+    CHAT: {path: "/chat"},
+    LIKEYOU: {path: "/likeyou"},
 });
 export default Views;

@@ -1,10 +1,11 @@
 import React, { Component, useContext } from 'react';
 import LoginView from './login/LoginView';
 import MainLayout from './dashboard/MainLayout';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import AppContext from './AppContext';
 import axiosRequest from './AxiosRequest';
 import Alert from './Alert';
+import Views from './dashboard/Views';
 
 class App extends Component {
 
@@ -33,11 +34,15 @@ class App extends Component {
 
   render() {
     return (
-        <AppContext.Consumer>
-          {(context) => (
-              context.state.loggedIn ? <div><MainLayout /><Alert /></div> : <div><LoginView /><Alert /></div>
-          )}
-        </AppContext.Consumer>
+      <AppContext.Consumer>
+        {(context) => (
+          <Switch>
+            <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
+            <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
+            <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
+          </Switch>
+        )}
+      </AppContext.Consumer>
     );
   }
 

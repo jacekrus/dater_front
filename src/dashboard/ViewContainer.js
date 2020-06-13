@@ -13,10 +13,8 @@ export default class ViewContainer extends Component {
             <AppContext.Consumer>
                 {(context) => (
                     <div className="mainViewContainer">
-                        <Route exact path="/find" component={FindDateView} />
-                        <Route exact path="/edit" render={() => (
-                            context.state.loggedIn ? <EditProfileView /> : <Redirect to="/" />
-                        )} />
+                        <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} component={FindDateView} />
+                        <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} component={EditProfileView} />
                     </div>
                 )}
             </AppContext.Consumer>
