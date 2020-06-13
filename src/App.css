@@ -1,0 +1,52 @@
+.alertBox {
+    z-index: 1;
+    padding: 20px;
+    color: white;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.alertBoxHidden {
+    display: none;
+}
+
+.alertBoxError {
+    background-color: #f44336;
+}
+
+.alertBoxInfo {
+    background-color: rgb(39, 155, 39);
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+
+  .closebtn:hover {
+    color: black;
+  }
+
+  .image404 {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 50px;
+      width: 750px;
+      height: 600px;
+      user-select: none;
+  }
+
+  .text404 {
+    text-align: center;
+    font-size: 40px;
+    font-family: sans-serif;
+  }

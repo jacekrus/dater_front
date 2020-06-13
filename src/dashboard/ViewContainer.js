@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import FindDateView from './FindDateView';
 import Views from './Views';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import EditProfileView from './EditProfileView';
 import AppContext from '../AppContext';
 

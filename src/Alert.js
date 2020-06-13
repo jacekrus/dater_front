@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './dashboard/MainLayoutStyles.css';
+import './App.css';
 import AppContext from './AppContext';
 
 export default class Alert extends Component {

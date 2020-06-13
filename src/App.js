@@ -1,11 +1,12 @@
-import React, { Component, useContext } from 'react';
+import React, { Component } from 'react';
 import LoginView from './login/LoginView';
 import MainLayout from './dashboard/MainLayout';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import AppContext from './AppContext';
 import axiosRequest from './AxiosRequest';
 import Alert from './Alert';
 import Views from './dashboard/Views';
+import NoMatch from './NoMatch';
 
 class App extends Component {
 
@@ -40,6 +41,7 @@ class App extends Component {
             <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
             <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
             <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
+            <Route path='*' component={NoMatch}/>
           </Switch>
         )}
       </AppContext.Consumer>
