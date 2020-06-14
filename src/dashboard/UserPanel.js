@@ -7,7 +7,7 @@ import axiosRequest from '../AxiosRequest';
 export default class UserPanel extends Component {
 
     handleEditClick = () => {
-         axiosRequest.get('/users').then((resp) => console.log(resp)).catch((err) => console.log("Users get failed" + err));
+         axiosRequest.get('/users').then((resp) => console.log(resp)).catch(() => { /* do nothing */ });
     }
 
     render() {

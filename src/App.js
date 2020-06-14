@@ -11,22 +11,22 @@ import NoMatch from './NoMatch';
 class App extends Component {
 
   componentDidMount() {
-    const appContext = this.context;
     axiosRequest.interceptors.response.use((response) => {
       return response;
     }, (error) => {
       if (error && error.response.status === 401) {
-        if (appContext.state.loggedIn === true) {
-          appContext.setLoggedIn(false);
-          appContext.setUser({});
+        if (this.context.state.loggedIn === true) {
+          this.context.setLoggedIn(false);
+          this.context.setUser({});
+          this.context.setMessage("Your session has expired, please log in again")
         }
       }
       return Promise.reject(error);
     })
     axiosRequest.get('/users/me')
       .then((resp) => {
-        appContext.setUser(resp.data);
-        appContext.setLoggedIn(true);
+        this.context.setUser(resp.data);
+        this.context.setLoggedIn(true);
       })
       .catch(() => {
         //do nothing
@@ -37,12 +37,15 @@ class App extends Component {
     return (
       <AppContext.Consumer>
         {(context) => (
-          <Switch>
-            <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
-            <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
-            <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
-            <Route path='*' component={NoMatch}/>
-          </Switch>
+          <React.Fragment>
+            <Switch>
+              <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
+              <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
+              <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
+              <Route path='*' component={NoMatch} />
+            </Switch>
+            <Alert />
+          </React.Fragment>
         )}
       </AppContext.Consumer>
     );

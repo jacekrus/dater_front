@@ -30,11 +30,13 @@ export default class LoginForm extends Component {
                 }
             }
         )
-        .then((resp) => {
-            context.setMessage('Login successful');
+        .then(() => {
             context.setLoggedIn(true);
         })
-        .catch((err) => console.log('something went wrong '))
+        .catch(() => {
+            context.setMessage('Username or password is incorrect')
+            context.setError(true);
+        })
     }
 
     render() {
