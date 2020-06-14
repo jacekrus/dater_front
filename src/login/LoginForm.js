@@ -15,10 +15,12 @@ export default class LoginForm extends Component {
             isChecked: false,
             username: '',
             password: '',
+            loginClicked: false,
         }
     }
 
     onLoginClicked = (context) => {
+        this.setState({ loginClicked: true })
         axiosRequest.post('/datrLogin',
             qs.stringify({
                 username: this.state.username,
@@ -30,13 +32,23 @@ export default class LoginForm extends Component {
                 }
             }
         )
-        .then(() => {
-            context.setLoggedIn(true);
-        })
-        .catch(() => {
-            context.setMessage('Username or password is incorrect')
-            context.setError(true);
-        })
+            .then(() => {
+                axiosRequest.get('/users/me')
+                    .then((resp) => {
+                        context.setUser(resp.data);
+                        context.setLoggedIn(true);
+                    })
+                    .catch(() => {
+                        this.setState({ loginClicked: false })
+                        context.setMessage('Unable to login, please try again later')
+                        context.setError(true);
+                    })
+            })
+            .catch(() => {
+                this.setState({ loginClicked: false })
+                context.setMessage('Username or password is incorrect')
+                context.setError(true);
+            })
     }
 
     render() {
@@ -53,7 +65,7 @@ export default class LoginForm extends Component {
                                 <div className={this.state.isChecked ? "check" : ""} />
                                 <div className="checkboxLabel">Remember me</div>
                             </div>
-                            <button className="formLoginButton" onClick={() => this.onLoginClicked(context)} >Login</button>
+                            <button className="formLoginButton" disabled={this.state.loginClicked} onClick={() => this.onLoginClicked(context)} >Login</button>
                         </div>
 
                         <div className="helpfulLinksContainer">

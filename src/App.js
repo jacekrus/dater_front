@@ -21,6 +21,10 @@ class App extends Component {
           this.context.setMessage("Your session has expired, please log in again")
         }
       }
+      else if(error && error.response.status > 400) {
+        this.context.setMessage("Something went wrong, please try again later")
+        this.context.setError(true);
+      }
       return Promise.reject(error);
     })
     axiosRequest.get('/users/me')
