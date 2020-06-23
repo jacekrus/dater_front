@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import FindDateView from './FindDateView';
 import Views from './Views';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import EditProfileView from './EditProfileView';
-import AppContext from '../AppContext';
+import UserDetailsView from './UserDetailsView';
 
 export default class ViewContainer extends Component {
 
     render() {
         return (
-            <AppContext.Consumer>
-                {(context) => (
-                    <div className="mainViewContainer">
-                        <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} component={FindDateView} />
-                        <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} component={EditProfileView} />
-                    </div>
-                )}
-            </AppContext.Consumer>
+            <div className="mainViewContainer">
+                <Switch >
+                    <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} component={FindDateView} />
+                    <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} component={EditProfileView} />
+                    <Route exact path={Views.DASHBOARD.path + Views.USER_DETAILS.path + "/:id"} component={UserDetailsView} />
+                </Switch>
+            </div>
         );
     }
 

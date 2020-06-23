@@ -7,6 +7,7 @@ import axiosRequest from './AxiosRequest';
 import Alert from './Alert';
 import Views from './dashboard/Views';
 import NoMatch from './NoMatch';
+import Footer from './login/Footer';
 
 class App extends Component {
 
@@ -21,7 +22,7 @@ class App extends Component {
           this.context.setMessage("Your session has expired, please log in again")
         }
       }
-      else if(error && error.response.status > 400) {
+      else if (error && error.response.status > 500) {
         this.context.setMessage("Something went wrong, please try again later")
         this.context.setError(true);
       }
@@ -41,15 +42,16 @@ class App extends Component {
     return (
       <AppContext.Consumer>
         {(context) => (
-          <React.Fragment>
+          <div className={context.state.loggedIn ? 'appLayout' : ''}>
             <Switch>
               <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
               <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
               <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
               <Route path='*' component={NoMatch} />
             </Switch>
+            <Footer />
             <Alert />
-          </React.Fragment>
+          </div>
         )}
       </AppContext.Consumer>
     );

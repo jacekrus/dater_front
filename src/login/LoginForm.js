@@ -30,8 +30,7 @@ export default class LoginForm extends Component {
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
                 }
-            }
-        )
+            })
             .then(() => {
                 axiosRequest.get('/users/me')
                     .then((resp) => {

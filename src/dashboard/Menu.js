@@ -12,6 +12,7 @@ import Views from './Views';
 import { NavLink } from 'react-router-dom';
 import AppContext from '../AppContext';
 import axiosRequest from '../AxiosRequest';
+import Recommended from './Recommended';
 
 export default class Menu extends Component {
 
@@ -45,6 +46,7 @@ export default class Menu extends Component {
                         <MenuItem icon={faGrinHearts} description="They like you" isActive={this.props.activeView === Views.LIKEYOU} onClick={() => this.props.onMenuItemClicked(Views.LIKEYOU)} />
                         <MenuItem icon={faSignOutAlt} description="Sign out" onClick={() => this.handleLogout(context)} />
                         <div className="splitterHorizontal"></div>
+                        <Recommended onClick={() => this.props.onMenuItemClicked(Views.USER_DETAILS)}/>
                     </div>
                 )}
             </AppContext.Consumer>

@@ -21,7 +21,7 @@ export default class LoginView extends Component {
     render() {
         return (
             <div className="viewContainer">
-                <div className="headerImage"/>
+                <div className="headerImage" />
                 <div className="mainFont">Dater</div>
                 <div className="loginButtonContainer">
                     <div className={"flipCardContainer" + (this.state.isRegister ? " isFlipped" : "")} onClick={this.onRegisterChange}>
@@ -29,8 +29,7 @@ export default class LoginView extends Component {
                         <div className="loginButton loginButtonBack">Login</div>
                     </div>
                 </div>
-                <LoginRegisterPanel isRegister={this.state.isRegister} registerClickHandler={this.onRegisterChange}/>
-                <Footer />
+                <LoginRegisterPanel isRegister={this.state.isRegister} registerClickHandler={this.onRegisterChange} />
             </div>
         );
     }

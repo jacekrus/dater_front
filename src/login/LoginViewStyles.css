@@ -1,8 +1,3 @@
-body {
-    margin: 0px;
-    overflow-x: hidden;
-}
-
 .viewContainer {
     position: relative;
     width: 100%;
@@ -78,10 +73,14 @@ body {
     width:100%;
     height: 20px;
     border-top: solid 1px rgba(156, 156, 156, 0.5);
-    top: 435%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%);
     margin-bottom: 5px;
+}
+
+.footerContainerGray {
+    background-color: rgba(238, 238, 238, 0.527);
 }
 
 .footerLink {
