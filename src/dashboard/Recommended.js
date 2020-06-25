@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './MainLayoutStyles.css';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Views from './Views';
 import axiosRequest from '../AxiosRequest';
 import AppContext from '../AppContext';
@@ -16,12 +16,7 @@ export default class Recommended extends Component {
     }
 
     componentDidMount() {
-        let request = '/users/recommended';
-        const userPreference = this.context.state.user.preference;
-        if (userPreference) {
-            request = request + '?gender=' + userPreference;
-        }
-        axiosRequest.get(request)
+        axiosRequest.get('/users/recommended')
             .then((resp) => {
                 this.setState({ recommended: resp.data })
             }).catch(() => { /* do nothing */ });
@@ -34,7 +29,7 @@ export default class Recommended extends Component {
                 <div className="recommendedGridContainer">
                     {this.state.recommended.map((each) =>
                         <NavLink key={each.id} to={Views.DASHBOARD.path + Views.USER_DETAILS.path + `/${each.id}`}>
-                            <div title={each.username} className='recommendedItemContainer' onClick={this.props.onClick}>
+                            <div title={each.username} className='recommendedItemContainer' onClick={() => this.props.onClick(each)}>
                                 <img alt='img' className='recommendedItem' title={each.username} src={each.photos[1]} />
                             </div>
                         </NavLink>

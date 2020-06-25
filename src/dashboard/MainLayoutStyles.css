@@ -84,6 +84,7 @@
    margin-left: 15px;
    cursor: pointer;
    color: #767676;
+   transition: color .2s linear;
 }
 
 .menuItemActive, .menuItem:hover {
@@ -266,13 +267,38 @@
 }
 
 .displayedUsername {
-    color: black;
-    font-size: 40px;
-    padding: 25px;
+    font-size: 35px;
+    padding-left: 25px;
+    padding-top: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+    float: left;
+}
+
+.displayedUserAge {
+    font-size: 31px;
+    display: inline-block;
+    padding-top: 27px;
 }
 
 .displayedUserDescription {
+    display: block;
     color:  rgb(71, 71, 71);
+    padding-top: 25px;
     padding-left: 22px;
-    font-size: 25px;
+    margin-right: 20px;
+    font-size: 20px;
+    clear: both;
+    word-wrap: break-word;
+}
+
+.userDetailsLink > * {
+    color: black;
+    transition: color .2s linear;
+}
+
+.userDetailsLink:hover * {
+    color: #00b418;
 }

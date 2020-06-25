@@ -16,7 +16,7 @@ import Recommended from './Recommended';
 
 export default class Menu extends Component {
 
-    handleLogout = (context) => {
+    onLogout = (context) => {
         axiosRequest.post('/datrLogout')
             .then(() => {
                 context.setLoggedIn(false);
@@ -27,13 +27,18 @@ export default class Menu extends Component {
             });
     }
 
+    onRecommendedUserClicked = (user) => {
+        this.props.onSelectedUserChanged(user);
+        this.props.onMenuItemClicked(Views.USER_DETAILS);
+    }
+
     render() {
         return (
             <AppContext.Consumer>
                 {(context) => (
                     <div className="menu">
                         <div className="menuTitle">Dater</div>
-                        <div className="splitterHorizontal"></div>
+                        <div className="splitterHorizontal" />
                         <NavLink to={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} style={{ textDecoration: 'none' }}>
                             <UserPanel onClick={() => this.props.onMenuItemClicked(Views.EDIT_PROFILE)} />
                         </NavLink>
@@ -44,9 +49,9 @@ export default class Menu extends Component {
                         <MenuItem icon={faKissWinkHeart} description="Favorites" isActive={this.props.activeView === Views.FAVORITES} onClick={() => this.props.onMenuItemClicked(Views.FAVORITES)} />
                         <MenuItem icon={faComments} description="Chat" isActive={this.props.activeView === Views.CHAT} onClick={() => this.props.onMenuItemClicked(Views.CHAT)} />
                         <MenuItem icon={faGrinHearts} description="They like you" isActive={this.props.activeView === Views.LIKEYOU} onClick={() => this.props.onMenuItemClicked(Views.LIKEYOU)} />
-                        <MenuItem icon={faSignOutAlt} description="Sign out" onClick={() => this.handleLogout(context)} />
-                        <div className="splitterHorizontal"></div>
-                        <Recommended onClick={() => this.props.onMenuItemClicked(Views.USER_DETAILS)}/>
+                        <MenuItem icon={faSignOutAlt} description="Sign out" onClick={() => this.onLogout(context)} />
+                        <div className="splitterHorizontal" />
+                        <Recommended onClick={this.onRecommendedUserClicked}/>
                     </div>
                 )}
             </AppContext.Consumer>

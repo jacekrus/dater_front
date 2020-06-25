@@ -10,6 +10,7 @@ export default class MainLayout extends Component {
         super(props);
         this.state = {
             activeView: '',
+            selectedUser: {}
         }
     }
 
@@ -19,12 +20,18 @@ export default class MainLayout extends Component {
         }
     }
 
+    onSelectedUserChanged = (user) => {
+        if(!this.selectedUser || this.selectedUser.id !== user.id) {
+            this.setState({selectedUser: user});
+        }
+    }
+
     render() {
         return (
             <div className="mainLayout">
                 <React.Fragment>
-                    <Menu activeView={this.state.activeView} onMenuItemClicked={(view) => this.onMenuItemClicked(view)} />
-                    <ViewContainer activeView={this.state.activeView} />
+                    <Menu activeView={this.state.activeView} onMenuItemClicked={this.onMenuItemClicked} onSelectedUserChanged={this.onSelectedUserChanged}/>
+                    <ViewContainer selectedUser={this.state.selectedUser} activeView={this.state.activeView} onSelectedUserChanged={this.onSelectedUserChanged}/>
                 </React.Fragment>
             </div>
         );
