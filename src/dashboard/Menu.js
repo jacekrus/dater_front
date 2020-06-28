@@ -45,13 +45,15 @@ export default class Menu extends Component {
                         <NavLink to={Views.DASHBOARD.path + Views.FIND_A_DATE.path} style={{ textDecoration: 'none' }}>
                             <MenuItem icon={faBinoculars} description="Find a date" isActive={this.props.activeView === Views.FIND_A_DATE} onClick={() => this.props.onMenuItemClicked(Views.FIND_A_DATE)} />
                         </NavLink>
-                        <MenuItem icon={faHeart} description="Dates" isActive={this.props.activeView === Views.DATES} onClick={() => this.props.onMenuItemClicked(Views.DATES)} />
+                        <NavLink to={Views.DASHBOARD.path + Views.DATES.path} style={{ textDecoration: 'none' }}>
+                            <MenuItem icon={faHeart} description="Dates" isActive={this.props.activeView === Views.DATES} onClick={() => this.props.onMenuItemClicked(Views.DATES)} />
+                        </NavLink>
                         <MenuItem icon={faKissWinkHeart} description="Favorites" isActive={this.props.activeView === Views.FAVORITES} onClick={() => this.props.onMenuItemClicked(Views.FAVORITES)} />
                         <MenuItem icon={faComments} description="Chat" isActive={this.props.activeView === Views.CHAT} onClick={() => this.props.onMenuItemClicked(Views.CHAT)} />
                         <MenuItem icon={faGrinHearts} description="They like you" isActive={this.props.activeView === Views.LIKEYOU} onClick={() => this.props.onMenuItemClicked(Views.LIKEYOU)} />
                         <MenuItem icon={faSignOutAlt} description="Sign out" onClick={() => this.onLogout(context)} />
                         <div className="splitterHorizontal" />
-                        <Recommended onClick={this.onRecommendedUserClicked}/>
+                        <Recommended onClick={this.onRecommendedUserClicked} />
                     </div>
                 )}
             </AppContext.Consumer>

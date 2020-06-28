@@ -21,7 +21,7 @@ export default class Alert extends Component {
 
     componentDidUpdate() {
         if(!this.timer && this.context.state.message !== '') {
-            this.timer = setTimeout(() => this.onAlertClose(), 5000);
+            this.timer = setTimeout(() => this.onAlertClose(), 6000);
         }
     }
 

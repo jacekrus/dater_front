@@ -3,6 +3,7 @@ import './MainLayoutStyles.css';
 import Menu from './Menu';
 import ViewContainer from './ViewContainer';
 import Footer from '../login/Footer';
+import Views from './Views';
 
 export default class MainLayout extends Component {
 
@@ -22,7 +23,7 @@ export default class MainLayout extends Component {
 
     onSelectedUserChanged = (user) => {
         if(!this.selectedUser || this.selectedUser.id !== user.id) {
-            this.setState({selectedUser: user});
+            this.setState({selectedUser: user, activeView: Views.USER_DETAILS});
         }
     }
 

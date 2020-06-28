@@ -5,6 +5,7 @@ import Views from './Views';
 import { Route, Switch } from 'react-router-dom';
 import EditProfileView from './EditProfileView';
 import UserDetailsView from './UserDetailsView';
+import DatesView from './DatesView';
 
 export default class ViewContainer extends Component {
 
@@ -14,6 +15,7 @@ export default class ViewContainer extends Component {
                 <Switch >
                     <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} render={(props) => <FindDateView onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
                     <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} component={EditProfileView} />
+                    <Route exact path={Views.DASHBOARD.path + Views.DATES.path} render={(props) => <DatesView onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
                     <Route exact path={Views.DASHBOARD.path + Views.USER_DETAILS.path + "/:id"} render={(props) => <UserDetailsView selectedUser={this.props.selectedUser} {...props} />} />
                 </Switch>
             </div>

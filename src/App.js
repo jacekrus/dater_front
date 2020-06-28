@@ -22,7 +22,7 @@ class App extends Component {
           this.context.setMessage("Your session has expired, please log in again")
         }
       }
-      else if (error && error.response.status > 500) {
+      else if (error && error.response.status >= 500) {
         this.context.setMessage("Something went wrong, please try again later")
         this.context.setError(true);
       }

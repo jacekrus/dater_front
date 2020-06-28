@@ -18,12 +18,13 @@ export default class FindDateView extends Component {
     }
 
     componentDidMount() {
+        this.requestUsers();
+    }
+
+    requestUsers() {
         axiosRequest.get('/users/recommended')
-            .then((resp) => this.setState({ foundUsers: resp.data, loading: false }))
-            .catch(() => {
-                this.context.setError(true);
-                this.context.setMessage("Something went wrong, please try again later.")
-            });
+        .then((resp) => this.setState({ foundUsers: resp.data, loading: false }))
+        .catch(() => {/*do nothing */});
     }
 
     onNextPhotoClicked = () => {
@@ -47,6 +48,7 @@ export default class FindDateView extends Component {
     onLikeClicked = () => {
         let currUser = this.state.currentUser + 1;
         if (currUser >= this.state.foundUsers.length) {
+            this.requestUsers();
             currUser = 0;
         }
         this.setState({ currentUser: currUser, currentPhoto: 0 });
@@ -55,6 +57,7 @@ export default class FindDateView extends Component {
     onRejectClicked = () => {
         let currUser = this.state.currentUser + 1;
         if (currUser >= this.state.foundUsers.length) {
+            this.requestUsers();
             currUser = 0;
         }
         this.setState({ currentUser: currUser, currentPhoto: 0 });
