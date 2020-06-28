@@ -18,7 +18,7 @@ export default class DatesView extends Component {
             gender: currentUser.preference,
             preference: currentUser.gender,
         }
-        axiosRequest.post('/users?page=0&size=15', requestData).then((resp) => this.setState({ dates: resp.data })).catch(() => {/*do nothing */ });
+        axiosRequest.post('/users?page=0&size=9', requestData).then((resp) => this.setState({ dates: resp.data })).catch(() => {/*do nothing */ });
     }
 
 /*     handleAboutToReachBottom = () => {
