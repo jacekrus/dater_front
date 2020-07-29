@@ -14,7 +14,7 @@ export default class ViewContainer extends Component {
     render() {
         return (
             <div className="mainViewContainer">
-                <Switch >
+                <Switch>
                     <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} render={(props) => <FindDateView onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
                     <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} component={EditProfileView} />
                     <Route exact path={Views.DASHBOARD.path + Views.DATES.path} render={(props) => <DatesView onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />

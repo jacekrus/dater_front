@@ -9,7 +9,7 @@ export default class DatesView extends Component {
     render() {
         const actionsContainer =
             <div className="userTileActionsContainer">
-                <FontAwesomeIcon icon={faEnvelope} className='userTileActionIcon' />
+                <FontAwesomeIcon icon={faEnvelope} className='userTileActionIcon userTileEnvelopeActionIcon' />
             </div>
 
         return (

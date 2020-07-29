@@ -9,7 +9,7 @@ export default class LikedByView extends Component {
     render() {
         const actionsContainer =
             <div className="userTileActionsContainer">
-                <FontAwesomeIcon icon={faHeart} className='userTileActionIcon' />
+                <FontAwesomeIcon icon={faHeart} className='userTileActionIcon userTileHeartActionIcon' />
             </div>
 
         return (

@@ -347,7 +347,6 @@
 
 .userTileActionIcon {
     position: absolute;
-    color: rgb(146, 193, 255);
     top: 12%;
     left: 43%;
     font-size: 30px;
@@ -355,8 +354,20 @@
     transition: color .2s linear;
 }
 
-.userTileActionIcon:hover {
+.userTileEnvelopeActionIcon {
+    color: rgb(146, 193, 255);
+}
+
+.userTileEnvelopeActionIcon:hover {
     color: rgb(64, 144, 248);
+}
+
+.userTileHeartActionIcon {
+    color: rgb(255, 146, 164);
+}
+
+.userTileHeartActionIcon:hover {
+    color: rgb(255, 81, 110);
 }
 
 .userTileDescription {
