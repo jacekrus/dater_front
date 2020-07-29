@@ -4,45 +4,51 @@ import axiosRequest from '../AxiosRequest';
 import UserTile from './UserTile';
 import AppContext from '../AppContext';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 export default class DatesView extends Component {
 
     state = {
         dates: [],
         currentPage: 0,
+        scrollTop: 0,
     }
 
     componentDidMount() {
-        const currentUser = this.context.state.user;
-        const requestData = {
-            gender: currentUser.preference,
-            preference: currentUser.gender,
-        }
-        axiosRequest.post('/users?page=0&size=9', requestData).then((resp) => this.setState({ dates: resp.data })).catch(() => {/*do nothing */ });
+        axiosRequest.get('/users/favorites?page=0&size=9').then((resp) => this.setState({ dates: resp.data })).catch(() => { /*do nothing */ });
     }
 
-/*     handleAboutToReachBottom = () => {
+    handleAboutToReachBottom() {
         let currentDates = this.state.dates;
-        const currentUser = this.context.state.user;
-        const requestData = {
-            gender: currentUser.preference,
-            preference: currentUser.gender,
+        if (currentDates.length > 0) {
+            axiosRequest.get('/users/favorites?page=' + (this.state.currentPage + 1) + '&size=9').then((resp) => {
+                let newDates = [...currentDates, ...resp.data];
+                if (newDates.length > currentDates.length) {
+                    this.setState(prevState => ({ dates: newDates, currentPage: prevState.currentPage + 1 }));
+                }
+            }).catch( /* do nothing */);
         }
-        axiosRequest.post('/users?page=1&size=20', requestData).then((resp) => this.setState({ dates: [...currentDates, resp.data ] })).catch(() => { });
     }
 
     onUpdate = (values) => {
         const { scrollTop, scrollHeight, clientHeight } = values;
-        const pad = 100; 
-        const t = ((scrollTop + pad) / (scrollHeight - clientHeight));
-        if (t > 1) this.handleAboutToReachBottom();   
-    } */
+        if (scrollTop > this.state.scrollTop) {
+            const offset = scrollHeight - clientHeight - scrollTop;
+            if (offset < 1) this.handleAboutToReachBottom();
+        }
+        this.setState({ scrollTop: scrollTop });
+    }
 
     render() {
+        const actionsContainer = <div className="userTileActionsContainer">
+            <FontAwesomeIcon icon={faEnvelope} className='userTileActionIcon' />
+        </div>
+
         return (
-            <Scrollbars autoHide style={{width: '90%', height: '80%'}} className='customScrollbar' onUpdate={this.onUpdate}>
+            <Scrollbars autoHide style={{ width: '90%', height: '80%' }} className='customScrollbar' onUpdate={this.onUpdate}>
                 <div className='userTiles'>
-                    {this.state.dates.map(each => <UserTile key={each.id} user={each} onUserDetailsClicked={this.props.onUserDetailsClicked}/>)}
+                    {this.state.dates.map(each => <UserTile key={each.id} user={each} onUserDetailsClicked={this.props.onUserDetailsClicked} menu={actionsContainer} />)}
                 </div>
             </Scrollbars>
         );
