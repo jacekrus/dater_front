@@ -13,7 +13,7 @@ export default class LikedByView extends Component {
             </div>
 
         return (
-            <PaginatedTilesContainer onUserDetailsClicked={this.props.onUserDetailsClicked} request={'likedby'} actionsContainer={actionsContainer} />
+            <PaginatedTilesContainer onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onUserDetailsClicked} request={'likedby'} actionsContainer={actionsContainer} />
         );
     }
 

@@ -13,7 +13,7 @@ export default class FavoritesView extends Component {
             </div>
 
         return (
-            <PaginatedTilesContainer onUserDetailsClicked={this.props.onUserDetailsClicked} request={'favorites'} actionsContainer={actionsContainer} />
+            <PaginatedTilesContainer onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onUserDetailsClicked} request={'favorites'} actionsContainer={actionsContainer} />
         );
     }
 

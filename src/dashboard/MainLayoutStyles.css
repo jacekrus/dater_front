@@ -381,3 +381,12 @@
 .customScrollbar:hover > div {
     opacity: 1 !important;
 }
+
+.noMatchFoundText {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    font-family: sans-serif;
+    color: #767676;
+    font-size: 28px;
+}

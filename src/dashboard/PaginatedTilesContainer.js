@@ -3,6 +3,8 @@ import axiosRequest from '../AxiosRequest';
 import './MainLayoutStyles.css';
 import { Scrollbars } from 'react-custom-scrollbars';
 import UserTile from './UserTile';
+import { NavLink } from 'react-router-dom';
+import Views from './Views';
 
 export default class PaginatedTilesContainer extends Component {
 
@@ -40,9 +42,19 @@ export default class PaginatedTilesContainer extends Component {
     render() {
         return (
             <Scrollbars autoHide style={{ width: '90%', height: '80%' }} className='customScrollbar' onUpdate={this.onUpdate}>
-                <div className='userTiles'>
-                    {this.state.elements.map(each => <UserTile key={each.id} user={each} onUserDetailsClicked={this.props.onUserDetailsClicked} menu={this.props.actionsContainer} />)}
-                </div>
+                {this.state.elements.length == 0 ? 
+                    <div className="noMatchFoundText">
+                        Nothing found. Head to  
+                        <NavLink to={Views.DASHBOARD.path + Views.FIND_A_DATE.path} style={{ textDecoration: 'none' }} onClick={() => this.props.onMenuItemClicked(Views.FIND_A_DATE)}>
+                            Find a date
+                        </NavLink>
+                         and look for your perfect match
+                    </div>
+                    :
+                    <div className='userTiles'>
+                        {this.state.elements.map(each => <UserTile key={each.id} user={each} onUserDetailsClicked={this.props.onUserDetailsClicked} menu={this.props.actionsContainer} />)}
+                    </div>
+                }
             </Scrollbars>
         );
     }

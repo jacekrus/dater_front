@@ -13,7 +13,7 @@ export default class DatesView extends Component {
             </div>
 
         return (
-            <PaginatedTilesContainer onUserDetailsClicked={this.props.onUserDetailsClicked} request={'dates'} actionsContainer={actionsContainer} />
+            <PaginatedTilesContainer onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onUserDetailsClicked} request={'dates'} actionsContainer={actionsContainer} />
         );
     }
 

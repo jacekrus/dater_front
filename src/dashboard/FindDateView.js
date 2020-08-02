@@ -11,7 +11,7 @@ import Views from './Views';
 export default class FindDateView extends Component {
 
     state = {
-        currentUser: 5,
+        currentUser: 0,
         currentPhoto: 0,
         foundUsers: [],
         loading: true,
@@ -46,6 +46,7 @@ export default class FindDateView extends Component {
     }
 
     onLikeClicked = () => {
+        axiosRequest.put("/users/like?id=" + this.state.foundUsers[this.state.currentUser].id).catch( /* do nothing */);
         let currUser = this.state.currentUser + 1;
         if (currUser >= this.state.foundUsers.length) {
             this.requestUsers();

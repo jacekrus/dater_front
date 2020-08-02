@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import Menu from './Menu';
 import ViewContainer from './ViewContainer';
-import Footer from '../login/Footer';
 import Views from './Views';
 
 export default class MainLayout extends Component {
@@ -32,7 +31,7 @@ export default class MainLayout extends Component {
             <div className="mainLayout">
                 <React.Fragment>
                     <Menu activeView={this.state.activeView} onMenuItemClicked={this.onMenuItemClicked} onSelectedUserChanged={this.onSelectedUserChanged}/>
-                    <ViewContainer selectedUser={this.state.selectedUser} activeView={this.state.activeView} onSelectedUserChanged={this.onSelectedUserChanged}/>
+                    <ViewContainer selectedUser={this.state.selectedUser} onMenuItemClicked={this.onMenuItemClicked} activeView={this.state.activeView} onSelectedUserChanged={this.onSelectedUserChanged}/>
                 </React.Fragment>
             </div>
         );
