@@ -3,26 +3,30 @@ import './MainLayoutStyles.css';
 import FindDateView from './FindDateView';
 import Views from './Views';
 import { Route, Switch } from 'react-router-dom';
-import EditProfileView from './EditProfileView';
 import UserDetailsView from './UserDetailsView';
 import DatesView from './DatesView';
 import LikedByView from './LikedByView';
 import FavoritesView from './FavoritesView';
+import AppContext from '../AppContext';
 
 export default class ViewContainer extends Component {
 
     render() {
         return (
-            <div className="mainViewContainer">
-                <Switch>
-                    <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} render={(props) => <FindDateView onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
-                    <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} component={EditProfileView} />
-                    <Route exact path={Views.DASHBOARD.path + Views.DATES.path} render={(props) => <DatesView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
-                    <Route exact path={Views.DASHBOARD.path + Views.FAVORITES.path} render={(props) => <FavoritesView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
-                    <Route exact path={Views.DASHBOARD.path + Views.LIKEYOU.path} render={(props) => <LikedByView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
-                    <Route exact path={Views.DASHBOARD.path + Views.USER_DETAILS.path + "/:id"} render={(props) => <UserDetailsView selectedUser={this.props.selectedUser} {...props} />} />
-                </Switch>
-            </div>
+            <AppContext.Consumer>
+                {(context) => (
+                    <div className="mainViewContainer">
+                        <Switch>
+                            <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} render={(props) => <FindDateView onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
+                            <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} render={(props) => <UserDetailsView selectedUser={context.state.user} editable={true} {...props} />} />
+                            <Route exact path={Views.DASHBOARD.path + Views.DATES.path} render={(props) => <DatesView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
+                            <Route exact path={Views.DASHBOARD.path + Views.FAVORITES.path} render={(props) => <FavoritesView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
+                            <Route exact path={Views.DASHBOARD.path + Views.LIKEYOU.path} render={(props) => <LikedByView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
+                            <Route exact path={Views.DASHBOARD.path + Views.USER_DETAILS.path + "/:id"} render={(props) => <UserDetailsView selectedUser={this.props.selectedUser} editable={false} {...props} />} />
+                        </Switch>
+                    </div>
+                )}
+            </AppContext.Consumer>
         );
     }
 

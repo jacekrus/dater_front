@@ -42,13 +42,13 @@ export default class PaginatedTilesContainer extends Component {
     render() {
         return (
             <Scrollbars autoHide style={{ width: '90%', height: '80%' }} className='customScrollbar' onUpdate={this.onUpdate}>
-                {this.state.elements.length == 0 ? 
+                {this.state.elements.length === 0 ? 
                     <div className="noMatchFoundText">
                         Nothing found. Head to  
                         <NavLink to={Views.DASHBOARD.path + Views.FIND_A_DATE.path} style={{ textDecoration: 'none' }} onClick={() => this.props.onMenuItemClicked(Views.FIND_A_DATE)}>
                             Find a date
                         </NavLink>
-                         and look for your perfect match
+                         and look for your perfect match.
                     </div>
                     :
                     <div className='userTiles'>

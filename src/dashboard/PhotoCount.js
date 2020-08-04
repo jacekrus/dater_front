@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './MainLayoutStyles.css';
 
 const PhotoCount = ({ currentPhoto, photoCount }) => {

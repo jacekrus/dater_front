@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './LoginViewStyles.css';
 import LoginRegisterPanel from './LoginRegisterPanel';
-import Footer from './Footer';
 
 export default class LoginView extends Component {
 

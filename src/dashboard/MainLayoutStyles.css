@@ -390,3 +390,90 @@
     color: #767676;
     font-size: 28px;
 }
+
+.userDetailsTitle {
+    font-family: sans-serif;
+    font-size: 30px;
+    color: black;
+    position: relative;
+}
+
+.photoTape {
+    display: grid;
+    grid-template-columns: 0fr 0fr 0fr 0fr;
+    width: 700px;
+    margin-top: 30px;
+}
+
+.photoTapeImg {
+    width: 150px;
+    height: 150px;
+}
+
+.userInfoContainer {
+    margin-top: 45px;
+}
+
+.userInfoTitle {
+    font-family: sans-serif;
+    font-size: 22px;
+    color: black;
+    position: relative;
+}
+
+.userInfoContent {
+    margin-top: 5px;
+    font-family: sans-serif;
+    font-size: 18px;
+    width: 80%;
+    color: #767676;
+}
+
+.userDetailsActionIcon {
+    position: relative;
+    left: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: color .2s linear;
+    color: rgb(255, 146, 164);
+}
+
+.userDetailsActionIcon:hover {
+    color: rgb(255, 81, 110);
+}
+
+.userDetailsEditIcon {
+    color: rgb(185, 183, 183);
+    font-size: 20px;
+    transition: color .2s linear;
+    margin-left: 20px;
+}
+
+.userDetailsEditIcon:hover {
+    cursor: pointer;
+    color: rgb(124, 124, 124);
+}
+
+textarea {
+    width: 50%;
+    height: 50px;
+    resize: none;
+}
+
+.userInfoButton {
+    display: block;
+}
+
+.addPhotoButton {
+    color: rgb(185, 183, 183);
+    font-size: 42px;
+    padding: 10px;
+    margin-top: 60%;
+    margin-left: 10px;
+    transition: color .2s linear;
+}
+
+.addPhotoButton:hover {
+    cursor: pointer;
+    color: rgb(124, 124, 124);
+}
