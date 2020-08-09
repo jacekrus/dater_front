@@ -16,7 +16,7 @@ export default class UserInfoEditPanel extends Component {
     render() {
         return (
             <React.Fragment>
-                <textarea maxLength="500" onChange={this.onInputChange}>{this.state.content}</textarea>
+                <textarea maxLength="500" value={this.state.content} onChange={this.onInputChange} />
                 <button className="userInfoButton userInfoSaveButton" onClick={() => this.props.onSaveClicked(this.state.content)}>Save</button>
                 <button className="userInfoButton userInfoCancelButton" onClick={this.props.onCancelClicked}>Cancel</button>
             </React.Fragment>

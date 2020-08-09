@@ -3,7 +3,6 @@ import './MainLayoutStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import UserInfoEditPanel from './UserInfoEditPanel';
-import axiosRequest from '../AxiosRequest';
 
 export default class UserInfoContainer extends Component {
 
@@ -19,7 +18,7 @@ export default class UserInfoContainer extends Component {
     }
 
     onSaveClicked = (value) => {
-        console.log(value);
+        this.props.onSaveClicked(value);
         this.onEditClicked();
     }
 
