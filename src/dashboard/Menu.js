@@ -51,7 +51,9 @@ export default class Menu extends Component {
                         <NavLink to={Views.DASHBOARD.path + Views.FAVORITES.path} style={{ textDecoration: 'none' }}>
                             <MenuItem icon={faKissWinkHeart} description="Favorites" isActive={this.props.activeView === Views.FAVORITES} onClick={() => this.props.onMenuItemClicked(Views.FAVORITES)} />
                         </NavLink>
-                        <MenuItem icon={faComments} description="Chat" isActive={this.props.activeView === Views.CHAT} onClick={() => this.props.onMenuItemClicked(Views.CHAT)} />
+                        <NavLink to={Views.DASHBOARD.path + Views.CHAT.path} style={{ textDecoration: 'none' }}>
+                            <MenuItem icon={faComments} description="Chat" isActive={this.props.activeView === Views.CHAT} onClick={() => this.props.onMenuItemClicked(Views.CHAT)} />
+                        </NavLink>
                         <NavLink to={Views.DASHBOARD.path + Views.LIKEYOU.path} style={{ textDecoration: 'none' }}>
                             <MenuItem icon={faGrinHearts} description="They like you" isActive={this.props.activeView === Views.LIKEYOU} onClick={() => this.props.onMenuItemClicked(Views.LIKEYOU)} />
                         </NavLink>

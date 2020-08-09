@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import './MainLayoutStyles.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import PaginatedTilesContainer from './PaginatedTilesContainer';
+import Views from './Views';
 
 export default class DatesView extends Component {
 
-    render() {
-        const actionsContainer =
-            <div className="userTileActionsContainer">
-                <FontAwesomeIcon icon={faEnvelope} className='userTileActionIcon userTileEnvelopeActionIcon' />
-            </div>
 
+    onAction = (evt) => {
+        evt.preventDefault();
+        this.props.history.push(Views.DASHBOARD.path + Views.CHAT.path)
+        this.props.onMenuItemClicked(Views.CHAT)
+    }
+
+    render() {
         return (
-            <PaginatedTilesContainer onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onUserDetailsClicked} request={'dates'} actionsContainer={actionsContainer} />
+            <PaginatedTilesContainer onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onUserDetailsClicked} request={'dates'} dates onAction={this.onAction} />
         );
     }
 

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 
-export default class EditProfileView extends Component {
+export default class ChatView extends Component {
 
     render() {
         return (
             <div >
-                Edit profile
+                Chat
             </div>
         );
     }

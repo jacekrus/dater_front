@@ -52,7 +52,8 @@ export default class PaginatedTilesContainer extends Component {
                     </div>
                     :
                     <div className='userTiles'>
-                        {this.state.elements.map(each => <UserTile key={each.id} user={each} onUserDetailsClicked={this.props.onUserDetailsClicked} menu={this.props.actionsContainer} />)}
+                        {this.state.elements.map(each => <UserTile key={each.id} user={each} onAction={this.props.onAction}
+                                                            onUserDetailsClicked={this.props.onUserDetailsClicked} dates={this.props.dates} favorites={this.props.favorites} />)}
                     </div>
                 }
             </Scrollbars>

@@ -9,10 +9,6 @@ import AppContext from '../AppContext';
 
 export default class UserDetailsView extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     onLikeClicked = () => {
         axiosRequest.put("/users/like?id=" + this.props.selectedUser.id).catch(/* do nothing */);
     }
