@@ -6,15 +6,16 @@ import StandardInputBox from './StandardInputBox';
 import AppContext from '../AppContext';
 import qs from 'qs';
 import axiosRequest from '../AxiosRequest';
+import CustomCheckBox from './CustomCheckBox';
 
 export default class LoginForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isChecked: false,
             username: '',
             password: '',
+            isRemember: false,
             loginClicked: false,
         }
     }
@@ -63,11 +64,7 @@ export default class LoginForm extends Component {
                             <PasswordInputBox placeholder="password" onInputChange={val => this.setState({ password: val })} />
 
                             <div>
-                                <div className="checkboxContainer" onClick={() => this.setState((state) => ({ isChecked: !state.isChecked }))}>
-                                    <div className={"checkmark" + (this.state.isChecked ? " checked" : "")}></div>
-                                    <div className={this.state.isChecked ? "check" : ""} />
-                                    <div className="checkboxLabel">Remember me</div>
-                                </div>
+                                <CustomCheckBox label={"Remember me"} />
                                 <button type="submit" className="formLoginButton" disabled={this.state.loginClicked} >Login</button>
                             </div>
 
