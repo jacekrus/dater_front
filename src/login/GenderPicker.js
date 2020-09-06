@@ -29,11 +29,11 @@ export default class GenderPicker extends Component {
     render() {
         return (
             <div className="genderPicker">
-                <div className="genderOption">
+                <div className="genderOption" title={"Select gender: female"}>
                     <FontAwesomeIcon icon={faVenus} className="genderPickIcon" />
                     <CustomCheckBox onCheck={this.onFemaleCheck} isParentManaged checked={this.state.isFemaleSelected}/>
                 </div>
-                <div>
+                <div title={"Select gender: male"}>
                     <FontAwesomeIcon icon={faMars} className="genderPickIcon" />
                     <CustomCheckBox onCheck={this.onMaleCheck} isParentManaged checked={this.state.isMaleSelected}/>
                 </div>
