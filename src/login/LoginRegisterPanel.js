@@ -12,11 +12,11 @@ export default class LoginRegisterPanel extends Component {
         return (
             <div className="userPanelContainer">
                 <div className={"flipCardContainer" + (this.props.isRegister ? " isFlipped" : "")}>
-                    <div className="userPanel">
+                    <div className={"userPanel" + (this.props.isRegister ? " coveredPanel" : "")}>
                         <SlideShow />
                         <LoginForm registerClickHandler={this.props.registerClickHandler} />
                     </div>
-                    <div className="userPanel back">
+                    <div className={"userPanel back" + (this.props.isRegister ? "" : " coveredPanel")}>
                         <div className="registerPanelContainer">
                             <div className="registerPanelTitle left">Personal information</div>
                             <RegisterForm />
