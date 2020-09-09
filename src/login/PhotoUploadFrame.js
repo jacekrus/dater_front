@@ -40,6 +40,7 @@ export default class PhotoUploadFrame extends Component {
                     this.context.setMessage("Your image is too big, maximum 3840x2160 dimension is allowed.")
                 }
                 else {
+                    this.props.onPreviewReady(reader.result);
                     this.setState({ imgSrc: reader.result })
                 }
             }
@@ -56,8 +57,7 @@ export default class PhotoUploadFrame extends Component {
                 accept={["image/jpeg", "image/png"]}
                 onDragEnter={() => this.setState({ isDragging: true })}
                 onDragLeave={() => this.setState({ isDragging: false })}
-                noKeyboard
-            >
+                noKeyboard>
                 {({ getRootProps, getInputProps }) => (
                     <div className="photoUploadWidget">
                         <div className={"photoUploadFrame" + (this.state.isDragging ? " photoUploadFrameDragOver" : "")}  {...getRootProps()}>

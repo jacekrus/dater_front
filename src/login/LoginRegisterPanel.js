@@ -4,7 +4,6 @@ import './SlideShow'
 import SlideShow from './SlideShow';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import PhotoUploadFrame from './PhotoUploadFrame';
 
 export default class LoginRegisterPanel extends Component {
 
@@ -17,17 +16,7 @@ export default class LoginRegisterPanel extends Component {
                         <LoginForm registerClickHandler={this.props.registerClickHandler} />
                     </div>
                     <div className={"userPanel back" + (this.props.isRegister ? "" : " coveredPanel")}>
-                        <div className="registerPanelContainer">
-                            <div className="registerPanelTitle left">Personal information</div>
-                            <RegisterForm />
-                        </div>
-                        <div className="splitter" />
-                        <div className="imageUploadContainer">
-                            <div className="registerPanelTitle right">Photo</div>
-                            <div className="registerPanelContainer">
-                                <PhotoUploadFrame />
-                            </div>
-                        </div>
+                        <RegisterForm />
                     </div>
                 </div>
             </div>
