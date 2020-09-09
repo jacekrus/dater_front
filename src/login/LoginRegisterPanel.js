@@ -23,7 +23,7 @@ export default class LoginRegisterPanel extends Component {
                         </div>
                         <div className="splitter" />
                         <div className="imageUploadContainer">
-                            <div className="registerPanelTitle right">Photos</div>
+                            <div className="registerPanelTitle right">Photo</div>
                             <div className="registerPanelContainer">
                                 <PhotoUploadFrame />
                             </div>

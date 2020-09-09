@@ -12,7 +12,7 @@
 .flipCardContainer {
     width: 100%;
     height: 100%;
-    transition: transform 1s, width 10s, visibility 10s;
+    transition: transform 1s;
     transform-style: preserve-3d;
     cursor: initial;
     position: relative;
@@ -379,6 +379,11 @@ input.dateInputEmpty::-webkit-datetime-edit-text {
     padding-top: 25px;
     border: dotted rgb(168, 168, 168);
     width: 90%;
+    cursor: pointer;
+}
+
+.photoUploadFrameDragOver {
+    opacity: 0.5;
 }
 
 .imageUploadIcon {
@@ -386,4 +391,16 @@ input.dateInputEmpty::-webkit-datetime-edit-text {
     font-size: 280px;
     margin: 0 5px 0;
     padding: 10px;
+}
+
+.previewImage {
+    max-width: 95%;
+    height: auto;
+    max-height: 350px;
+}
+
+.imageUploadText {
+    color: rgb(100, 100, 100);
+    padding: 10px;
+    cursor: default;
 }
