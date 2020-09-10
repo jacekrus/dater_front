@@ -40,7 +40,7 @@ export default class PhotoUploadFrame extends Component {
                     this.context.setMessage("Your image is too big, maximum 3840x2160 dimension is allowed.")
                 }
                 else {
-                    this.props.onPreviewReady(reader.result);
+                    this.props.onPreviewReady(currentFile);
                     this.setState({ imgSrc: reader.result })
                 }
             }
