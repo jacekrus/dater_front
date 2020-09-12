@@ -15,11 +15,6 @@ export default class MainLayout extends Component {
     }
 
     onMenuItemClicked = (view) => {
-        console.log("Proper click")
-        console.log("Active view : ")
-        console.log(this.state.activeView)
-        console.log("New view : ")
-        console.log(view)
         if (this.state.activeView !== view) {
             this.setState({ activeView: view });
         }

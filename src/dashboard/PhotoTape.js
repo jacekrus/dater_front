@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './MainLayoutStyles.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import PhotoUploadFrame from '../login/PhotoUploadFrame';
 
-const PhotoTape = ({user, editable}) => {
+export default class PhotoTape extends Component {
 
-    return (
-        <div className="photoTape">
-            {user.photos.map((each, index) => <img alt="img" key={index} src={each} className="photoTapeImg" />)}
-            {user.photos.length < 4 && editable ? <FontAwesomeIcon icon={faPlusCircle} className="addPhotoButton" title="Add photo"/> : null}
-        </div>
-    );
+    constructor(props) {
+        super(props)
+        let arr = [];
+        for (let i = 0; i < 4 - props.user.photos.length; i++) {
+            arr = [...arr, "aaa"]
+        }
+        this.state = {
+            newPhotos: arr,
+        }
+    }
+
+    newImageAdded = (image) => {
+        let photos = [image, ...this.state.newPhotos];
+        photos.pop();
+        console.log(photos)
+        this.setState({ newPhotos: photos })
+    }
+
+    render() {
+        const { user, editable } = this.props;
+        const newPhotosLength = this.state.newPhotos.length
+        const sum = user.photos.length + this.state.newPhotos.length
+        const canAdd = user.photos.length + this.state.newPhotos.length < 4 && editable
+        return (
+            <div className="photoTape">
+                {user.photos.map((each, index) => <img alt="img" key={index} src={each} className="photoTapeImg" />)}
+
+                <PhotoUploadFrame mini onPreviewReady={(file, image) => this.newImageAdded(image)}/>
+                <PhotoUploadFrame mini onPreviewReady={(file, image) => this.newImageAdded(image)}/>
+                {/* <PhotoUploadFrame mini onPreviewReady={(file, image) => this.newImageAdded(image)}/> */}
+            </div>
+        )
+    }
 }
-export default PhotoTape;

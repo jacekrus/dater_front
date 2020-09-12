@@ -95,17 +95,7 @@ export default class RegisterForm extends Component {
             .then(() => {
                 this.setState({ createClicked: false })
                 context.setMessage("Your account has been successfully created. You can now login to your account.")
-                // this.setState({
-                //     username: '',
-                //     email: '',
-                //     password: '',
-                //     date: '',
-                //     location: '',
-                //     photo: null,
-                //     photoUrl: '',
-                //     isMale: '',
-                //     createClicked: false,
-                // })
+                setTimeout(() => window.location.reload(), 3000)
             })
             .catch(error => {
                 this.displayError(error, context);
@@ -150,7 +140,7 @@ export default class RegisterForm extends Component {
                         <div className="imageUploadContainer">
                             <div className="registerPanelTitle right">Photo</div>
                             <div className="registerPanelContainer">
-                                <PhotoUploadFrame onPreviewReady={imgSrc => this.setState({ photo: imgSrc })} />
+                                <PhotoUploadFrame onPreviewReady={(file, image) => this.setState({ photo: file })} />
                             </div>
                         </div>
                     </React.Fragment>

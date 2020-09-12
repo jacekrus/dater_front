@@ -372,14 +372,25 @@ input.dateInputEmpty::-webkit-datetime-edit-text {
 }
 
 /*Photo upload widget styles*/
+.photoUploadWidget {
+    position: relative;
+}
+
 .photoUploadFrame {
+    border: dotted rgb(168, 168, 168);
+    cursor: pointer;
+}
+
+.photoUploadFrameNormal {
     margin-top: 50px;
     margin-left: 10px;
     padding-bottom: 25px;
     padding-top: 25px;
-    border: dotted rgb(168, 168, 168);
     width: 90%;
-    cursor: pointer;
+}
+
+.photoUploadFrameMini {
+    margin-left: 5px;
 }
 
 .photoUploadFrameDragOver {
@@ -393,10 +404,19 @@ input.dateInputEmpty::-webkit-datetime-edit-text {
     padding: 10px;
 }
 
+.imageUploadIconMini {
+    font-size: 125px;
+}
+
 .previewImage {
     max-width: 95%;
     height: auto;
     max-height: 350px;
+}
+
+.previewImageMini {
+    width: 142px;
+    height: 142px;
 }
 
 .imageUploadText {
@@ -404,3 +424,51 @@ input.dateInputEmpty::-webkit-datetime-edit-text {
     padding: 10px;
     cursor: default;
 }
+
+.previewButton {
+    position: absolute;
+    background-color: white;
+    transition: transform .2s;
+    z-index: 2;
+}
+
+.previewButton:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.previewButtonMiniature {
+    border-radius: 13px;
+    width: 26px;
+    height: 26px;
+    box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    right: 5%;
+    bottom: 6%;
+}
+
+.previewButtonNormal {
+    border-radius: 18px;
+    width: 36px;
+    height: 36px;
+    box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.5);
+    font-size: 24px;
+    right: 10%;
+    bottom: 18%;
+}
+
+.previewRemoveButtonIcon {
+    position: absolute;
+    color: rgb(138, 138, 138);
+}
+
+.previewRemoveButtonIconMiniature {
+    right: 7px;
+    bottom: 4px;
+}
+
+.previewRemoveButtonIconNormal {
+    right: 10px;
+    bottom: 5px;
+}
+
