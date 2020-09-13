@@ -30,7 +30,7 @@ export default class Recommended extends Component {
                     {this.state.recommended.map((each) =>
                         <NavLink key={each.id} to={Views.DASHBOARD.path + Views.USER_DETAILS.path + `/${each.id}`}>
                             <div title={each.username} className='recommendedItemContainer' onClick={() => this.props.onClick(each)}>
-                                <img alt='img' className='recommendedItem' title={each.username} src={each.photos[1]} />
+                                <img alt='img' className='recommendedItem' title={each.username} src={each.photos[0]} />
                             </div>
                         </NavLink>
                     )}

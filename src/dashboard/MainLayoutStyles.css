@@ -464,6 +464,10 @@ textarea {
     display: block;
 }
 
+.userInfoButton:hover {
+    cursor: pointer;
+}
+
 .addPhotoButton {
     color: rgb(185, 183, 183);
     font-size: 42px;

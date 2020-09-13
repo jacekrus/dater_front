@@ -1,39 +1,26 @@
 import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import PhotoUploadFrame from '../login/PhotoUploadFrame';
+import { faTimes, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class PhotoTape extends Component {
 
-    constructor(props) {
-        super(props)
-        let arr = [];
-        for (let i = 0; i < 4 - props.user.photos.length; i++) {
-            arr = [...arr, "aaa"]
-        }
-        this.state = {
-            newPhotos: arr,
-        }
-    }
-
-    newImageAdded = (image) => {
-        let photos = [image, ...this.state.newPhotos];
-        photos.pop();
-        console.log(photos)
-        this.setState({ newPhotos: photos })
-    }
-
     render() {
         const { user, editable } = this.props;
-        const newPhotosLength = this.state.newPhotos.length
-        const sum = user.photos.length + this.state.newPhotos.length
-        const canAdd = user.photos.length + this.state.newPhotos.length < 4 && editable
+        const arr = [...Array(4 - user.photos.length).keys()]
         return (
             <div className="photoTape">
-                {user.photos.map((each, index) => <img alt="img" key={index} src={each} className="photoTapeImg" />)}
-
-                <PhotoUploadFrame mini onPreviewReady={(file, image) => this.newImageAdded(image)}/>
-                <PhotoUploadFrame mini onPreviewReady={(file, image) => this.newImageAdded(image)}/>
-                {/* <PhotoUploadFrame mini onPreviewReady={(file, image) => this.newImageAdded(image)}/> */}
+                {user.photos.map((each, index) =>
+                    <div className="positionRelative" key={index}>
+                        <img alt="img" src={each} className="photoTapeImg" />
+                        <div className="previewButton previewButtonMiniature" title='Remove photo' onClick={() => this.props.onPhotoRemove(index)}>
+                            <FontAwesomeIcon className="previewRemoveButtonIcon previewRemoveButtonIconMiniature" icon={faTimes} />
+                        </div>
+                        {index > 0 ? <FontAwesomeIcon icon={faCheckCircle} className="previewProfileButtonIcon" title="Set as profile picture" onClick={() => this.props.onProfilePictureChange(index)}/> : null}
+                    </div>
+                )}
+                {editable ? arr.map((each, index) => <PhotoUploadFrame key={index} mini onPreviewReady={this.props.onPreviewReady} onPreviewRemoved={this.props.onPreviewRemoved}/>) : null}
             </div>
         )
     }

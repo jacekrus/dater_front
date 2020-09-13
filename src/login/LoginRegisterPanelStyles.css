@@ -372,7 +372,7 @@ input.dateInputEmpty::-webkit-datetime-edit-text {
 }
 
 /*Photo upload widget styles*/
-.photoUploadWidget {
+.positionRelative {
     position: relative;
 }
 
@@ -470,5 +470,22 @@ input.dateInputEmpty::-webkit-datetime-edit-text {
 .previewRemoveButtonIconNormal {
     right: 10px;
     bottom: 5px;
+}
+
+.previewProfileButtonIcon {
+    position: absolute;
+    color: rgb(18, 139, 219);
+    background-color: white;
+    border-radius: 40px;
+    font-size: 25px;
+    right: 26%;
+    bottom: 6%;
+    transition: transform .2s;
+    z-index: 2;
+}
+
+.previewProfileButtonIcon:hover {
+    transform: scale(1.2);
+    cursor: pointer;
 }
 

@@ -10,6 +10,7 @@ export default class PhotoUploadFrame extends Component {
     state = {
         isDragging: false,
         imgSrc: null,
+        currentFile: null,
     }
 
     onDrop = (files) => {
@@ -40,13 +41,20 @@ export default class PhotoUploadFrame extends Component {
                     this.context.setMessage("Your image is too big, maximum 3840x2160 dimension is allowed.")
                 }
                 else {
-                    this.props.onPreviewReady(currentFile, image.src);
-                    this.setState({ imgSrc: reader.result })
+                    this.props.onPreviewReady(currentFile);
+                    this.setState({ imgSrc: reader.result, currentFile: currentFile })
                 }
             }
 
         }
         reader.readAsDataURL(currentFile);
+    }
+
+    onPreviewRemoved = () => {
+        if(this.props.onPreviewRemoved) {
+            this.props.onPreviewRemoved(this.state.currentFile);
+        }
+        this.setState({ imgSrc: null, currentFile: null })
     }
 
     render() {
@@ -60,7 +68,7 @@ export default class PhotoUploadFrame extends Component {
                 onDragLeave={() => this.setState({ isDragging: false })}
                 noKeyboard>
                 {({ getRootProps, getInputProps }) => (
-                    <div className="photoUploadWidget ">
+                    <div className="positionRelative">
                         <div className={"photoUploadFrame " + (!mini ? "photoUploadFrameNormal" : "photoUploadFrameMini") + (this.state.isDragging ? " photoUploadFrameDragOver" : "")}  {...getRootProps()}>
                             {this.state.imgSrc === null ?
                                 <FontAwesomeIcon icon={faFileImage} className={"imageUploadIcon " + (mini ? "imageUploadIconMini" : "")} /> :
@@ -69,9 +77,9 @@ export default class PhotoUploadFrame extends Component {
                         {mini ? null : <div className="imageUploadText">Drag an image to box above or click</div>}
                         <input {...getInputProps()} />
                         {this.state.imgSrc === null ? null :
-                            <div className={"previewButton " + (mini ? "previewButtonMiniature" : "previewButtonNormal")} title='Remove photo' onClick={() => this.setState({ imgSrc: null })}>
+                            <div className={"previewButton " + (mini ? "previewButtonMiniature" : "previewButtonNormal")} title='Remove photo' onClick={this.onPreviewRemoved}>
                                 <FontAwesomeIcon className={"previewRemoveButtonIcon " + (mini ? "previewRemoveButtonIconMiniature" : "previewRemoveButtonIconNormal")}
-                                    icon={faTimes}  />
+                                    icon={faTimes} onClick={this.onPreviewRemoved} />
                             </div>
                         }
                     </div>

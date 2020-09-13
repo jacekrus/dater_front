@@ -7,7 +7,7 @@ export default class LoginView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isRegister: true,
+            isRegister: false,
         }
     }
 
