@@ -7,6 +7,7 @@ import { faHeart, faTimes, faChevronRight, faChevronLeft } from '@fortawesome/fr
 import PhotoCount from './PhotoCount';
 import { NavLink } from 'react-router-dom';
 import Views from './Views';
+import { BeatLoader } from 'react-spinners';
 
 export default class FindDateView extends Component {
 
@@ -74,7 +75,7 @@ export default class FindDateView extends Component {
         let age = displayedUser ? new Date().getFullYear() - this.getUsersBirthYear(displayedUser.dateOfBirth) : 0;
         return (
             <div className='findDateContainer'>
-                {this.state.loading ? <div>LOADING...</div> :
+                {this.state.loading ? <BeatLoader loading /> :
                     <React.Fragment>
                         <div className='findDateContent'>
                             {displayedUser ?

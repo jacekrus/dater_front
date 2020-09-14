@@ -10,6 +10,7 @@ import AppContext from '../AppContext';
 import GenderPicker from './GenderPicker';
 import axiosRequest from '../AxiosRequest';
 import PhotoUploadFrame from './PhotoUploadFrame';
+import { BeatLoader } from 'react-spinners';
 
 export default class RegisterForm extends Component {
 
@@ -120,6 +121,7 @@ export default class RegisterForm extends Component {
 
     render() {
         const dateInputEmpty = this.state.date.trim() === "";
+        const {createClicked} = this.state;
         return (
             <AppContext.Consumer>
                 {(context) => (
@@ -133,7 +135,8 @@ export default class RegisterForm extends Component {
                                 <DatePickerBox style={dateInputEmpty ? "dateInputEmpty" : "dateInput"} onInputChange={val => this.setState({ date: val })} />
                                 <StandardInputBox icon={faMapMarkedAlt} title="Enter your location (country city)" maxLength={40} placeholder="location" onInputChange={val => this.setState({ location: val })} />
                                 <GenderPicker isMale={(bool) => this.setState({ isMale: bool })} />
-                                <button className="registerButton" disabled={this.state.createClicked} onClick={() => this.onCreateAccount(context)}>Create account</button>
+                                {createClicked ? null : <button className="registerButton" disabled={this.state.createClicked} onClick={() => this.onCreateAccount(context)}>Create account</button>}
+                                {createClicked ? <BeatLoader loading color={"#17BB0F"}/> : null }
                             </div>
                         </div>
                         <div className="splitter" />

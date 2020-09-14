@@ -14,13 +14,15 @@ export default class PhotoTape extends Component {
                 {user.photos.map((each, index) =>
                     <div className="positionRelative" key={index}>
                         <img alt="img" src={each} className="photoTapeImg" />
-                        <div className="previewButton previewButtonMiniature" title='Remove photo' onClick={() => this.props.onPhotoRemove(index)}>
-                            <FontAwesomeIcon className="previewRemoveButtonIcon previewRemoveButtonIconMiniature" icon={faTimes} />
-                        </div>
-                        {index > 0 ? <FontAwesomeIcon icon={faCheckCircle} className="previewProfileButtonIcon" title="Set as profile picture" onClick={() => this.props.onProfilePictureChange(index)}/> : null}
+                        { editable ? 
+                            <div className="previewButton previewButtonMiniature" title='Remove photo' onClick={() => this.props.onPhotoRemove(index)}>
+                                <FontAwesomeIcon className="previewRemoveButtonIcon previewRemoveButtonIconMiniature" icon={faTimes} />
+                            </div> : null
+                        }
+                        {index > 0 && editable ? <FontAwesomeIcon icon={faCheckCircle} className="previewProfileButtonIcon" title="Set as profile picture" onClick={() => this.props.onProfilePictureChange(index)} /> : null}
                     </div>
                 )}
-                {editable ? arr.map((each, index) => <PhotoUploadFrame key={index} mini onPreviewReady={this.props.onPreviewReady} onPreviewRemoved={this.props.onPreviewRemoved}/>) : null}
+                {editable ? arr.map((each, index) => <PhotoUploadFrame key={index} mini onPreviewReady={this.props.onPreviewReady} onPreviewRemoved={this.props.onPreviewRemoved} />) : null}
             </div>
         )
     }
