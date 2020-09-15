@@ -22,7 +22,7 @@ export default class PhotoTape extends Component {
                         {index > 0 && editable ? <FontAwesomeIcon icon={faCheckCircle} className="previewProfileButtonIcon" title="Set as profile picture" onClick={() => this.props.onProfilePictureChange(index)} /> : null}
                     </div>
                 )}
-                {editable ? arr.map((each, index) => <PhotoUploadFrame key={index} mini onPreviewReady={this.props.onPreviewReady} onPreviewRemoved={this.props.onPreviewRemoved} />) : null}
+                {editable ? arr.map((each, index) => <PhotoUploadFrame key={index} mini onPreviewReady={(file) => this.props.onPreviewReady(file, index)} onPreviewRemoved={this.props.onPreviewRemoved} />) : null}
             </div>
         )
     }

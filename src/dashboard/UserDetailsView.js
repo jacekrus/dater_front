@@ -58,7 +58,6 @@ export default class UserDetailsView extends Component {
     onUpdatePhotos = () => {
         if (!this.state.isUploading) {
             this.setState({ isUploading: true })
-            this.context.setMessage("Your profile is being updated, please wait.")
             const photos = this.state.photosToUpload;
             const uploaders = photos.map((each) => {
                 const data = new FormData();
@@ -78,9 +77,8 @@ export default class UserDetailsView extends Component {
                     })
                         .then((resp) => {
                             this.context.setUser(resp.data)
-                            this.context.setMessage("Update successful.")
                             this.setState({ isUploading: false, photosUrls: [], photosToUpload: [] })
-                            setTimeout(() => window.location.reload(), 2000)
+                            //setTimeout(() => window.location.reload(), 2000)
                         })
                         .catch(() => {
                             this.onPhotoUploadError()
@@ -101,9 +99,13 @@ export default class UserDetailsView extends Component {
         this.setState({ photosToUpload: arr });
     }
 
-    onPreviewReady = (file) => {
+    onPreviewReady = (file, index) => {
         const currentToUpload = this.state.photosToUpload
-        if (currentToUpload.indexOf(file) === -1) {
+        if(currentToUpload[index]) {
+            currentToUpload[index] = file;
+            this.setState({photosToUpload: currentToUpload});
+        }
+        else {
             this.setState({ photosToUpload: [...currentToUpload, file] })
         }
     }
