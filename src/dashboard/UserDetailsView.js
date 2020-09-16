@@ -8,6 +8,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import axiosRequest from '../AxiosRequest';
 import AppContext from '../AppContext';
 import { BeatLoader } from 'react-spinners';
+import Views from './Views';
 
 export default class UserDetailsView extends Component {
 
@@ -78,7 +79,8 @@ export default class UserDetailsView extends Component {
                         .then((resp) => {
                             this.context.setUser(resp.data)
                             this.setState({ isUploading: false, photosUrls: [], photosToUpload: [] })
-                            //setTimeout(() => window.location.reload(), 2000)
+                            this.props.history.push(Views.DASHBOARD.path);
+                            this.props.history.push(Views.DASHBOARD.path + Views.EDIT_PROFILE.path);
                         })
                         .catch(() => {
                             this.onPhotoUploadError()
