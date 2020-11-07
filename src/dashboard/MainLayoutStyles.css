@@ -497,29 +497,36 @@ textarea {
     height: 100%;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+    background-color: rgba(26, 148, 26, 0.137);
 }
 
-.chatPanel {
+.messagesContainer {
+    position: relative;
     width: 70%;
     height: 100%;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    background-color: rgba(172, 255, 47, 0.322);
 }
 
 .conversation {
     display: flex;
     height: 60px;
-    background-color: rgba(2, 170, 2, 0.534);
+    background-color: rgba(179, 179, 179, 0.93);
     width: 80%;
     padding: 10px;
     margin-top: 10px;
     margin-left: 15px;
     border-radius: 15px;
+    transition: background-color 0.2s;
 }
 
 .conversation:hover {
     cursor: pointer;
+    background-color: rgba(4, 209, 4, 0.623);
+}
+
+.conversationActive {
+    background-color: rgba(4, 209, 4, 0.623);
 }
 
 .conversationMiniatureImg {
@@ -553,4 +560,108 @@ textarea {
 .loadingCenter {
     position: absolute;
     left: 35%;
+}
+
+.chatPanel {
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 20px;
+}
+
+.sendMessagePanel {
+    width: 100%;
+    height: 100%;
+    border-bottom-right-radius: 20px;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.messageBubble {
+    display: inline-block;
+    width: auto;
+    max-width: 40%;
+    background-color: rgba(155, 155, 155, 0.93);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 2.5px;
+    color: white;
+    overflow-wrap: break-word;
+}
+
+.messageBubbleMine {
+    background-color: rgba(2, 177, 2, 0.925);
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.msgBubbleImgContainer {
+    position: relative;
+    width: 40px;
+}
+
+.msgBubbleImg {
+    position: absolute;
+    bottom: 5px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.chatBubblesContainer {
+    position: relative;
+    width: 100%;
+    height: 90%;
+}
+
+.chatMsgBoxContainer {
+    position: relative;
+    width: 100%;
+    height: 10%;
+}
+
+.chatMsgBoxContainer input[type="text"] {
+    background-color: rgba(238, 238, 238, 0.527);
+}
+
+.messageBox {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.sendMsgIcon {
+    position: absolute;
+    top: 12%;
+    left: 64%;
+    font-size: 26px;
+    color: rgb(185, 183, 183);
+    transition: color 0.2s;
+}
+
+.sendMsgIcon:hover {
+    color: rgb(128, 128, 128);
+    cursor: pointer;
+}
+
+.messageLoading {
+    position: absolute;
+    top: 15px;
+    left: 45%;
+}
+
+.scrollBottomIconContainer {
+    position: absolute;
+    bottom: 40px;
+    left: 49%;
+}
+
+.scrollBottomIcon {
+    font-size: 0px;
+    transition: font-size 0.2s;
+}
+
+.scrollBottomIconVisible {
+    font-size: 32px;
 }

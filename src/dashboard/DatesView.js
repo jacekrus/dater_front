@@ -8,6 +8,7 @@ export default class DatesView extends Component {
 
     onAction = (evt) => {
         evt.preventDefault();
+        evt.stopPropagation();
         this.props.history.push(Views.DASHBOARD.path + Views.CHAT.path)
         this.props.onMenuItemClicked(Views.CHAT)
     }

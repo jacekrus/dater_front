@@ -12,6 +12,7 @@ export default class ConversationsContainer extends Component {
         scrollTop: 0,
         loading: true,
         conversations: [],
+        activeId: null,
     }
 
     componentDidMount() {
@@ -46,7 +47,9 @@ export default class ConversationsContainer extends Component {
                 this.requestConversations();
             }
         }
-        this.setState({ scrollTop: scrollTop });
+        if(scrollTop !== this.state.scrollTop) {
+            this.setState({ scrollTop: scrollTop });
+        }
     }
 
     extractPhoto = (conversation) => {
@@ -60,6 +63,11 @@ export default class ConversationsContainer extends Component {
         return conversation.users.map(each => each.username).join(', ');
     }
 
+    onConversationClicked = (id) => {
+        this.setState({activeId: id})
+        this.props.onConversationClicked(id)
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -67,14 +75,13 @@ export default class ConversationsContainer extends Component {
                     <Scrollbars autoHide className='customScrollbar' onUpdate={this.onUpdate}>
                         {
                             this.state.conversations.map((each, index) =>
-                                <div key={index} className="conversation">
+                                <div key={index} className={"conversation" + (each.id === this.state.activeId ? " conversationActive" : "")} onClick={() => this.onConversationClicked(each.id)}>
                                     <img alt="img" src={this.extractPhoto(each)} className="conversationMiniatureImg"></img>
                                     <div className='conversationUsers' title={this.extractUsernames(each)}>{this.extractUsernames(each)}</div>
                                 </div>
                             )
-
                         }
-                        {this.state.loading ? <div className="loadingCenter"><BeatLoader loading color={"#17BB0F"} /></div> : null}
+                        <div className="loadingCenter"><BeatLoader loading={this.state.loading} color={"#17BB0F"} /></div>
                     </Scrollbars>
                 </div>
                 

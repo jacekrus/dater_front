@@ -8,17 +8,27 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Stomp from 'stompjs';
 import qs from 'qs';
 import ConversationsContainer from './ConversationsContainer';
-import ChatPanel from './ChatPanel';
+import MessagesContainer from './MessagesContainer';
 
 
 export default class ChatView extends Component {
+
+    state = {
+        conversationId: null,
+    }
+
+    onConversationClicked = (id) => {
+        if(id !== this.state.conversationId) {
+            this.setState({conversationId: id})
+        }
+    }
 
     render() {
         return (
             <React.Fragment>
                 <div className="chatView">
-                    <ConversationsContainer />
-                    <ChatPanel onMenuItemClicked={this.props.onMenuItemClicked} />
+                    <ConversationsContainer onConversationClicked={this.onConversationClicked}/>
+                    <MessagesContainer onMenuItemClicked={this.props.onMenuItemClicked} conversationId={this.state.conversationId}/>
                 </div>
             </React.Fragment>
         );

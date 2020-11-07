@@ -36,7 +36,9 @@ export default class PaginatedTilesContainer extends Component {
             const offset = scrollHeight - clientHeight - scrollTop;
             if (offset < 1) this.handleAboutToReachBottom();
         }
-        this.setState({ scrollTop: scrollTop });
+        if(scrollTop !== this.state.scrollTop) {
+            this.setState({ scrollTop: scrollTop });
+        }
     }
 
     render() {
