@@ -6,7 +6,7 @@ import Views from './Views';
 export default class DatesView extends Component {
 
 
-    onAction = (evt) => {
+    onAction = (evt, user) => {
         evt.preventDefault();
         evt.stopPropagation();
         this.props.history.push(Views.DASHBOARD.path + Views.CHAT.path)

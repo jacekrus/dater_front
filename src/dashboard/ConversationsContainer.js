@@ -34,7 +34,7 @@ export default class ConversationsContainer extends Component {
 
     handleError = () => {
         this.context.setError(true)
-        this.context.setMesssage("Something went wrong. Please try again later or contact site's administrator.")
+        this.context.setMessage("Something went wrong. Please try again later or contact site's administrator.")
         this.setState({loading: false})
     }
 
@@ -53,10 +53,11 @@ export default class ConversationsContainer extends Component {
     }
 
     extractPhoto = (conversation) => {
-        if (conversation.users.length < 2) {
+        let convUsers = conversation.users.filter(user => user.photos !== null && user.id !== this.context.state.user.id);
+        if (convUsers.length < 1) {
             return "img";
         }
-        return conversation.users[0].id === this.context.state.user.id ? conversation.users[1].photos[0] : conversation.users[0].photos[0];
+        return convUsers[0].photos[0];
     }
 
     extractUsernames = (conversation) => {

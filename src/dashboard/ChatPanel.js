@@ -47,7 +47,7 @@ export default class ChatPanel extends Component {
 
     handleError = () => {
         this.context.setError(true)
-        this.context.setMesssage("Unable to load more messages. Please try again later or contact site's administrator.")
+        this.context.setMessage("Unable to load more messages. Please try again later or contact site's administrator.")
         this.setState({ loading: false })
     }
 
