@@ -37,9 +37,8 @@ export default class ChatPanel extends Component {
     requestMessages() {
         axiosRequest.get('/conversations/messages?id=' + this.props.conversationId + '&page=' + this.state.currentPage + '&size=20')
             .then((resp) => {
-                let msgs = resp.data;
-                msgs = [...msgs, ...msgs, ...msgs, ...msgs, ...msgs, ...msgs]
-                this.setState((prevState) => ({ messages: msgs, currentPage: prevState.currentPage + 1 }), () => this.scrollBottomOnFirstLoad());
+                let msgs = resp.data.map((val, idx, arr) => arr[arr.length - 1 - idx]);
+                this.setState((prevState) => ({ messages: [...msgs, ...this.state.messages], currentPage: prevState.currentPage + 1 }), () => this.scrollBottomOnFirstLoad());
                 this.setState({ loading: false })
             })
             .catch(() => this.handleError());
@@ -58,13 +57,10 @@ export default class ChatPanel extends Component {
     }
 
     onUpdate = (values) => {
-        const { scrollTop, scrollHeight, clientHeight } = values;
-        if (scrollTop < this.state.scrollTop) {
-            const offset = scrollHeight - clientHeight - scrollTop;
-            if (offset > 659) {
-                // this.setState({loading: true})
-                // this.requestConversations();
-            }
+        const { scrollTop } = values;
+        if (scrollTop < this.state.scrollTop && scrollTop < 1) {
+            this.setState({ loading: true })
+            this.requestMessages();
         }
         if (scrollTop !== this.state.scrollTop) {
             this.setState({ scrollTop: scrollTop });
@@ -75,10 +71,23 @@ export default class ChatPanel extends Component {
         if (e) {
             e.preventDefault();
         }
+        let msg = this.state.message.trim();
+        if (msg === '') {
+            return;
+        }
+        axiosRequest.post("/conversations/messages?id=" + this.state.currentId, new String(msg))
+            .then((resp) => {
+                this.setState({ message: '', messages: [...this.state.messages, resp.data] })
+                this.scrollbars.current.scrollToBottom();
+            })
+            .catch(() => {
+                this.context.setError(true)
+                this.context.setMessage("Could not send message")
+            })
     }
 
     render() {
-        const buttonVisible = this.state.scrollTop < 360 && this.state.messages.length > 10;
+        const buttonVisible = this.state.scrollTop < 360 && this.state.messages.length > 25;
         return (
             <React.Fragment>
                 <div className="messageLoading">
@@ -96,7 +105,7 @@ export default class ChatPanel extends Component {
                         )}
                     </Scrollbars>
                     <div className="scrollBottomIconContainer">
-                        <FontAwesomeIcon icon={faArrowCircleDown} className={"sendMsgIcon scrollBottomIcon" + (buttonVisible ? " scrollBottomIconVisible" : "" )}
+                        <FontAwesomeIcon icon={faArrowCircleDown} className={"sendMsgIcon scrollBottomIcon" + (buttonVisible ? " scrollBottomIconVisible" : "")}
                             title={"Scroll bottom"} onClick={() => this.scrollbars.current.scrollToBottom()} />
                     </div>
                 </div>

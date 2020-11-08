@@ -19,6 +19,12 @@ export default class ConversationsContainer extends Component {
         this.requestConversations();
     }
 
+    componentDidUpdate() {
+        if(this.props.conversationId !== null && this.state.activeId !== this.props.conversationId) {
+            this.setState({activeId: this.props.conversationId})
+        }
+    }
+
     requestConversations = () => {
         let currentConversations = this.state.conversations;
         axiosRequest.get('/conversations?page=' + this.state.currentPage + "&size=9")

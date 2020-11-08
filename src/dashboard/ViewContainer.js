@@ -12,6 +12,18 @@ import ChatView from './ChatView';
 
 export default class ViewContainer extends Component {
 
+    state = {
+        conversationId: null,
+    }
+
+    onSendMessageClicked = (id) => {
+        setTimeout(() => this.setState({ conversationId: id }), 0)
+    }
+
+    onChatViewRendered = () => {
+        this.setState({conversationId: null})
+    }
+
     render() {
         return (
             <AppContext.Consumer>
@@ -20,9 +32,11 @@ export default class ViewContainer extends Component {
                         <Switch>
                             <Route exact path={Views.DASHBOARD.path + Views.FIND_A_DATE.path} render={(props) => <FindDateView onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
                             <Route exact path={Views.DASHBOARD.path + Views.EDIT_PROFILE.path} render={(props) => <UserDetailsView selectedUser={context.state.user} editable {...props} />} />
-                            <Route exact path={Views.DASHBOARD.path + Views.DATES.path} render={(props) => <DatesView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
+                            <Route exact path={Views.DASHBOARD.path + Views.DATES.path} render={(props) => <DatesView onMenuItemClicked={this.props.onMenuItemClicked}
+                                onUserDetailsClicked={this.props.onSelectedUserChanged} onSendMessageClicked={this.onSendMessageClicked} {...props} />} />
                             <Route exact path={Views.DASHBOARD.path + Views.FAVORITES.path} render={(props) => <FavoritesView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
-                            <Route exact path={Views.DASHBOARD.path + Views.CHAT.path} render={(props) => <ChatView onMenuItemClicked={this.props.onMenuItemClicked} {...props} />} />
+                            <Route exact path={Views.DASHBOARD.path + Views.CHAT.path} render={(props) => <ChatView onMenuItemClicked={this.props.onMenuItemClicked}
+                                conversationId={this.state.conversationId} {...props} onChatViewRendered={this.onChatViewRendered}/>} />
                             <Route exact path={Views.DASHBOARD.path + Views.LIKEYOU.path} render={(props) => <LikedByView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
                             <Route exact path={Views.DASHBOARD.path + Views.USER_DETAILS.path + "/:id"} render={(props) => <UserDetailsView selectedUser={this.props.selectedUser} {...props} />} />
                         </Switch>
