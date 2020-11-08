@@ -65,8 +65,10 @@ export default class ConversationsContainer extends Component {
     }
 
     onConversationClicked = (id) => {
-        this.setState({activeId: id})
-        this.props.onConversationClicked(id)
+        if(this.state.activeId !== id) {
+            this.setState({activeId: id})
+            this.props.onConversationClicked(id)
+        }
     }
 
     render() {
