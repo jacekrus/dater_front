@@ -12,6 +12,16 @@
     width: 850px;
 }
 
+.helloViewText {
+    position: absolute;
+    top: 30%;
+    left: 45%;
+    font-family: sans-serif;
+    color: #767676;
+    font-size: 28px;
+    text-align: center;
+}
+
 /* Side menu styles */
 .menu {
     width: 350px;
