@@ -19,7 +19,9 @@ export default class ChatPanel extends Component {
             currentId: this.props.conversationId,
             message: '',
             scrollTop: 0,
+            scrollHeight: 0,
             currentPage: 0,
+            blockScroll: false,
             loading: true,
         }
     }
@@ -30,7 +32,7 @@ export default class ChatPanel extends Component {
 
     componentDidUpdate() {
         if (this.state.currentId !== this.props.conversationId) {
-            this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0 }, () => this.requestMessages());
+            this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0, scrollHeight: 0 }, () => this.requestMessages());
         }
     }
 
@@ -38,7 +40,7 @@ export default class ChatPanel extends Component {
         axiosRequest.get('/conversations/messages?id=' + this.props.conversationId + '&page=' + this.state.currentPage + '&size=20')
             .then((resp) => {
                 let msgs = resp.data.map((val, idx, arr) => arr[arr.length - 1 - idx]);
-                this.setState((prevState) => ({ messages: [...msgs, ...this.state.messages], currentPage: prevState.currentPage + 1 }), () => this.scrollBottomOnFirstLoad());
+                this.setState((prevState) => ({ messages: [...msgs, ...this.state.messages], currentPage: prevState.currentPage + 1 }), () => this.adjustScrollPosition(0));
                 this.setState({ loading: false })
             })
             .catch(() => this.handleError());
@@ -50,17 +52,29 @@ export default class ChatPanel extends Component {
         this.setState({ loading: false })
     }
 
-    scrollBottomOnFirstLoad = () => {
+    adjustScrollPosition = (scrollHeight) => {
         if (this.state.currentPage === 1) {
             this.scrollbars.current.scrollToBottom()
+        }
+        else if (scrollHeight > 0) {
+            this.scrollbars.current.scrollTop(scrollHeight);
         }
     }
 
     onUpdate = (values) => {
-        const { scrollTop } = values;
+        const { scrollTop, scrollHeight } = values;
         if (scrollTop < this.state.scrollTop && scrollTop < 1) {
             this.setState({ loading: true })
             this.requestMessages();
+        }
+        if (scrollHeight > this.state.scrollHeight) {
+            if(this.state.blockScroll) {
+                this.setState({blockScroll: false});
+            }
+            else {
+                this.adjustScrollPosition(scrollHeight - this.state.scrollHeight)
+            }
+            this.setState({ scrollHeight: scrollHeight });
         }
         if (scrollTop !== this.state.scrollTop) {
             this.setState({ scrollTop: scrollTop });
@@ -75,7 +89,11 @@ export default class ChatPanel extends Component {
         if (msg === '') {
             return;
         }
-        axiosRequest.post("/conversations/messages?id=" + this.state.currentId, new String(msg))
+        this.setState({blockScroll: true}, () => this.sendMessage(msg))
+    }
+
+    sendMessage(message) {
+        axiosRequest.post("/conversations/messages?id=" + this.state.currentId, new String(message))
             .then((resp) => {
                 this.setState({ message: '', messages: [...this.state.messages, resp.data] })
                 this.scrollbars.current.scrollToBottom();
@@ -87,7 +105,8 @@ export default class ChatPanel extends Component {
     }
 
     render() {
-        const buttonVisible = this.state.scrollTop < 360 && this.state.messages.length > 25;
+        let clientHeight = 630;
+        const buttonVisible = this.state.scrollHeight - (this.state.scrollTop + clientHeight) > 500;
         return (
             <React.Fragment>
                 <div className="messageLoading">
@@ -111,7 +130,7 @@ export default class ChatPanel extends Component {
                 </div>
                 <div className="chatMsgBoxContainer">
                     <div className="messageBox">
-                        <form onSubmit={(e) => this.onMessageSend(e)} >
+                        <form onSubmit={(e) => this.onMessageSend(e)}>
                             <StandardInputBox icon={faCommentDots} placeholder="Type a message..." maxLength={499}
                                 onInputChange={val => this.setState({ message: val })} />
                         </form>
