@@ -28,7 +28,10 @@ export default class FindDateView extends Component {
                 let users = resp.data.filter(usr => usr.id !== this.context.state.user.id)
                 this.setState({ foundUsers: users, loading: false })
             })
-            .catch(() => {/*do nothing */ });
+            .catch(() => { 
+                this.context.setError(true)
+                this.context.setMessage("Unable to load new recommendations. Please try refreshing the page or contact site's administrator.")
+             });
     }
 
     onNextPhotoClicked = () => {
