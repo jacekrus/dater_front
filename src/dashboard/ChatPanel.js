@@ -23,6 +23,7 @@ export default class ChatPanel extends Component {
             currentPage: 0,
             blockScroll: false,
             loading: true,
+            resetInput: false,
         }
     }
 
@@ -97,6 +98,7 @@ export default class ChatPanel extends Component {
             .then((resp) => {
                 this.setState({ message: '', messages: [...this.state.messages, resp.data] })
                 this.scrollbars.current.scrollToBottom();
+                this.setState({resetInput: true}, () => this.setState({resetInput: false}))
             })
             .catch(() => {
                 this.context.setError(true)
@@ -132,7 +134,7 @@ export default class ChatPanel extends Component {
                     <div className="messageBox">
                         <form onSubmit={(e) => this.onMessageSend(e)}>
                             <StandardInputBox icon={faCommentDots} placeholder="Type a message..." maxLength={499}
-                                onInputChange={val => this.setState({ message: val })} />
+                                onInputChange={val => this.setState({ message: val })} reset={this.state.resetInput} />
                         </form>
                     </div>
                     <div>
