@@ -34,7 +34,7 @@ export default class UserDetailsView extends Component {
     }
 
     onUpdateInterestedIn = (value) => {
-        if(value && (value !== 'Men' || value !== 'Women' || value !== 'Both')) {
+        if(value && !(value === 'Men' || value === 'Women' || value === 'Both')) {
             this.context.setError(true);
             this.context.setMessage("Invalid input. Only: 'Men', 'Women' or 'Both' are allowed.")
             return;

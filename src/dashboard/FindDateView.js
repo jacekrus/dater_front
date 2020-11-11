@@ -24,8 +24,11 @@ export default class FindDateView extends Component {
 
     requestUsers() {
         axiosRequest.get('/users/recommended')
-        .then((resp) => this.setState({ foundUsers: resp.data, loading: false }))
-        .catch(() => {/*do nothing */});
+            .then((resp) => {
+                let users = resp.data.filter(usr => usr.id !== this.context.state.user.id)
+                this.setState({ foundUsers: users, loading: false })
+            })
+            .catch(() => {/*do nothing */ });
     }
 
     onNextPhotoClicked = () => {

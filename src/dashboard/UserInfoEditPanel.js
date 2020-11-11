@@ -4,8 +4,9 @@ export default class UserInfoEditPanel extends Component {
     
     constructor(props) {
         super(props)
+        let content = this.props.content ? this.props.content : '';
         this.state = {
-            content: this.props.content,
+            content: content,
         }
     }
 
