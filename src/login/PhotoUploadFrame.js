@@ -13,6 +13,12 @@ export default class PhotoUploadFrame extends Component {
         currentFile: null,
     }
 
+    componentDidUpdate() {
+        if(this.props.reset) {
+            this.setState({isDragging: false, imgSrc: null, currentFile: null})
+        }
+    }
+
     onDrop = (files) => {
         this.setState({ isDragging: false })
         if (files.length === 0) {

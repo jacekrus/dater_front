@@ -25,6 +25,7 @@ export default class RegisterForm extends Component {
             photo: null,
             isMale: '',
             createClicked: false,
+            resetForm: false,
         }
     }
 
@@ -96,6 +97,7 @@ export default class RegisterForm extends Component {
             .then(() => {
                 this.setState({ createClicked: false })
                 context.setMessage("Your account has been successfully created. You can now login to your account.")
+                this.setState({resetForm: true, username: '', email: '', password: '', date: '', loaction: '', photo: null, isMale: ''}, () => this.setState({resetForm: false}))
                 setTimeout(() => window.location.reload(), 3000)
             })
             .catch(error => {
@@ -116,7 +118,7 @@ export default class RegisterForm extends Component {
 
     isAnyValueEmpty = () => {
         return this.state.username === '' || this.state.email === '' || this.state.password === '' || this.state.date === ''
-            || this.state.location === '' || this.state.isMale === '' || this.state.photo === ''
+            || this.state.location === '' || this.state.isMale === '' || this.state.photo === '';
     }
 
     render() {
@@ -129,12 +131,12 @@ export default class RegisterForm extends Component {
                         <div className="registerPanelContainer">
                             <div className="registerPanelTitle left">Personal information</div>
                             <div className="registerPanel">
-                                <StandardInputBox icon={faUser} title="Enter your username" placeholder="username" onInputChange={val => this.setState({ username: val })} maxLength={18}/>
-                                <StandardInputBox icon={faEnvelope} title="Enter your email" placeholder="email" onInputChange={val => this.setState({ email: val })} />
-                                <PasswordInputBox placeholder="password" onInputChange={val => this.setState({ password: val })} maxLength={40}/>
-                                <DatePickerBox style={dateInputEmpty ? "dateInputEmpty" : "dateInput"} onInputChange={val => this.setState({ date: val })} />
-                                <StandardInputBox icon={faMapMarkedAlt} title="Enter your location (country city)" maxLength={40} placeholder="location" onInputChange={val => this.setState({ location: val })} />
-                                <GenderPicker isMale={(bool) => this.setState({ isMale: bool })} />
+                                <StandardInputBox icon={faUser} title="Enter your username" placeholder="username" onInputChange={val => this.setState({ username: val })} maxLength={18} reset={this.state.resetForm}/>
+                                <StandardInputBox icon={faEnvelope} title="Enter your email" placeholder="email" onInputChange={val => this.setState({ email: val })} reset={this.state.resetForm}/>
+                                <PasswordInputBox placeholder="password" onInputChange={val => this.setState({ password: val })} maxLength={40} reset={this.state.resetForm}/>
+                                <DatePickerBox style={dateInputEmpty ? "dateInputEmpty" : "dateInput"} onInputChange={val => this.setState({ date: val })} reset={this.state.resetForm}/>
+                                <StandardInputBox icon={faMapMarkedAlt} title="Enter your location (country city)" maxLength={40} placeholder="location" onInputChange={val => this.setState({ location: val })} reset={this.state.resetForm}/>
+                                <GenderPicker isMale={(bool) => this.setState({ isMale: bool })} reset={this.state.resetForm}/>
                                 {createClicked ? null : <button className="registerButton" disabled={this.state.createClicked} onClick={() => this.onCreateAccount(context)}>Create account</button>}
                                 {createClicked ? <BeatLoader loading color={"#17BB0F"}/> : null }
                             </div>
@@ -143,7 +145,7 @@ export default class RegisterForm extends Component {
                         <div className="imageUploadContainer">
                             <div className="registerPanelTitle right">Photo</div>
                             <div className="registerPanelContainer">
-                                <PhotoUploadFrame onPreviewReady={(file, image) => this.setState({ photo: file })} />
+                                <PhotoUploadFrame onPreviewReady={(file) => this.setState({ photo: file })} reset={this.state.resetForm} />
                             </div>
                         </div>
                     </React.Fragment>

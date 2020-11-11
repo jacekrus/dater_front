@@ -14,6 +14,12 @@ export default class PasswordInputBox extends Component {
         }
     }
 
+    componentDidUpdate() {
+        if(this.props.reset) {
+            this.refs.inputPassword.value = '';
+        }
+    }
+
     render() {
         return (
             <div className="userInputBox">
@@ -22,7 +28,7 @@ export default class PasswordInputBox extends Component {
                 </div>
                 <div className="inputContainer">
                     <input type={this.state.isShow ? "text" : "password"} placeholder={this.props.placeholder} 
-                        maxLength="24" onChange={evt => this.props.onInputChange(evt.target.value)} title="Enter your password"/>
+                        maxLength="24" onChange={evt => this.props.onInputChange(evt.target.value)} title="Enter your password" ref="inputPassword"/>
                 </div>
                 <FontAwesomeIcon icon={this.state.isShow ? faEye : faEyeSlash} className="loginIcon cursorPointer"
                     title={this.state.isShow ? "Hide password" : "Show password"} onClick={() => this.setState((state) => ({ isShow: !state.isShow }))} />

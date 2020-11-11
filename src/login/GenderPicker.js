@@ -12,6 +12,13 @@ export default class GenderPicker extends Component {
         isFemaleSelected: false,
     }
 
+    componentDidUpdate() {
+        if(this.props.reset) {
+            this.setState({isMaleSelected: false, isFemaleSelected: false})
+        }
+    }
+
+
     onMaleCheck = (isChecked) => {
         if (!this.state.isMaleSelected && isChecked) {
             this.setState({ isMaleSelected: isChecked, isFemaleSelected: false });
