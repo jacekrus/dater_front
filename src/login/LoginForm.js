@@ -7,6 +7,7 @@ import AppContext from '../AppContext';
 import qs from 'qs';
 import axiosRequest from '../AxiosRequest';
 import CustomCheckBox from './CustomCheckBox';
+import { BeatLoader } from 'react-spinners';
 
 export default class LoginForm extends Component {
 
@@ -22,7 +23,7 @@ export default class LoginForm extends Component {
 
     onLoginClicked = (e, context) => {
         e.preventDefault();
-        if(!this.state.loginClicked) {
+        if (!this.state.loginClicked) {
             this.setState({ loginClicked: true })
             axiosRequest.post('/datrLogin',
                 qs.stringify({
@@ -65,7 +66,8 @@ export default class LoginForm extends Component {
 
                             <div>
                                 <CustomCheckBox label={"Remember me"} />
-                                <button type="submit" className="formLoginButton" disabled={this.state.loginClicked} >Login</button>
+                                {this.state.loginClicked ? <div className="loginBeatLoader"><BeatLoader loading color={"#17BB0F"} /></div>
+                                    : <button type="submit" className="formLoginButton" disabled={this.state.loginClicked} >Login</button>}
                             </div>
 
                             <div className="helpfulLinksContainer">

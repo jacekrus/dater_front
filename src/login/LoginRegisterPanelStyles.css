@@ -190,6 +190,11 @@
     outline: 0;
 }
 
+.loginBeatLoader {
+    padding: 10px;
+    float: right;
+}
+
 .checkboxContainer {
     position: relative;
     display: flex;
