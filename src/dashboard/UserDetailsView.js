@@ -34,6 +34,11 @@ export default class UserDetailsView extends Component {
     }
 
     onUpdateInterestedIn = (value) => {
+        if(value && (value !== 'Men' || value !== 'Women' || value !== 'Both')) {
+            this.context.setError(true);
+            this.context.setMessage("Invalid input. Only: 'Men', 'Women' or 'Both' are allowed.")
+            return;
+        }
         let interestedIn = value && value === 'Men' ? 'MALE' : value === 'Women' ? 'FEMALE' : null;
         axiosRequest.put("/users", {
             id: this.props.selectedUser.id,
@@ -53,7 +58,14 @@ export default class UserDetailsView extends Component {
             .then((resp) => {
                 this.context.setUser(resp.data)
             })
-            .catch(() => this.displayErrorMessage("Location update failed. Please try again later or contact site's administrator"))
+            .catch((error) => {
+                if(error.response && error.response.data) {
+                    this.displayErrorMessage("Location update failed. " + error.response.data.message);
+                }
+                else {
+                    this.displayErrorMessage("Location update failed. Please try again later or contact site's administrator")
+                }
+            })
     }
 
     onUpdatePhotos = () => {
