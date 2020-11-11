@@ -50,7 +50,14 @@ export default class FindDateView extends Component {
     }
 
     onLikeClicked = () => {
-        axiosRequest.put("/users/like?id=" + this.state.foundUsers[this.state.currentUser].id).catch( /* do nothing */);
+        let likedUser = this.state.foundUsers[this.state.currentUser];
+        axiosRequest.put("/users/like?id=" + likedUser.id)
+            .then(resp => {
+                if (resp.status === 201) {
+                    this.context.setMessage("You have a new Date! You can now send a message to " + likedUser.username)
+                }
+            })
+            .catch(/* do nothing */);
         let currUser = this.state.currentUser + 1;
         if (currUser >= this.state.foundUsers.length) {
             this.requestUsers();
@@ -65,7 +72,7 @@ export default class FindDateView extends Component {
             this.requestUsers();
             currUser = 0;
         }
-        this.setState({ currentUser: currUser, currentPhoto: 0 });
+        this.setState({currentUser: currUser, currentPhoto: -1}, () => setTimeout(() => this.setState({currentPhoto: 0 }), 100))
     }
 
     getUsersBirthYear(brithDate) {
@@ -92,10 +99,11 @@ export default class FindDateView extends Component {
                                         </React.Fragment>
                                     }
                                     {photoCount > 0 ?
-                                        <React.Fragment>
-                                            {displayedUser.photos.map((each, index) => <img alt="img" key={index} className={"userPhotoSlide" + (this.state.currentPhoto === index ? "" : " userPhotoSlideHidden")} src={each} />)}
+                                        <div className="userPhotoSlideContainer">
+                                            {displayedUser.photos.map((each, index) => <img alt="img" key={index}
+                                                className={"userPhotoSlide" + (this.state.currentPhoto === index ? "" : " userPhotoSlideHidden")} src={each} />)}
                                             <PhotoCount currentPhoto={this.state.currentPhoto + 1} photoCount={photoCount} />
-                                        </React.Fragment> : null
+                                        </div> : null
                                     }
                                 </React.Fragment> : null
                             }

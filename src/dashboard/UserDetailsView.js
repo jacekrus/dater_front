@@ -19,7 +19,13 @@ export default class UserDetailsView extends Component {
     }
 
     onLikeClicked = () => {
-        axiosRequest.put("/users/like?id=" + this.props.selectedUser.id).catch(/* do nothing */);
+        axiosRequest.put("/users/like?id=" + this.props.selectedUser.id)
+            .then(resp => {
+                if (resp.status === 201) {
+                    this.context.setMessage("You have a new Date! You can now send a message to " + this.props.selectedUser.username)
+                }
+            })
+            .catch(/* do nothing */);
     }
 
     onUpdateDescription = (value) => {
@@ -34,7 +40,7 @@ export default class UserDetailsView extends Component {
     }
 
     onUpdateInterestedIn = (value) => {
-        if(value && !(value === 'Men' || value === 'Women' || value === 'Both')) {
+        if (value && !(value === 'Men' || value === 'Women' || value === 'Both')) {
             this.context.setError(true);
             this.context.setMessage("Invalid input. Only: 'Men', 'Women' or 'Both' are allowed.")
             return;
@@ -59,7 +65,7 @@ export default class UserDetailsView extends Component {
                 this.context.setUser(resp.data)
             })
             .catch((error) => {
-                if(error.response && error.response.data) {
+                if (error.response && error.response.data) {
                     this.displayErrorMessage("Location update failed. " + error.response.data.message);
                 }
                 else {
@@ -115,9 +121,9 @@ export default class UserDetailsView extends Component {
 
     onPreviewReady = (file, index) => {
         const currentToUpload = this.state.photosToUpload
-        if(currentToUpload[index]) {
+        if (currentToUpload[index]) {
             currentToUpload[index] = file;
-            this.setState({photosToUpload: currentToUpload});
+            this.setState({ photosToUpload: currentToUpload });
         }
         else {
             this.setState({ photosToUpload: [...currentToUpload, file] })
