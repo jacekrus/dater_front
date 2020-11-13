@@ -109,6 +109,7 @@ export default class ChatPanel extends Component {
                 this.setState({resetInput: true}, () => this.setState({resetInput: false}))
             })
             .catch(() => {
+                this.setState({blockScroll: false})
                 this.context.setError(true)
                 this.context.setMessage("Could not send message. Refresh the page and try again or contact site's administrator.")
             })
