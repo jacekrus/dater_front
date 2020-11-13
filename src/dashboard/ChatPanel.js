@@ -24,6 +24,7 @@ export default class ChatPanel extends Component {
             blockScroll: false,
             loading: true,
             resetInput: false,
+            newMessagesCount: 0,
         }
     }
 
@@ -33,12 +34,12 @@ export default class ChatPanel extends Component {
 
     componentDidUpdate() {
         if (this.state.currentId !== this.props.conversationId) {
-            this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0, scrollHeight: 0 }, () => this.requestMessages());
+            this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0, scrollHeight: 0, newMessagesCount: 0 }, () => this.requestMessages());
         }
     }
 
     requestMessages() {
-        axiosRequest.get('/conversations/messages?id=' + this.props.conversationId + '&page=' + this.state.currentPage + '&size=20')
+        axiosRequest.get('/conversations/messages?id=' + this.props.conversationId + '&page=' + this.state.currentPage + '&size=20&skip=' + this.state.newMessagesCount)
             .then((resp) => {
                 let msgs = resp.data.map((val, idx, arr) => arr[arr.length - 1 - idx]);
                 this.setState((prevState) => ({ messages: [...msgs, ...this.state.messages], currentPage: prevState.currentPage + 1 }), () => this.adjustScrollPosition(0));
@@ -96,13 +97,20 @@ export default class ChatPanel extends Component {
     sendMessage(message) {
         axiosRequest.post("/conversations/messages?id=" + this.state.currentId, new String(message))
             .then((resp) => {
-                this.setState({ message: '', messages: [...this.state.messages, resp.data] })
+                let newMsgsCount = this.state.newMessagesCount + 1;
+                if(newMsgsCount === 20) {
+                    this.setState((prevState) => ({currentPage: prevState.currentPage + 1, newMessagesCount: 0}))
+                }
+                else {
+                    this.setState({newMessagesCount: newMsgsCount})
+                }
+                this.setState({ message: '', messages: [...this.state.messages, resp.data]})
                 this.scrollbars.current.scrollToBottom();
                 this.setState({resetInput: true}, () => this.setState({resetInput: false}))
             })
             .catch(() => {
                 this.context.setError(true)
-                this.context.setMessage("Could not send message")
+                this.context.setMessage("Could not send message. Refresh the page and try again or contact site's administrator.")
             })
     }
 
