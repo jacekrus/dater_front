@@ -8,8 +8,6 @@ import StandardInputBox from '../login/StandardInputBox';
 import { faCommentDots, faPaperPlane, faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BeatLoader } from 'react-spinners';
-import Stomp from 'stompjs';
-import SockJS from "sockjs-client"
 
 export default class ChatPanel extends Component {
 
@@ -27,36 +25,26 @@ export default class ChatPanel extends Component {
             loading: true,
             resetInput: false,
             newMessagesCount: 0,
-            stomp: null,
+            newMessage: null,
         }
     }
 
     componentDidMount() {
         this.requestMessages();
-        this.enableWebSockets();
     }
 
     componentDidUpdate() {
         if (this.state.currentId !== this.props.conversationId) {
             this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0, scrollHeight: 0, newMessagesCount: 0 }, () => this.requestMessages());
         }
-    }
-
-    enableWebSockets = () => {
-        var sock = new SockJS('http://localhost:8080/chat');
-        let stomp = Stomp.over(sock);
-        if(stomp) {
-            this.setState({ stomp: stomp }, () => stomp.connect({}, this.onConnected))
+        if(this.props.newMessage !== null && (this.state.newMessage === null || this.props.newMessage.id !== this.state.newMessage.id)) {
+            this.setState({newMessage: this.props.newMessage}, () => this.onMessageReceived(this.props.newMessage))
         }
-    }
-
-    onConnected = () => {
-        this.state.stomp.subscribe('/user/queue/messages', this.onMessageReceived)
     }
 
     onMessageReceived = (msg) => {
         this.updateNewMessagesCount();
-        this.setState({ messages: [...this.state.messages, JSON.parse(msg.body)], blockScroll: true}, () => this.scrollbars.current.scrollToBottom())
+        this.setState({ messages: [...this.state.messages, msg], blockScroll: true}, () => this.scrollbars.current.scrollToBottom())
     }
 
     requestMessages() {

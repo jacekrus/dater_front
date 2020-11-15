@@ -10,7 +10,7 @@ export default class MessagesContainer extends Component {
     render() {
         return (
             <div className="messagesContainer">
-                {this.props.conversationId ? <ChatPanel conversationId={this.props.conversationId} /> :
+                {this.props.conversationId ? <ChatPanel conversationId={this.props.conversationId} newMessage={this.props.newMessage} /> :
                     <div className="noConversationFoundText">
                             Select conversation on the left or head to
                          <NavLink to={Views.DASHBOARD.path + Views.DATES.path}

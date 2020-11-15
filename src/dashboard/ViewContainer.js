@@ -38,7 +38,7 @@ export default class ViewContainer extends Component {
                                 onUserDetailsClicked={this.props.onSelectedUserChanged} onSendMessageClicked={this.onSendMessageClicked} {...props} />} />
                             <Route exact path={Views.DASHBOARD.path + Views.FAVORITES.path} render={(props) => <FavoritesView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
                             <Route exact path={Views.DASHBOARD.path + Views.CHAT.path} render={(props) => <ChatView onMenuItemClicked={this.props.onMenuItemClicked}
-                                conversationId={this.state.conversationId} {...props} onChatViewRendered={this.onChatViewRendered}/>} />
+                                conversationId={this.state.conversationId} {...props} onChatViewRendered={this.onChatViewRendered} newMessage={this.props.newMessage} />} />
                             <Route exact path={Views.DASHBOARD.path + Views.LIKEYOU.path} render={(props) => <LikedByView onMenuItemClicked={this.props.onMenuItemClicked} onUserDetailsClicked={this.props.onSelectedUserChanged} {...props} />} />
                             <Route exact path={Views.DASHBOARD.path + Views.USER_DETAILS.path + "/:id"} render={(props) => <UserDetailsView selectedUser={this.props.selectedUser} {...props} />} />
                         </Switch>
