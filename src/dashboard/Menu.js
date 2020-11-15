@@ -21,10 +21,19 @@ export default class Menu extends Component {
         newMessage: null,
     }
 
+    componentDidMount() {
+        let notifications = localStorage.getItem('chatNotifications');
+        if (notifications) {
+            this.setState({ chatNotifications: parseInt(notifications) })
+        }
+    }
+
     componentDidUpdate() {
-        if(this.props.newMessage !== null && (this.state.newMessage === null || this.props.newMessage.id !== this.state.newMessage.id)) {
-            if(this.props.activeView !== Views.CHAT) {
-                this.setState((prevState) => ({newMessage: this.props.newMessage, chatNotifications: prevState.chatNotifications + 1}))
+        if (this.props.newMessage !== null && (this.state.newMessage === null || this.props.newMessage.id !== this.state.newMessage.id)) {
+            if (this.props.activeView !== Views.CHAT) {
+                this.setState((prevState) =>
+                    ({ newMessage: this.props.newMessage, chatNotifications: prevState.chatNotifications + 1 }),
+                    () => localStorage.setItem('chatNotifications', parseInt(this.state.chatNotifications)))
             }
         }
     }
@@ -47,7 +56,8 @@ export default class Menu extends Component {
 
     onChatItemClicked = () => {
         this.props.onMenuItemClicked(Views.CHAT)
-        this.setState({chatNotifications: 0})
+        localStorage.removeItem('chatNotifications')
+        this.setState({ chatNotifications: 0 })
     }
 
     render() {
