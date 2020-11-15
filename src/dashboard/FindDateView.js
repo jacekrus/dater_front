@@ -59,6 +59,9 @@ export default class FindDateView extends Component {
                 if (resp.status === 201) {
                     this.context.setMessage("You have a new Date! You can now send a message to " + likedUser.username)
                 }
+                else if(resp.data === "") {
+                    this.context.setMessage("You already have " + likedUser.username + " (previous) on your favorites list.")
+                }
             })
             .catch(/* do nothing */);
         let currUser = this.state.currentUser + 1;

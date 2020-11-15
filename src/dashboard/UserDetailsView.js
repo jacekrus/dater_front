@@ -24,6 +24,9 @@ export default class UserDetailsView extends Component {
                 if (resp.status === 201) {
                     this.context.setMessage("You have a new Date! You can now send a message to " + this.props.selectedUser.username)
                 }
+                else if(resp.data === "") {
+                    this.context.setMessage("You already have this user on your favorites list.")
+                }
             })
             .catch(/* do nothing */);
     }

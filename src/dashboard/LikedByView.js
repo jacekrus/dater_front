@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import PaginatedTilesContainer from './PaginatedTilesContainer';
 import axiosRequest from '../AxiosRequest';
+import AppContext from '../AppContext';
 
 export default class LikedByView extends Component {
 
@@ -11,6 +12,9 @@ export default class LikedByView extends Component {
             .then(resp => {
                 if(resp.status === 201) {
                     this.context.setMessage("You have a new Date! You can now send a message to " + user.username)
+                }
+                else if(resp.data === "") {
+                    this.context.setMessage("You already have this user on your favorites list.")
                 }
             })
             .catch( /* do nothing */);
@@ -23,3 +27,4 @@ export default class LikedByView extends Component {
     }
 
 }
+LikedByView.contextType = AppContext;
