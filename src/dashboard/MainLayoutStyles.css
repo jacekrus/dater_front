@@ -605,7 +605,9 @@ textarea {
     padding: 10px;
     margin: 2.5px;
     color: white;
+    z-index: 1;
     overflow-wrap: break-word;
+    cursor: default;
 }
 
 .messageBubbleMine {
@@ -677,9 +679,11 @@ textarea {
 
 .scrollBottomIcon {
     font-size: 0px;
+    visibility: hidden;
     transition: font-size 0.2s;
 }
 
 .scrollBottomIconVisible {
+    visibility: visible;
     font-size: 32px;
 }

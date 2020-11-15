@@ -8,6 +8,8 @@ import StandardInputBox from '../login/StandardInputBox';
 import { faCommentDots, faPaperPlane, faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BeatLoader } from 'react-spinners';
+import Stomp from 'stompjs';
+import SockJS from "sockjs-client"
 
 export default class ChatPanel extends Component {
 
@@ -25,17 +27,36 @@ export default class ChatPanel extends Component {
             loading: true,
             resetInput: false,
             newMessagesCount: 0,
+            stomp: null,
         }
     }
 
     componentDidMount() {
         this.requestMessages();
+        this.enableWebSockets();
     }
 
     componentDidUpdate() {
         if (this.state.currentId !== this.props.conversationId) {
             this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0, scrollHeight: 0, newMessagesCount: 0 }, () => this.requestMessages());
         }
+    }
+
+    enableWebSockets = () => {
+        var sock = new SockJS('http://localhost:8080/chat');
+        let stomp = Stomp.over(sock);
+        if(stomp) {
+            this.setState({ stomp: stomp }, () => stomp.connect({}, this.onConnected))
+        }
+    }
+
+    onConnected = () => {
+        this.state.stomp.subscribe('/user/queue/messages', this.onMessageReceived)
+    }
+
+    onMessageReceived = (msg) => {
+        this.updateNewMessagesCount();
+        this.setState({ messages: [...this.state.messages, JSON.parse(msg.body)], blockScroll: true}, () => this.scrollbars.current.scrollToBottom())
     }
 
     requestMessages() {
@@ -70,8 +91,8 @@ export default class ChatPanel extends Component {
             this.requestMessages();
         }
         if (scrollHeight > this.state.scrollHeight) {
-            if(this.state.blockScroll) {
-                this.setState({blockScroll: false});
+            if (this.state.blockScroll) {
+                this.setState({ blockScroll: false });
             }
             else {
                 this.adjustScrollPosition(scrollHeight - this.state.scrollHeight)
@@ -91,28 +112,32 @@ export default class ChatPanel extends Component {
         if (msg === '') {
             return;
         }
-        this.setState({blockScroll: true}, () => this.sendMessage(msg))
+        this.setState({ blockScroll: true }, () => this.sendMessage(msg))
     }
 
     sendMessage(message) {
         axiosRequest.post("/conversations/messages?id=" + this.state.currentId, new String(message))
             .then((resp) => {
-                let newMsgsCount = this.state.newMessagesCount + 1;
-                if(newMsgsCount === 20) {
-                    this.setState((prevState) => ({currentPage: prevState.currentPage + 1, newMessagesCount: 0}))
-                }
-                else {
-                    this.setState({newMessagesCount: newMsgsCount})
-                }
-                this.setState({ message: '', messages: [...this.state.messages, resp.data]})
+                this.updateNewMessagesCount();
+                this.setState({ message: '', messages: [...this.state.messages, resp.data] })
                 this.scrollbars.current.scrollToBottom();
-                this.setState({resetInput: true}, () => this.setState({resetInput: false}))
+                this.setState({ resetInput: true }, () => this.setState({ resetInput: false }))
             })
             .catch(() => {
-                this.setState({blockScroll: false})
+                this.setState({ blockScroll: false })
                 this.context.setError(true)
                 this.context.setMessage("Could not send message. Refresh the page and try again or contact site's administrator.")
             })
+    }
+
+    updateNewMessagesCount() {
+        let newMsgsCount = this.state.newMessagesCount + 1;
+        if (newMsgsCount === 20) {
+            this.setState((prevState) => ({ currentPage: prevState.currentPage + 1, newMessagesCount: 0 }))
+        }
+        else {
+            this.setState({ newMessagesCount: newMsgsCount })
+        }
     }
 
     render() {
@@ -130,6 +155,7 @@ export default class ChatPanel extends Component {
                                 <MessageBubble text={each.text}
                                     mine={each.sender.id === this.context.state.user.id}
                                     date={each.sendTime}
+                                    username={each.sender.username}
                                     photo={each.sender.photos[0]} />
                             </React.Fragment>
                         )}

@@ -70,7 +70,7 @@ export default class ChatView extends Component {
 
     // onConnected = () => {
     //     console.log("Stomp connection successful")
-    //     this.state.stomp.subscribe('/topic/public', this.onMessageReceived)
+    //     this.state.stomp.subscribe('/user/queue/messages', this.onMessageReceived)
     // }
 
     // sendMessage = () => {
@@ -88,19 +88,6 @@ export default class ChatView extends Component {
 
     //     }
     //     this.setState({messages: [...currentMessages, JSON.parse(msg.body).text]})
-    // }
-
-    // render() {
-    //     return (
-    //         <div>
-    //             <button onClick={this.enableSock}>start</button>
-    //             {this.state.messages.map((each, index) => 
-    //                 <div key={index}> {each} </div>
-    //             )}
-    //             <StandardInputBox icon={faUser} title="Enter message" placeholder="message" onInputChange={val => this.setState({ currentMsg: val })} maxLength={18}/>
-    //             <button onClick={this.sendMessage}>Send message</button>
-    //         </div>
-    //     );
     // }
 
 }
