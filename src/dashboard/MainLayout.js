@@ -54,7 +54,8 @@ export default class MainLayout extends Component {
     render() {
         return (
             <div className="mainLayout">
-                <Menu activeView={this.state.activeView} onMenuItemClicked={this.onMenuItemClicked} onSelectedUserChanged={this.onSelectedUserChanged} />
+                <Menu activeView={this.state.activeView} onMenuItemClicked={this.onMenuItemClicked}
+                    onSelectedUserChanged={this.onSelectedUserChanged} newMessage={this.state.newMessage} />
                 <ViewContainer selectedUser={this.state.selectedUser} onMenuItemClicked={this.onMenuItemClicked}
                     activeView={this.state.activeView} onSelectedUserChanged={this.onSelectedUserChanged} newMessage={this.state.newMessage} />
             </div>
