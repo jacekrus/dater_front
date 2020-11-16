@@ -25,7 +25,7 @@ export default class ChatPanel extends Component {
             loading: true,
             resetInput: false,
             newMessagesCount: 0,
-            newMessage: null,
+            newMessage: this.props.newMessage,
         }
     }
 

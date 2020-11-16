@@ -54,7 +54,7 @@ export default class PaginatedTilesContainer extends Component {
                     </div>
                     :
                     <div className='userTiles'>
-                        {this.state.elements.map(each => <UserTile key={each.id} user={each} onAction={this.props.onAction}
+                        {this.state.elements.map((each, index) => <UserTile key={index} user={each} onAction={this.props.onAction}
                                                             onUserDetailsClicked={this.props.onUserDetailsClicked} dates={this.props.dates} favorites={this.props.favorites} />)}
                     </div>
                 }

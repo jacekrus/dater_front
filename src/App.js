@@ -15,14 +15,14 @@ class App extends Component {
     axiosRequest.interceptors.response.use((response) => {
       return response;
     }, (error) => {
-      if (error && error.response.status === 401) {
+      if (error && error.status === 401) {
         if (this.context.state.loggedIn === true) {
           this.context.setLoggedIn(false);
           this.context.setUser({});
           this.context.setMessage("Your session has expired, please log in again")
         }
       }
-      else if (error && error.response.status >= 500) {
+      else if (error && error.status >= 500) {
         this.context.setMessage("Something went wrong, please try again later")
         this.context.setError(true);
       }
