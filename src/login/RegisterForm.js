@@ -47,7 +47,6 @@ export default class RegisterForm extends Component {
     }
 
     createNewAccount = (context) => {
-        context.setMessage('Please wait, your account is being created.')
         this.validateUserData(context);
     }
 
