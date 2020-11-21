@@ -26,7 +26,7 @@ export default class ChatView extends Component {
         return (
             <React.Fragment>
                 <div className="chatView">
-                    <ConversationsContainer onConversationClicked={this.onConversationClicked} conversationId={this.state.conversationId}/>
+                    <ConversationsContainer onConversationClicked={this.onConversationClicked} conversationId={this.state.conversationId} newMessage={this.props.newMessage}/>
                     <MessagesContainer onMenuItemClicked={this.props.onMenuItemClicked} conversationId={this.state.conversationId} newMessage={this.props.newMessage}/>
                 </div>
             </React.Fragment>
