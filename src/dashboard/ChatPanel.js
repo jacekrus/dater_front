@@ -38,7 +38,9 @@ export default class ChatPanel extends Component {
             this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0, scrollHeight: 0, newMessagesCount: 0 }, () => this.requestMessages());
         }
         if(this.props.newMessage !== null && (this.state.newMessage === null || this.props.newMessage.id !== this.state.newMessage.id)) {
-            this.setState({newMessage: this.props.newMessage}, () => this.onMessageReceived(this.props.newMessage))
+            if(this.props.newMessage.conversation.id === this.state.currentId) {
+                this.setState({newMessage: this.props.newMessage}, () => this.onMessageReceived(this.props.newMessage))
+            }
         }
     }
 
