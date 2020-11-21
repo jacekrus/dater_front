@@ -20,6 +20,7 @@ export default class RegisterForm extends Component {
             username: '',
             email: '',
             password: '',
+            passwordRetype: '',
             date: '',
             location: '',
             photo: null,
@@ -33,6 +34,11 @@ export default class RegisterForm extends Component {
         if (!this.state.createClicked) {
             if (this.isAnyValueEmpty()) {
                 context.setMessage("Please fill in all personal information form's fields.")
+                context.setError(true)
+                return;
+            }
+            if(this.state.password !== this.state.passwordRetype) {
+                context.setMessage("Passwords do not match.")
                 context.setError(true)
                 return;
             }
@@ -117,7 +123,7 @@ export default class RegisterForm extends Component {
 
     isAnyValueEmpty = () => {
         return this.state.username === '' || this.state.email === '' || this.state.password === '' || this.state.date === ''
-            || this.state.location === '' || this.state.isMale === '' || this.state.photo === '';
+            || this.state.location === '' || this.state.isMale === '' || this.state.photo === '' || this.state.passwordRetype === '';
     }
 
     render() {
@@ -133,6 +139,7 @@ export default class RegisterForm extends Component {
                                 <StandardInputBox icon={faUser} title="Enter your username" placeholder="username" onInputChange={val => this.setState({ username: val })} maxLength={18} reset={this.state.resetForm}/>
                                 <StandardInputBox icon={faEnvelope} title="Enter your email" placeholder="email" onInputChange={val => this.setState({ email: val })} reset={this.state.resetForm}/>
                                 <PasswordInputBox placeholder="password" onInputChange={val => this.setState({ password: val })} maxLength={40} reset={this.state.resetForm}/>
+                                <PasswordInputBox placeholder="retype password" onInputChange={val => this.setState({ passwordRetype: val })} maxLength={40} reset={this.state.resetForm}/>
                                 <DatePickerBox style={dateInputEmpty ? "dateInputEmpty" : "dateInput"} onInputChange={val => this.setState({ date: val })} reset={this.state.resetForm}/>
                                 <StandardInputBox icon={faMapMarkedAlt} title="Enter your location (country city)" maxLength={40} placeholder="location" onInputChange={val => this.setState({ location: val })} reset={this.state.resetForm}/>
                                 <GenderPicker isMale={(bool) => this.setState({ isMale: bool })} reset={this.state.resetForm}/>
