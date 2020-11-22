@@ -593,8 +593,8 @@ textarea {
 
 .newMessageIndicator {
     position: absolute;
-    right: 7px;
-    bottom: 7px;
+    right: 2px;
+    bottom: 1px;
 	background: #00b418;
 	border-radius: 50%;
 	margin: 10px;

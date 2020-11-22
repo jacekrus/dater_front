@@ -32,6 +32,7 @@ export default class ConversationsContainer extends Component {
 
     onNewMessage = (newMessage) => {
         if (newMessage.conversation.id === this.state.activeId) {
+            this.updateAccesstime();
             return;
         }
         let conversationIds = this.state.conversations.map(each => each.id);
@@ -62,6 +63,13 @@ export default class ConversationsContainer extends Component {
                                  that was coming with notification will be loaded or server is not responsive */})
         }
         this.setState({ newMessageId: newMessage.id });
+    }
+
+    updateAccesstime = () => {
+        if(this.state.activeId !== null) {
+            axiosRequest.post("/conversations/access?id=" + this.state.activeId)
+                .catch(() => { /* do nothing */ })
+        }
     }
 
     requestConversations = () => {
