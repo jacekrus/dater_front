@@ -49,8 +49,8 @@ export default class LoginForm extends Component {
                 })
                 .catch(() => {
                     this.setState({ loginClicked: false })
-                    context.setMessage('Username or password is incorrect')
                     context.setError(true);
+                    context.setMessage('Username or password is incorrect')
                 })
         }
     }
