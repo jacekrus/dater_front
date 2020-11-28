@@ -46,8 +46,6 @@ class App extends Component {
 
   componentDidUpdate() {
     let newMsg = this.context.state.message;
-    console.log("new msg: " + newMsg)
-    console.log("current msg: " + this.state.displayedMsg)
     if (newMsg !== '' && newMsg !== this.state.displayedMsg) {
       this.setState({displayedMsg: newMsg}, this.showToast)
     }
