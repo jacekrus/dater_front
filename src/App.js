@@ -13,6 +13,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
 
+  state = {
+    displayedMsg: '',
+  }
+
   componentDidMount() {
     axiosRequest.interceptors.response.use((response) => {
       return response;
@@ -41,30 +45,41 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    if (this.context.state.message !== '') {
-      if (this.context.state.error) {
-        this.showError();
-      }
-      else {
-        this.showInfo();
-      }
+    let newMsg = this.context.state.message;
+    console.log("new message: " + newMsg + " currentMsg: " + this.state.displayedMsg)
+    if (newMsg !== '' && newMsg !== this.state.displayedMsg) {
+      this.setState({displayedMsg: newMsg}, this.showToast)
     }
+  }
+
+  showToast = () => {
+    if (this.context.state.error) {
+      this.showError();
+    }
+    else {
+      this.showInfo();
+    }
+    clearTimeout();
+    setTimeout(() => {
+        this.context.setMessage('');
+        this.context.setError(false);
+        this.setState({displayedMsg: ''})
+    }, 3300);
   }
 
   onToastClose = () => {
     this.context.setMessage('');
     this.context.setError(false);
+    this.setState({displayedMsg: ''})
   }
 
   showInfo = () => {
-    toast.success(<ToastMessage message={this.context.state.message} />, {
-      onClose: this.onToastClose
+    toast.success(<ToastMessage message={this.state.displayedMsg} />, {
     });
   }
 
   showError = () => {
-    toast.error(<ToastMessage message={this.context.state.message} error />, {
-      onClose: this.onToastClose
+    toast.error(<ToastMessage message={this.state.displayedMsg} error />, {
     });
   }
 
@@ -80,7 +95,7 @@ class App extends Component {
               <Route path='*' component={NoMatch} />
             </Switch>
             <Footer />
-            <ToastContainer position="bottom-center" draggable={false} limit={2} autoClose={3500} transition={Slide} />
+            <ToastContainer position="bottom-center" draggable={false} limit={2} autoClose={3500} transition={Slide} pauseOnFocusLoss={false}/>
           </div>
         )}
       </AppContext.Consumer>
