@@ -46,7 +46,8 @@ class App extends Component {
 
   componentDidUpdate() {
     let newMsg = this.context.state.message;
-    console.log("new message: " + newMsg + " currentMsg: " + this.state.displayedMsg)
+    console.log("new msg: " + newMsg)
+    console.log("current msg: " + this.state.displayedMsg)
     if (newMsg !== '' && newMsg !== this.state.displayedMsg) {
       this.setState({displayedMsg: newMsg}, this.showToast)
     }
@@ -59,27 +60,27 @@ class App extends Component {
     else {
       this.showInfo();
     }
-    clearTimeout();
-    setTimeout(() => {
-        this.context.setMessage('');
-        this.context.setError(false);
-        this.setState({displayedMsg: ''})
-    }, 3300);
   }
 
   onToastClose = () => {
-    this.context.setMessage('');
-    this.context.setError(false);
-    this.setState({displayedMsg: ''})
+    if(this.context.state.message !== '') {
+      this.context.setMessage('');
+      this.context.setError(false);
+    }
+    if(this.state.displayedMsg !== '') {
+      this.setState({displayedMsg: ''})
+    }
   }
 
   showInfo = () => {
     toast.success(<ToastMessage message={this.state.displayedMsg} />, {
+      onClose: this.onToastClose
     });
   }
 
   showError = () => {
     toast.error(<ToastMessage message={this.state.displayedMsg} error />, {
+      onClose: this.onToastClose,
     });
   }
 
