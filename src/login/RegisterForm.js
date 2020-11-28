@@ -33,7 +33,7 @@ export default class RegisterForm extends Component {
     onCreateAccount = (context) => {
         if (!this.state.createClicked) {
             if (this.isAnyValueEmpty()) {
-                context.setMessage("Please fill in all personal information form's fields.")
+                context.setMessage("Please fill in all personal information form fields.")
                 context.setError(true)
                 return;
             }

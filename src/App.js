@@ -4,10 +4,12 @@ import MainLayout from './dashboard/MainLayout';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AppContext from './AppContext';
 import axiosRequest from './AxiosRequest';
-import Alert from './Alert';
+import ToastMessage from './ToastMessage';
 import Views from './dashboard/Views';
 import NoMatch from './NoMatch';
 import Footer from './login/Footer';
+import { ToastContainer, toast, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
 
@@ -38,6 +40,34 @@ class App extends Component {
       })
   }
 
+  componentDidUpdate() {
+    if (this.context.state.message !== '') {
+      if (this.context.state.error) {
+        this.showError();
+      }
+      else {
+        this.showInfo();
+      }
+    }
+  }
+
+  onToastClose = () => {
+    this.context.setMessage('');
+    this.context.setError(false);
+  }
+
+  showInfo = () => {
+    toast.success(<ToastMessage message={this.context.state.message} />, {
+      onClose: this.onToastClose
+    });
+  }
+
+  showError = () => {
+    toast.error(<ToastMessage message={this.context.state.message} error />, {
+      onClose: this.onToastClose
+    });
+  }
+
   render() {
     return (
       <AppContext.Consumer>
@@ -50,7 +80,7 @@ class App extends Component {
               <Route path='*' component={NoMatch} />
             </Switch>
             <Footer />
-            <Alert />
+            <ToastContainer position="bottom-center" draggable={false} limit={2} autoClose={3500} transition={Slide} />
           </div>
         )}
       </AppContext.Consumer>
