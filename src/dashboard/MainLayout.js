@@ -58,14 +58,14 @@ export default class MainLayout extends Component {
                 this.setState({ newMessage: notification.message }, () => setTimeout(() => this.setState({ newMessage: null }), 0))
                 break;
             case 'FAVORITE':
-                this.setState({ newFavorite: notification.favoriteId })
+                this.setState({ newFavorite: notification.favoriteUsername })
                 break;
             case 'DATE':
-                let dateId = this.context.state.user.id === notification.date.id ? notification.user.id : notification.date.id;
+                let dateId = this.context.state.user.username === notification.dateUsername ? notification.usernameOrEmail : notification.dateUsername;
                 this.setState({ newDate: dateId })
                 break;
             case 'LIKED':
-                this.setState({ newLikedBy: notification.likedById })
+                this.setState({ newLikedBy: notification.likedByUsername })
                 break;
         }
     }

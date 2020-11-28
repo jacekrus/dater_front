@@ -19,18 +19,16 @@ class App extends Component {
 
   componentDidMount() {
     axiosRequest.interceptors.response.use((response) => {
+      this.context.setError(false)
       return response;
     }, (error) => {
+      this.context.setError(true);
       if (error && error.response && error.response.status === 401) {
         if (this.context.state.loggedIn === true) {
           this.context.setLoggedIn(false);
           this.context.setUser({});
           this.context.setMessage("Your session has expired, please log in again")
         }
-      }
-      else if (error && error.response && error.response.status >= 500) {
-        this.context.setMessage("Something went wrong, please try again later")
-        this.context.setError(true);
       }
       return Promise.reject(error);
     })
@@ -47,7 +45,7 @@ class App extends Component {
   componentDidUpdate() {
     let newMsg = this.context.state.message;
     if (newMsg !== '' && newMsg !== this.state.displayedMsg) {
-      this.setState({displayedMsg: newMsg}, this.showToast)
+      this.setState({ displayedMsg: newMsg }, this.showToast)
     }
   }
 
@@ -61,12 +59,12 @@ class App extends Component {
   }
 
   onToastClose = () => {
-    if(this.context.state.message !== '') {
+    if (this.context.state.message !== '') {
       this.context.setMessage('');
       this.context.setError(false);
     }
-    if(this.state.displayedMsg !== '') {
-      this.setState({displayedMsg: ''})
+    if (this.state.displayedMsg !== '') {
+      this.setState({ displayedMsg: '' })
     }
   }
 
@@ -94,7 +92,7 @@ class App extends Component {
               <Route path='*' component={NoMatch} />
             </Switch>
             <Footer />
-            <ToastContainer position="bottom-center" draggable={false} limit={2} autoClose={3500} transition={Slide} pauseOnFocusLoss={false}/>
+            <ToastContainer position="bottom-center" draggable={false} limit={2} autoClose={3500} transition={Slide} pauseOnFocusLoss={false} />
           </div>
         )}
       </AppContext.Consumer>

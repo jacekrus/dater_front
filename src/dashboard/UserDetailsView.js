@@ -28,7 +28,7 @@ export default class UserDetailsView extends Component {
                     this.context.setMessage("You already have this user on your favorites list.")
                 }
             })
-            .catch(/* do nothing */);
+            .catch(() => this.context.setMessage("Something went wrong. Try refreshing the page or contact site's administrator."));
     }
 
     onUpdateDescription = (value) => {

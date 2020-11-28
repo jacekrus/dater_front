@@ -84,7 +84,7 @@ export default class Menu extends Component {
                 context.setUser({});
             })
             .catch(() => {
-                //do nothing
+                this.context.setMessage("Something went wrong. Try refreshing the page or contact site's administrator.")
             });
     }
 

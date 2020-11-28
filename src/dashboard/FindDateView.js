@@ -63,7 +63,7 @@ export default class FindDateView extends Component {
                     this.context.setMessage("You already have " + likedUser.username + " (previous) on your favorites list.")
                 }
             })
-            .catch(/* do nothing */);
+            .catch(() => this.context.setMessage("Something went wrong. Try refreshing the page or contact site's administrator."));
         let currUser = this.state.currentUser + 1;
         if (currUser >= this.state.foundUsers.length) {
             this.requestUsers();

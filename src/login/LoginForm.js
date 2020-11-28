@@ -8,6 +8,8 @@ import qs from 'qs';
 import axiosRequest from '../AxiosRequest';
 import CustomCheckBox from './CustomCheckBox';
 import { BeatLoader } from 'react-spinners';
+import Popup from 'reactjs-popup';
+import RestorePasswordForm from './RestorePasswordForm';
 
 export default class LoginForm extends Component {
 
@@ -23,6 +25,11 @@ export default class LoginForm extends Component {
 
     onLoginClicked = (e, context) => {
         e.preventDefault();
+        if(this.state.username === '' || this.state.password === '') {
+            this.context.setError(true)
+            this.context.setMessage("Username or password field is empty.")
+            return;
+        }
         if (!this.state.loginClicked) {
             this.setState({ loginClicked: true })
             axiosRequest.post('/datrLogin',
@@ -72,7 +79,15 @@ export default class LoginForm extends Component {
 
                             <div className="helpfulLinksContainer">
                                 <div className="greenHelpfulLink" onClick={() => this.props.registerClickHandler()}>Register now</div>
-                                <div className="greyHelpfulLink">Forgot password?</div>
+                                <Popup
+                                    trigger={<div className="greyHelpfulLink">Forgot password?</div>}
+                                    modal
+                                    position="top center"
+                                >
+                                    {close => (
+                                        <RestorePasswordForm onSuccess={close}/>
+                                    )}
+                                </Popup>
                             </div>
                         </div>
                     </form>
@@ -82,3 +97,4 @@ export default class LoginForm extends Component {
     }
 
 }
+LoginForm.contextType = AppContext;

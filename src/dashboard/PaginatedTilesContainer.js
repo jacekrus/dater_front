@@ -5,6 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import UserTile from './UserTile';
 import { NavLink } from 'react-router-dom';
 import Views from './Views';
+import AppContext from '../AppContext';
 
 export default class PaginatedTilesContainer extends Component {
 
@@ -15,7 +16,9 @@ export default class PaginatedTilesContainer extends Component {
     }
 
     componentDidMount() {
-        axiosRequest.get('/users/' + this.props.request + '?page=0&size=9').then((resp) => this.setState({ elements: resp.data })).catch(() => { /*do nothing */ });
+        axiosRequest.get('/users/' + this.props.request + '?page=0&size=9')
+            .then((resp) => this.setState({ elements: resp.data }))
+            .catch(() => { this.context.setMessage("Could not load data. Try refreshing the page or contact site's administrator.") });
     }
 
     handleAboutToReachBottom() {
@@ -26,7 +29,7 @@ export default class PaginatedTilesContainer extends Component {
                 if (newElements.length > currentElements.length) {
                     this.setState(prevState => ({ elements: newElements, currentPage: prevState.currentPage + 1 }));
                 }
-            }).catch( /* do nothing */);
+            }).catch(() => this.context.setMessage("Could not load more data. Try refreshing the page or contact site's administrator."));
         }
     }
 
@@ -36,7 +39,7 @@ export default class PaginatedTilesContainer extends Component {
             const offset = scrollHeight - clientHeight - scrollTop;
             if (offset < 1) this.handleAboutToReachBottom();
         }
-        if(scrollTop !== this.state.scrollTop) {
+        if (scrollTop !== this.state.scrollTop) {
             this.setState({ scrollTop: scrollTop });
         }
     }
@@ -44,21 +47,22 @@ export default class PaginatedTilesContainer extends Component {
     render() {
         return (
             <Scrollbars autoHide style={{ width: '90%', height: '80%' }} className='customScrollbar' onUpdate={this.onUpdate}>
-                {this.state.elements.length === 0 ? 
+                {this.state.elements.length === 0 ?
                     <div className="noMatchFoundText">
-                        Nothing found. Head to  
+                        Nothing found. Head to
                         <NavLink to={Views.DASHBOARD.path + Views.FIND_A_DATE.path} style={{ textDecoration: 'none' }} onClick={() => this.props.onMenuItemClicked(Views.FIND_A_DATE)}>
                             Find a date
                         </NavLink>
-                         and look for your perfect match.
+                        and look for your perfect match.
                     </div>
                     :
                     <div className='userTiles'>
                         {this.state.elements.map((each, index) => <UserTile key={index} user={each} onAction={this.props.onAction}
-                                                            onUserDetailsClicked={this.props.onUserDetailsClicked} dates={this.props.dates} favorites={this.props.favorites} />)}
+                            onUserDetailsClicked={this.props.onUserDetailsClicked} dates={this.props.dates} favorites={this.props.favorites} />)}
                     </div>
                 }
             </Scrollbars>
         );
     }
 }
+PaginatedTilesContainer.contextType = AppContext;

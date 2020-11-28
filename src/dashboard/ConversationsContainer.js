@@ -68,7 +68,7 @@ export default class ConversationsContainer extends Component {
     updateAccesstime = () => {
         if(this.state.activeId !== null) {
             axiosRequest.post("/conversations/access?id=" + this.state.activeId)
-                .catch(() => { /* do nothing */ })
+                .catch(() => { /* This requests enhances conversation list display for user, not a big deal if it fails. */ })
         }
     }
 

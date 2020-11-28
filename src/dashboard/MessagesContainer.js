@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './MainLayoutStyles.css';
-import AppContext from '../AppContext';
 import { NavLink } from 'react-router-dom';
 import Views from './Views';
 import ChatPanel from './ChatPanel';
