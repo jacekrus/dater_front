@@ -4,6 +4,7 @@ import AppContext from '../AppContext';
 export default class Footer extends Component {
 
     onFooterItemClicked = () => {
+        this.context.setError(false);
         this.context.setMessage("Not implemented yet.")
     }
 
@@ -13,7 +14,7 @@ export default class Footer extends Component {
                 <div className="footerLink" onClick={this.onFooterItemClicked}>About</div>
                 <div className="footerLink" onClick={this.onFooterItemClicked}>Contact</div>
                 <div className="footerLink" onClick={this.onFooterItemClicked}>Terms</div>
-                <div className="copyright">2020 © Ojciedz</div>
+                <div className="copyright">2020 © Dater</div>
             </div>
         );
     }

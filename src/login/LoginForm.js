@@ -9,7 +9,7 @@ import axiosRequest from '../AxiosRequest';
 import CustomCheckBox from './CustomCheckBox';
 import { BeatLoader } from 'react-spinners';
 import Popup from 'reactjs-popup';
-import RestorePasswordForm from './RestorePasswordForm';
+import RestorePasswordPopup from './RestorePasswordPopup';
 
 export default class LoginForm extends Component {
 
@@ -43,14 +43,14 @@ export default class LoginForm extends Component {
                     }
                 })
                 .then(() => {
-                    axiosRequest.get('/users/me')
+                    axiosRequest.get('/users/self')
                         .then((resp) => {
                             context.setUser(resp.data);
                             context.setLoggedIn(true);
                         })
                         .catch(() => {
                             this.setState({ loginClicked: false })
-                            context.setMessage('Unable to login, please try again later')
+                            context.setMessage("Unable to login. Please try again later or contact site's administrator.")
                             context.setError(true);
                         })
                 })
@@ -85,7 +85,7 @@ export default class LoginForm extends Component {
                                     position="top center"
                                 >
                                     {close => (
-                                        <RestorePasswordForm onSuccess={close}/>
+                                        <RestorePasswordPopup onSuccess={close}/>
                                     )}
                                 </Popup>
                             </div>

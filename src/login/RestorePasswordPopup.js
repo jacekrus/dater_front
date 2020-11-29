@@ -5,7 +5,7 @@ import StandardInputBox from './StandardInputBox';
 import { BeatLoader } from 'react-spinners';
 import axiosRequest from '../AxiosRequest';
 
-export default class RestorePasswordForm extends Component {
+export default class RestorePasswordPopup extends Component {
 
     state = {
         email: '',
@@ -50,7 +50,7 @@ export default class RestorePasswordForm extends Component {
                 </div>
                 <div className="sendButtonContainer">
                     {this.state.loading ? <div className="loginBeatLoader"><BeatLoader loading color={"#17BB0F"} /></div>
-                        : <button type="submit" className="formLoginButton" disabled={this.state.loading} onClick={this.onSend}>Send</button>}
+                        : <button className="formLoginButton" disabled={this.state.loading} onClick={this.onSend}>Send</button>}
                 </div>
                 <div className="restorePasswordErrorText">
                     {this.state.errorText}
@@ -60,4 +60,4 @@ export default class RestorePasswordForm extends Component {
     }
 
 }
-RestorePasswordForm.contextType = AppContext;
+RestorePasswordPopup.contextType = AppContext;

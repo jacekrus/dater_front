@@ -67,6 +67,7 @@ export default class MainLayout extends Component {
             case 'LIKED':
                 this.setState({ newLikedBy: notification.likedByUsername })
                 break;
+            default:
         }
     }
 

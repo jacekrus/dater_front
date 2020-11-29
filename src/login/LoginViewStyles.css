@@ -175,3 +175,26 @@
     width: 360px;
     padding: 15px;
 }
+
+.passwordResetView {
+    position: absolute;
+    max-width: 350px;
+    height: 500px;
+    top: 10%;
+    left: 40%;
+    margin-bottom: 5px;
+}
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.floatNone {
+    float: none;
+    clear: both;
+}
+
+.restoreViewText {
+    text-align: center;
+    font-size: 24px;
+}

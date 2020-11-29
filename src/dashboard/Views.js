@@ -7,6 +7,7 @@ const Views = Object.freeze({
     FAVORITES: {path: "/favorites"},
     CHAT: {path: "/chat"},
     LIKEYOU: {path: "/likeyou"},
-    USER_DETAILS: {path: "/details"}
+    USER_DETAILS: {path: "/details"},
+    PASS_RESET: {path: "/reset"}
 });
 export default Views;

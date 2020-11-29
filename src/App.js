@@ -10,6 +10,7 @@ import NoMatch from './NoMatch';
 import Footer from './login/Footer';
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RestorePasswordView from './login/RestorePasswordView';
 
 class App extends Component {
 
@@ -32,13 +33,15 @@ class App extends Component {
       }
       return Promise.reject(error);
     })
-    axiosRequest.get('/users/me')
+    axiosRequest.get('/users/self')
       .then((resp) => {
         this.context.setUser(resp.data);
         this.context.setLoggedIn(true);
       })
       .catch(() => {
-        //do nothing
+        //If this request fails it means that user is not logged in 
+        //or server is not responsive. These cases will be handled 
+        //by proper redirects below based on context's state.
       })
   }
 
@@ -86,6 +89,7 @@ class App extends Component {
         {(context) => (
           <div className={context.state.loggedIn ? 'appLayout' : ''}>
             <Switch>
+              <Route exact path={Views.PASS_RESET.path + "/:id"} render={(props) => <RestorePasswordView {...props}/>} />
               <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
               <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
               <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
