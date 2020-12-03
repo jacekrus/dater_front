@@ -82,6 +82,7 @@ export default class Menu extends Component {
             .then(() => {
                 context.setLoggedIn(false);
                 context.setUser({});
+                window.location.reload();
             })
             .catch(() => {
                 this.context.setMessage("Something went wrong. Try refreshing the page or contact site's administrator.")
