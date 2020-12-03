@@ -4,10 +4,10 @@ import axiosRequest from '../AxiosRequest';
 import AppContext from '../AppContext';
 import MessageBubble from './MessageBubble';
 import { Scrollbars } from 'react-custom-scrollbars';
-import StandardInputBox from '../login/StandardInputBox';
-import { faCommentDots, faPaperPlane, faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BeatLoader } from 'react-spinners';
+import SendMessageBox from './SendMessageBox';
 
 export default class ChatPanel extends Component {
 
@@ -17,7 +17,6 @@ export default class ChatPanel extends Component {
         this.state = {
             messages: [],
             currentId: this.props.conversationId,
-            message: '',
             scrollTop: 0,
             scrollHeight: 0,
             currentPage: 0,
@@ -94,11 +93,11 @@ export default class ChatPanel extends Component {
         }
     }
 
-    onMessageSend = (e) => {
+    onMessageSend = (e, msg) => {
         if (e) {
             e.preventDefault();
         }
-        let msg = this.state.message.trim();
+        msg = msg.trim();
         if (msg === '') {
             return;
         }
@@ -155,17 +154,7 @@ export default class ChatPanel extends Component {
                             title={"Scroll bottom"} onClick={() => this.scrollbars.current.scrollToBottom()} />
                     </div>
                 </div>
-                <div className="chatMsgBoxContainer">
-                    <div className="messageBox">
-                        <form onSubmit={(e) => this.onMessageSend(e)}>
-                            <StandardInputBox icon={faCommentDots} placeholder="Type a message..." maxLength={499}
-                                onInputChange={val => this.setState({ message: val })} reset={this.state.resetInput} />
-                        </form>
-                    </div>
-                    <div>
-                        <FontAwesomeIcon icon={faPaperPlane} className="sendMsgIcon" title={"Send"} onClick={this.onMessageSend} />
-                    </div>
-                </div>
+                <SendMessageBox onMessageSend={this.onMessageSend} reset={this.state.resetInput} />
             </React.Fragment>
         )
     }
