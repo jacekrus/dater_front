@@ -83,6 +83,7 @@ export default class Menu extends Component {
                 context.setLoggedIn(false);
                 context.setUser({});
                 window.location.reload();
+                localStorage.removeItem("remember-me-active")
             })
             .catch(() => {
                 this.context.setMessage("Something went wrong. Try refreshing the page or contact site's administrator.")

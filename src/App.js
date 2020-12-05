@@ -32,12 +32,15 @@ class App extends Component {
         if (this.context.state.loggedIn === true) {
           this.context.setLoggedIn(false);
           this.context.setUser({});
+          localStorage.removeItem("remember-me-active")
           this.context.setMessage("Your session has expired, please log in again")
         }
       }
       return Promise.reject(error);
     })
-    axiosRequest.get('/users/self')
+    let rememberMe = localStorage.getItem("remember-me-active");
+    let headers = rememberMe ? {'Dater-Remember-Me' : rememberMe} : {};
+    axiosRequest.get('/users/self', {headers})
       .then((resp) => {
         this.context.setUser(resp.data);
         this.context.setLoggedIn(true);
@@ -46,6 +49,7 @@ class App extends Component {
         //If this request fails it means that user is not logged in 
         //or server is not responsive. These cases will be handled 
         //by proper redirects below based on context's state.
+        localStorage.removeItem("remember-me-active")
       })
   }
 

@@ -18,7 +18,6 @@ export default class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
-            isRemember: false,
             loginClicked: false,
         }
     }
@@ -62,6 +61,15 @@ export default class LoginForm extends Component {
         }
     }
 
+    onRememberMeClicked = (isChecked) => {
+        if(isChecked) {
+            localStorage.setItem("remember-me-active", "true")
+        }
+        else {
+            localStorage.removeItem("remember-me-active")
+        }
+    }
+
     render() {
         return (
             <AppContext.Consumer>
@@ -72,7 +80,7 @@ export default class LoginForm extends Component {
                             <PasswordInputBox placeholder="password" onInputChange={val => this.setState({ password: val })} />
 
                             <div>
-                                <CustomCheckBox label={"Remember me"} />
+                                <CustomCheckBox label={"Remember me"} onCheck={this.onRememberMeClicked}/>
                                 {this.state.loginClicked ? <div className="loginBeatLoader"><BeatLoader loading color={"#17BB0F"} /></div>
                                     : <button type="submit" className="formLoginButton" disabled={this.state.loginClicked} >Login</button>}
                             </div>
