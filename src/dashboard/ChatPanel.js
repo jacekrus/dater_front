@@ -8,6 +8,7 @@ import { faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BeatLoader } from 'react-spinners';
 import SendMessageBox from './SendMessageBox';
+import MessageBubbleContainer from './MessageBubbleContainer';
 
 export default class ChatPanel extends Component {
 
@@ -139,15 +140,7 @@ export default class ChatPanel extends Component {
                 </div>
                 <div className="chatBubblesContainer">
                     <Scrollbars autoHide className='customScrollbar' onUpdate={this.onUpdate} ref={this.scrollbars}>
-                        {this.state.messages.map((each, index) =>
-                            <React.Fragment key={index}>
-                                <MessageBubble text={each.text}
-                                    mine={each.sender.id === this.context.state.user.id}
-                                    date={each.sendTime}
-                                    username={each.sender.username}
-                                    photo={each.sender.photos[0]} />
-                            </React.Fragment>
-                        )}
+                        <MessageBubbleContainer messages={this.state.messages} />
                     </Scrollbars>
                     <div className="scrollBottomIconContainer">
                         <FontAwesomeIcon icon={faArrowCircleDown} className={"sendMsgIcon scrollBottomIcon" + (buttonVisible ? " scrollBottomIconVisible" : "")}
