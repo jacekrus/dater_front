@@ -12,13 +12,15 @@ import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RestorePasswordView from './login/RestorePasswordView';
 import TooSmallView from './TooSmallView';
+import AppLoadingView from './AppLoadingView';
 
 class App extends Component {
 
   state = {
     displayedMsg: '',
     windowHeight: window.innerHeight,
-    windowWidth: window.innerWidth
+    windowWidth: window.innerWidth,
+    loading: true,
   }
 
   componentDidMount() {
@@ -39,16 +41,18 @@ class App extends Component {
       return Promise.reject(error);
     })
     let rememberMe = localStorage.getItem("remember-me-active");
-    let headers = rememberMe ? {'Dater-Remember-Me' : rememberMe} : {};
-    axiosRequest.get('/users/self', {headers})
+    let headers = rememberMe ? { 'Dater-Remember-Me': rememberMe } : {};
+    axiosRequest.get('/users/self', { headers })
       .then((resp) => {
         this.context.setUser(resp.data);
         this.context.setLoggedIn(true);
+        this.setState({loading: false})
       })
       .catch(() => {
         //If this request fails it means that user is not logged in 
         //or server is not responsive. These cases will be handled 
         //by proper redirects below based on context's state.
+        this.setState({loading: false})
         localStorage.removeItem("remember-me-active")
       })
   }
@@ -104,21 +108,22 @@ class App extends Component {
     return (
       <React.Fragment>
         {canDisplayCorrectly ?
-          <AppContext.Consumer>
-            {(context) => (
-              <div className={context.state.loggedIn ? 'appLayout' : ''}>
-                <Switch>
-                  <Route exact path={Views.PASS_RESET.path + "/:id"} render={(props) => <RestorePasswordView {...props} />} />
-                  <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
-                  <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
-                  <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
-                  <Route path='*' component={NoMatch} />
-                </Switch>
-                <Footer />
-                <ToastContainer position="bottom-center" draggable={false} limit={2} autoClose={3500} transition={Slide} pauseOnFocusLoss={false} />
-              </div>
-            )}
-          </AppContext.Consumer> :
+          this.state.loading ? <AppLoadingView /> :
+            <AppContext.Consumer>
+              {(context) => (
+                <div className={context.state.loggedIn ? 'appLayout' : ''}>
+                  <Switch>
+                    <Route exact path={Views.PASS_RESET.path + "/:id"} render={(props) => <RestorePasswordView {...props} />} />
+                    <Route exact path='/' render={() => context.state.loggedIn ? <Redirect to={Views.DASHBOARD.path} /> : <Redirect to={Views.LOGIN.path} />} />
+                    <Route path={Views.LOGIN.path} render={() => !context.state.loggedIn ? <LoginView /> : <Redirect to={Views.DASHBOARD.path} />} />
+                    <Route path={Views.DASHBOARD.path} render={() => context.state.loggedIn ? <MainLayout /> : <Redirect to={Views.LOGIN.path} />} />
+                    <Route path='*' component={NoMatch} />
+                  </Switch>
+                  <Footer />
+                  <ToastContainer position="bottom-center" draggable={false} limit={2} autoClose={3500} transition={Slide} pauseOnFocusLoss={false} />
+                </div>
+              )}
+            </AppContext.Consumer> :
           <TooSmallView />
         }
       </React.Fragment>
