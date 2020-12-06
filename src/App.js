@@ -100,7 +100,7 @@ class App extends Component {
   }
 
   render() {
-    let canDisplayCorrectly = this.state.windowHeight >= 900 && this.state.windowWidth >= 1000
+    let canDisplayCorrectly = this.state.windowHeight >= 900 && this.state.windowWidth >= 1200
     return (
       <React.Fragment>
         {canDisplayCorrectly ?
