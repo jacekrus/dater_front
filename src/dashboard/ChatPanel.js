@@ -47,7 +47,8 @@ export default class ChatPanel extends Component {
 
     onMessageReceived = (msg) => {
         this.updateNewMessagesCount();
-        this.setState({ messages: [...this.state.messages, msg], blockScroll: true }, () => this.scrollbars.current.scrollToBottom())
+        this.blockScroll = true
+        this.setState({ messages: [...this.state.messages, msg] }, () => this.scrollbars.current.scrollToBottom())
     }
 
     requestMessages() {
