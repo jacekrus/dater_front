@@ -9,10 +9,13 @@ import AppContext from '../AppContext';
 
 export default class PaginatedTilesContainer extends Component {
 
-    state = {
-        elements: [],
-        currentPage: 0,
-        scrollTop: 0,
+    constructor(props) {
+        super(props)
+        this.state = {
+            elements: [],
+            currentPage: 0,
+        }
+        this.scrollTop = 0;
     }
 
     componentDidMount() {
@@ -35,12 +38,12 @@ export default class PaginatedTilesContainer extends Component {
 
     onUpdate = (values) => {
         const { scrollTop, scrollHeight, clientHeight } = values;
-        if (scrollTop > this.state.scrollTop) {
+        if (scrollTop > this.scrollTop) {
             const offset = scrollHeight - clientHeight - scrollTop;
             if (offset < 1) this.handleAboutToReachBottom();
         }
-        if (scrollTop !== this.state.scrollTop) {
-            this.setState({ scrollTop: scrollTop });
+        if (scrollTop !== this.scrollTop) {
+            this.scrollTop = scrollTop
         }
     }
 

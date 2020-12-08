@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import './MainLayoutStyles.css';
 import axiosRequest from '../AxiosRequest';
 import AppContext from '../AppContext';
-import MessageBubble from './MessageBubble';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BeatLoader } from 'react-spinners';
 import SendMessageBox from './SendMessageBox';
 import MessageBubbleContainer from './MessageBubbleContainer';
+import ScrollBottomIcon from './ScrollBottomIcon';
 
 export default class ChatPanel extends Component {
 
@@ -18,15 +16,16 @@ export default class ChatPanel extends Component {
         this.state = {
             messages: [],
             currentId: this.props.conversationId,
-            scrollTop: 0,
-            scrollHeight: 0,
             currentPage: 0,
-            blockScroll: false,
             loading: true,
             resetInput: false,
             newMessagesCount: 0,
             newMessage: this.props.newMessage,
+            buttonVisible: false,
         }
+        this.scrollTop = 0
+        this.scrollHeight = 0
+        this.blockScroll = false
     }
 
     componentDidMount() {
@@ -35,18 +34,20 @@ export default class ChatPanel extends Component {
 
     componentDidUpdate() {
         if (this.state.currentId !== this.props.conversationId) {
-            this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, scrollTop: 0, scrollHeight: 0, newMessagesCount: 0 }, () => this.requestMessages());
+            this.setState({ messages: [], currentId: this.props.conversationId, currentPage: 0, newMessagesCount: 0 }, () => this.requestMessages());
+            this.scrollTop = 0
+            this.scrollHeight = 0
         }
-        if(this.props.newMessage !== null && (this.state.newMessage === null || this.props.newMessage.id !== this.state.newMessage.id)) {
-            if(this.props.newMessage.conversation.id === this.state.currentId) {
-                this.setState({newMessage: this.props.newMessage}, () => this.onMessageReceived(this.props.newMessage))
+        if (this.props.newMessage !== null && (this.state.newMessage === null || this.props.newMessage.id !== this.state.newMessage.id)) {
+            if (this.props.newMessage.conversation.id === this.state.currentId) {
+                this.setState({ newMessage: this.props.newMessage }, () => this.onMessageReceived(this.props.newMessage))
             }
         }
     }
 
     onMessageReceived = (msg) => {
         this.updateNewMessagesCount();
-        this.setState({ messages: [...this.state.messages, msg], blockScroll: true}, () => this.scrollbars.current.scrollToBottom())
+        this.setState({ messages: [...this.state.messages, msg], blockScroll: true }, () => this.scrollbars.current.scrollToBottom())
     }
 
     requestMessages() {
@@ -70,27 +71,34 @@ export default class ChatPanel extends Component {
             this.scrollbars.current.scrollToBottom()
         }
         else if (scrollHeight > 0) {
-            this.scrollbars.current.scrollTop(scrollHeight);
+            this.scrollbars.current.scrollTop(scrollHeight)
         }
     }
 
     onUpdate = (values) => {
         const { scrollTop, scrollHeight } = values;
-        if (scrollTop < this.state.scrollTop && scrollTop < 1) {
-            this.setState({ loading: true })
-            this.requestMessages();
-        }
-        if (scrollHeight > this.state.scrollHeight) {
-            if (this.state.blockScroll) {
-                this.setState({ blockScroll: false });
+        if (scrollHeight > this.scrollHeight) {
+            if (this.blockScroll) {
+                this.blockScroll = false
             }
             else {
-                this.adjustScrollPosition(scrollHeight - this.state.scrollHeight)
+                this.adjustScrollPosition(scrollHeight - this.scrollHeight)
             }
-            this.setState({ scrollHeight: scrollHeight });
         }
-        if (scrollTop !== this.state.scrollTop) {
-            this.setState({ scrollTop: scrollTop });
+        else if (scrollTop < this.scrollTop && scrollTop < 1 && !this.state.loading) {
+            this.setState({ loading: true }, () => this.requestMessages())
+        }
+        this.scrollTop = scrollTop;
+        this.scrollHeight = scrollHeight;
+    }
+
+    onScrollStop = () => {
+        let clientHeight = 630;
+        if (this.scrollHeight - (this.scrollTop + clientHeight) > 500 && !this.state.buttonVisible) {
+            this.setState({ buttonVisible: true })
+        }
+        else if (this.scrollHeight - (this.scrollTop + clientHeight) < 500 && this.state.buttonVisible) {
+            this.setState({ buttonVisible: false })
         }
     }
 
@@ -102,7 +110,8 @@ export default class ChatPanel extends Component {
         if (msg === '') {
             return;
         }
-        this.setState({ blockScroll: true }, () => this.sendMessage(msg))
+        this.blockScroll = true
+        this.sendMessage(msg)
     }
 
     sendMessage(message) {
@@ -110,11 +119,13 @@ export default class ChatPanel extends Component {
             .then((resp) => {
                 this.updateNewMessagesCount();
                 this.setState({ message: '', messages: [...this.state.messages, resp.data] })
-                this.scrollbars.current.scrollToBottom();
-                this.setState({ resetInput: true }, () => this.setState({ resetInput: false }))
+                this.setState({ resetInput: true }, () => {
+                    this.setState({ resetInput: false })
+                    this.scrollbars.current.scrollToBottom()
+                })
             })
             .catch(() => {
-                this.setState({ blockScroll: false })
+                this.blockScroll = false
                 this.context.setError(true)
                 this.context.setMessage("Could not send message. Refresh the page and try again or contact site's administrator.")
             })
@@ -131,21 +142,17 @@ export default class ChatPanel extends Component {
     }
 
     render() {
-        let clientHeight = 630;
-        const buttonVisible = this.state.scrollHeight - (this.state.scrollTop + clientHeight) > 500;
+        const visible = this.state.buttonVisible;
         return (
             <React.Fragment>
                 <div className="messageLoading">
                     <BeatLoader loading={this.state.loading} color={"#17BB0F"} />
                 </div>
                 <div className="chatBubblesContainer">
-                    <Scrollbars autoHide className='customScrollbar' onUpdate={this.onUpdate} ref={this.scrollbars}>
+                    <Scrollbars autoHide className='customScrollbar' onScrollStop={this.onScrollStop} onUpdate={this.onUpdate} ref={this.scrollbars}>
                         <MessageBubbleContainer messages={this.state.messages} />
                     </Scrollbars>
-                    <div className="scrollBottomIconContainer">
-                        <FontAwesomeIcon icon={faArrowCircleDown} className={"sendMsgIcon scrollBottomIcon" + (buttonVisible ? " scrollBottomIconVisible" : "")}
-                            title={"Scroll bottom"} onClick={() => this.scrollbars.current.scrollToBottom()} />
-                    </div>
+                    <ScrollBottomIcon visible={visible} onClick={() => this.scrollbars.current.scrollToBottom()} />
                 </div>
                 <SendMessageBox onMessageSend={this.onMessageSend} reset={this.state.resetInput} />
             </React.Fragment>

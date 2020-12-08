@@ -7,14 +7,17 @@ import axiosRequest from '../AxiosRequest';
 
 export default class ConversationsContainer extends Component {
 
-    state = {
-        currentPage: 0,
-        scrollTop: 0,
-        loading: true,
-        conversations: [],
-        activeId: null,
-        newMessageId: null,
-        newConversationsCount: 0,
+    constructor(props) {
+        super(props)
+        this.state = {
+            currentPage: 0,
+            loading: true,
+            conversations: [],
+            activeId: null,
+            newMessageId: null,
+            newConversationsCount: 0,
+        }
+        this.scrollTop = 0
     }
 
     componentDidMount() {
@@ -93,15 +96,15 @@ export default class ConversationsContainer extends Component {
 
     onUpdate = (values) => {
         const { scrollTop, scrollHeight, clientHeight } = values;
-        if (scrollTop > this.state.scrollTop) {
+        if (scrollTop > this.scrollTop) {
             const offset = scrollHeight - clientHeight - scrollTop;
             if (offset < 1) {
                 this.setState({ loading: true })
                 this.requestConversations();
             }
         }
-        if (scrollTop !== this.state.scrollTop) {
-            this.setState({ scrollTop: scrollTop });
+        if (scrollTop !== this.scrollTop) {
+            this.scrollTop = scrollTop
         }
     }
 
