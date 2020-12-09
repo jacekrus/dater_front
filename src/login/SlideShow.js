@@ -9,9 +9,9 @@ export default class SlideShow extends Component {
         this.state = {
             currentSlide: 0,
             images: [
-                '/images/i1.jpg',
-                '/images/i2.jpg',
-                '/images/i3.jpg',
+                '/images/Image1.jpg',
+                '/images/Image2.jpg',
+                '/images/Image3.jpg',
             ]
         }
     }
