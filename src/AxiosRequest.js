@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const config = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'https://dater-back.herokuapp.com',
     withCredentials: true,
     timeout: 8000
 })
