@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const config = axios.create({
-    baseURL: 'https://dater-back.herokuapp.com',
+    baseURL: 'http://www.testapptgst.tk',
     withCredentials: true,
     timeout: 8000
 })
