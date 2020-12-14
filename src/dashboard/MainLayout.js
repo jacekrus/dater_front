@@ -39,7 +39,7 @@ export default class MainLayout extends Component {
     }
 
     enableWebSockets = () => {
-        var sock = new SockJS('http://localhost:8080/datrSocket');
+        var sock = new SockJS('https://www.testapptgst.tk/datrSocket');
         let stomp = Stomp.over(sock);
         if (stomp) {
             this.setState({ stomp: stomp }, () => stomp.connect({}, this.onConnected))
