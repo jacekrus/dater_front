@@ -47,13 +47,21 @@ export default class LoginForm extends Component {
                             context.setUser(resp.data);
                             context.setLoggedIn(true);
                         })
-                        .catch(() => {
+                        .catch((err) => {
+                            console.log("Err obj self: " + err)
+                            if(err.response) {
+                                console.log("Err response self: " + err.response)
+                            }
                             this.setState({ loginClicked: false })
                             context.setMessage("Unable to login. Please try again later or contact site's administrator.")
                             context.setError(true);
                         })
                 })
-                .catch(() => {
+                .catch((err) => {
+                    console.log("Err obj: " + err)
+                    if(err.response) {
+                        console.log("Err response: " + err.response)
+                    }
                     this.setState({ loginClicked: false })
                     context.setError(true);
                     context.setMessage('Username or password is incorrect')
